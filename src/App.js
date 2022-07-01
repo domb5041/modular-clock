@@ -1,5 +1,18 @@
-function App() {
-    return <div className="App">hello</div>;
-}
+import MainDial from "./MainDial";
+import styled from "styled-components";
 
-export default App;
+const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+`;
+
+export default function App() {
+    return (
+        <Container>
+            <MainDial />
+        </Container>
+    );
+}
