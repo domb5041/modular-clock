@@ -9,7 +9,7 @@ const Container = styled.div`
 const Swatch = styled.div`
     width: 30px;
     height: 30px;
-    background-color: ${(props) => props.color};
+    background-color: ${(props) => colorsDef[props.color].base};
     border-radius: 100%;
     border: 3px solid ${(props) => (props.color === props.clockColor ? "white" : "transparent")};
     transition: 0.2s;
@@ -24,7 +24,7 @@ export default function Swatches({ clockColor, setClockColor }) {
     return (
         <Container>
             {swatches.map((s, i) => (
-                <Swatch key={i} color={colorsDef[s].base} clockColor={clockColor} onClick={() => setClockColor(s)} />
+                <Swatch key={i} color={s} clockColor={clockColor} onClick={() => setClockColor(s)} />
             ))}
         </Container>
     );

@@ -70,6 +70,8 @@ export const Hand = styled.div`
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
     width: ${(props) => props.size[0]}px;
     height: ${(props) => props.size[1]}px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 `;
 
 export const Cap = styled.div`
@@ -105,5 +107,7 @@ export const Tick = styled.div`
         background-color: ${(props) => props.theme.base};
         width: 100%;
         height: ${(props) => tickDimensions[props.tick.type].height};
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 `;
