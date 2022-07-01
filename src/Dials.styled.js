@@ -4,10 +4,10 @@ export const MainDial = styled.div`
     width: 500px;
     height: 500px;
     border-radius: 100%;
-    border: 4px solid silver;
+    border: 4px solid ${(props) => props.theme.base};
     position: relative;
-    background-image: radial-gradient(transparent, #343434);
-    box-shadow: 0 0 140px #343434;
+    background-image: radial-gradient(transparent, ${(props) => props.theme.dialInner});
+    box-shadow: 0 0 140px ${(props) => props.theme.dialOuter};
     flex-shrink: 0;
 `;
 
@@ -15,9 +15,9 @@ export const SubDial = styled.div`
     width: 180px;
     height: 180px;
     border-radius: 100%;
-    border: 2px solid silver;
+    border: 2px solid ${(props) => props.theme.base};
     position: absolute;
-    background-color: #343434;
+    background-color: ${(props) => props.theme.subDial};
     ${(props) =>
         (props.position === "left" &&
             css`
@@ -40,7 +40,7 @@ export const SubDial = styled.div`
 `;
 
 export const City = styled.div`
-    color: silver;
+    color: ${(props) => props.theme.text};
     text-transform: uppercase;
     position: absolute;
     bottom: 40px;
@@ -51,7 +51,7 @@ export const City = styled.div`
 `;
 
 export const AmPm = styled.div`
-    color: silver;
+    color: ${(props) => props.theme.text};
     text-transform: uppercase;
     position: absolute;
     top: ${(props) => (props.subDial ? 40 : 90)}px;
@@ -102,7 +102,7 @@ export const Tick = styled.div`
     height: 50%;
     transform: ${(props) => `translateX(-50%) rotate(${props.tick.deg}deg)`};
     & > div {
-        background-color: silver;
+        background-color: ${(props) => props.theme.base};
         width: 100%;
         height: ${(props) => tickDimensions[props.tick.type].height};
     }
