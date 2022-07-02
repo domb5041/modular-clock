@@ -6,6 +6,12 @@ const Container = styled.div`
     padding: 10px;
 `;
 
+const SwatchRow = styled.div`
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+`;
+
 const Swatch = styled.div`
     width: 30px;
     height: 30px;
@@ -14,17 +20,25 @@ const Swatch = styled.div`
     border: 3px solid ${(props) => (props.color === props.clockColor ? "white" : "transparent")};
     transition: 0.2s;
     cursor: pointer;
-    margin-bottom: 5px;
+    margin-right: 5px;
     &:hover {
         transform: scale(1.1);
     }
+`;
+
+const Label = styled.div`
+    text-transform: uppercase;
+    pointer-events: none;
 `;
 
 export default function Swatches({ clockColor, setClockColor }) {
     return (
         <Container>
             {swatches.map((s, i) => (
-                <Swatch key={i} color={s} clockColor={clockColor} onClick={() => setClockColor(s)} />
+                <SwatchRow>
+                    <Swatch key={i} color={s} clockColor={clockColor} onClick={() => setClockColor(s)} />
+                    <Label>{s}</Label>
+                </SwatchRow>
             ))}
         </Container>
     );

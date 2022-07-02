@@ -9,6 +9,7 @@ export const MainDial = styled.div`
     background-image: radial-gradient(transparent, ${(props) => props.theme.dialInner});
     box-shadow: 0 0 140px ${(props) => props.theme.dialOuter};
     flex-shrink: 0;
+    overflow: hidden;
 `;
 
 export const SubDial = styled.div`
@@ -48,6 +49,7 @@ export const City = styled.div`
     text-align: center;
     font-size: 12px;
     letter-spacing: 2px;
+    text-shadow: 0 0 5px rgba(0, 0, 0.7);
 `;
 
 export const AmPm = styled.div`
@@ -59,11 +61,12 @@ export const AmPm = styled.div`
     text-align: center;
     font-size: ${(props) => (props.subDial ? 12 : 20)}px;
     letter-spacing: 2px;
+    text-shadow: 0 0 5px rgba(0, 0, 0.7);
 `;
 
 export const Hand = styled.div`
     position: absolute;
-    background-color: ${(props) => props.color || "white"};
+    background-color: ${(props) => (props.secondHand ? props.theme.secondHand : "white")};
     bottom: 50%;
     left: 50%;
     transform-origin: center bottom;
@@ -104,10 +107,11 @@ export const Tick = styled.div`
     height: 50%;
     transform: ${(props) => `translateX(-50%) rotate(${props.tick.deg}deg)`};
     & > div {
-        background-color: ${(props) => props.theme.base};
+        background-color: ${(props) => props.theme.ticks};
         width: 100%;
         height: ${(props) => tickDimensions[props.tick.type].height};
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
 `;
