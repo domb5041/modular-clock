@@ -25,6 +25,9 @@ const MenuConnector = styled.div`
 export default function App() {
     const [clockColor, setClockColor] = useState(swatches[0]);
     const [primaryMenu, setPrimaryMenu] = useState("colour");
+    const [leftDial, setLeftDial] = useState("world clock");
+    const [rightDial, setRightDial] = useState("world clock");
+    const [bottomDial, setBottomDial] = useState("world clock");
 
     const primaryMenuOptions = [
         { id: "colour", name: "colour" },
@@ -33,13 +36,13 @@ export default function App() {
         { id: "bottomDial", name: "bottom dial" }
     ];
 
-    const subDialMenu = ["world clock"];
+    const subDialMenu = ["world clock", "temperature", "sunrise sunset", "seconds"];
 
     const secondaryMenus = {
         colour: { menu: swatches, noMenuKeys: true, onClick: (c) => setClockColor(c), activeItem: clockColor },
-        leftDial: { menu: subDialMenu, noMenuKeys: true, onClick: null, activeItem: "world clock" },
-        rightDial: { menu: subDialMenu, noMenuKeys: true, onClick: null, activeItem: "world clock" },
-        bottomDial: { menu: subDialMenu, noMenuKeys: true, onClick: null, activeItem: "world clock" }
+        leftDial: { menu: subDialMenu, noMenuKeys: true, onClick: (c) => setLeftDial(c), activeItem: leftDial },
+        rightDial: { menu: subDialMenu, noMenuKeys: true, onClick: (c) => setRightDial(c), activeItem: rightDial },
+        bottomDial: { menu: subDialMenu, noMenuKeys: true, onClick: (c) => setBottomDial(c), activeItem: bottomDial }
     };
 
     return (
@@ -47,7 +50,13 @@ export default function App() {
             <Container>
                 <Menu activeItem={primaryMenu} menu={primaryMenuOptions} onClick={(c) => setPrimaryMenu(c)} />
                 <MenuConnector />
-                <MainDial primaryMenu={primaryMenu} clockColor={clockColor} />
+                <MainDial
+                    primaryMenu={primaryMenu}
+                    clockColor={clockColor}
+                    leftDial={leftDial}
+                    rightDial={rightDial}
+                    bottomDial={bottomDial}
+                />
                 <MenuConnector />
                 <Menu
                     menu={secondaryMenus[primaryMenu].menu}

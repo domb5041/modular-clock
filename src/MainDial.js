@@ -5,7 +5,7 @@ import SubDial from "./SubDial";
 import { transformHands, timeToDegrees, getAmPm } from "./utilityFunctions";
 import { theme } from "./theme";
 
-export default function MainDial({ primaryMenu, clockColor }) {
+export default function MainDial({ primaryMenu, clockColor, leftDial, rightDial, bottomDial }) {
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
@@ -25,14 +25,29 @@ export default function MainDial({ primaryMenu, clockColor }) {
                         <div style={{ backgroundColor: theme(clockColor).ticks }} />
                     </styled.Tick>
                 ))}
-                <SubDial dialId="leftDial" city="paris" offset={1} primaryMenu={primaryMenu} clockColor={clockColor} />
-                <SubDial dialId="rightDial" city="tokyo" offset={9} primaryMenu={primaryMenu} clockColor={clockColor} />
+                <SubDial
+                    dialId="leftDial"
+                    city="paris"
+                    offset={1}
+                    primaryMenu={primaryMenu}
+                    clockColor={clockColor}
+                    dial={leftDial}
+                />
+                <SubDial
+                    dialId="rightDial"
+                    city="tokyo"
+                    offset={9}
+                    primaryMenu={primaryMenu}
+                    clockColor={clockColor}
+                    dial={rightDial}
+                />
                 <SubDial
                     dialId="bottomDial"
                     city="new delhi"
                     offset={5.5}
                     primaryMenu={primaryMenu}
                     clockColor={clockColor}
+                    dial={bottomDial}
                 />
                 <styled.Hand size={[15, 160]} style={transformHands(time[0])} />
                 <styled.Hand size={[10, 230]} style={transformHands(time[1])} />
