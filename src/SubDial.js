@@ -3,7 +3,7 @@ import * as styled from "./Dials.styled";
 import { subTickData } from "./tickData";
 import { transformHands, timeToDegrees, getAmPm } from "./utilityFunctions";
 
-export default function SubDial({ position, city, offset }) {
+export default function SubDial({ dialId, city, offset, primaryMenu }) {
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
@@ -15,7 +15,7 @@ export default function SubDial({ position, city, offset }) {
     };
 
     return (
-        <styled.SubDial position={position}>
+        <styled.SubDial dialId={dialId} primaryMenu={primaryMenu}>
             <styled.AmPm subDial>{getAmPm(offset)}</styled.AmPm>
             <styled.City>{city}</styled.City>
             {subTickData.map((tick, i) => (

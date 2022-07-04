@@ -4,7 +4,7 @@ import { mainTickData } from "./tickData";
 import SubDial from "./SubDial";
 import { transformHands, timeToDegrees, getAmPm } from "./utilityFunctions";
 
-export default function MainDial({ clockColor }) {
+export default function MainDial({ primaryMenu }) {
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
@@ -16,16 +16,16 @@ export default function MainDial({ clockColor }) {
     };
 
     return (
-        <styled.MainDial>
+        <styled.MainDial primaryMenu={primaryMenu}>
             <styled.AmPm>{getAmPm(0)}</styled.AmPm>
             {mainTickData.map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
                     <div />
                 </styled.Tick>
             ))}
-            <SubDial position="left" city="paris" offset={1} />
-            <SubDial position="right" city="tokyo" offset={9} />
-            <SubDial position="bottom" city="new delhi" offset={5.5} />
+            <SubDial dialId="leftDial" city="paris" offset={1} primaryMenu={primaryMenu} />
+            <SubDial dialId="rightDial" city="tokyo" offset={9} primaryMenu={primaryMenu} />
+            <SubDial dialId="bottomDial" city="new delhi" offset={5.5} primaryMenu={primaryMenu} />
             <styled.Hand size={[15, 160]} style={transformHands(time[0])} />
             <styled.Hand size={[10, 230]} style={transformHands(time[1])} />
             <styled.Hand size={[5, 240]} style={transformHands(time[2])} secondHand />

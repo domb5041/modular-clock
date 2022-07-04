@@ -19,20 +19,22 @@ export const SubDial = styled.div`
     border: 2px solid ${(props) => props.theme.base};
     position: absolute;
     background-color: ${(props) => props.theme.subDial};
+    opacity: ${(props) => (props.primaryMenu !== props.dialId && props.primaryMenu !== "colour" ? 0.5 : 1)};
+    transition: opacity 0.2s;
     ${(props) =>
-        (props.position === "left" &&
+        (props.dialId === "leftDial" &&
             css`
                 left: 15px;
                 top: 50%;
                 transform: translateY(-50%);
             `) ||
-        (props.position === "right" &&
+        (props.dialId === "rightDial" &&
             css`
                 right: 15px;
                 top: 50%;
                 transform: translateY(-50%);
             `) ||
-        (props.position === "bottom" &&
+        (props.dialId === "bottomDial" &&
             css`
                 bottom: 15px;
                 left: 50%;
