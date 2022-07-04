@@ -38,16 +38,16 @@ const MenuItem = styled.div`
     }
 `;
 
-export default function Menu({ menu, noMenuKeys, reverse, onClick, activeItem }) {
+export default function Menu({ menu, noMenuKeys, reverse, onClick, activeItem, menuSelected }) {
     const [menuOffset, setMenuOffset] = useState(0);
 
     useEffect(() => {
         const i = menu.findIndex((m) => {
-            return activeItem === (noMenuKeys ? m : m.name);
+            return activeItem === (noMenuKeys ? m : m.id);
         });
 
         setMenuOffset(i * -40);
-    }, []);
+    }, [menuSelected]);
 
     return (
         <Container>
@@ -56,10 +56,10 @@ export default function Menu({ menu, noMenuKeys, reverse, onClick, activeItem })
                     <MenuItem
                         key={i}
                         onClick={() => {
-                            onClick(noMenuKeys ? m : m.name);
+                            onClick(noMenuKeys ? m : m.id);
                             setMenuOffset(i * -40);
                         }}
-                        active={activeItem === (noMenuKeys ? m : m.name)}
+                        active={activeItem === (noMenuKeys ? m : m.id)}
                         reverse={reverse}
                     >
                         <div className="inner-text">{noMenuKeys ? m : m.name}</div>

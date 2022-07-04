@@ -24,23 +24,39 @@ const MenuConnector = styled.div`
 
 export default function App() {
     const [clockColor, setClockColor] = useState(swatches[0]);
+    const [primaryMenu, setPrimaryMenu] = useState("colour");
+
+    const primaryMenuOptions = [
+        { id: "colour", name: "colour" },
+        { id: "leftDial", name: "left dial" },
+        { id: "rightDial", name: "right dial" },
+        { id: "bottomDial", name: "bottom dial" }
+    ];
+
+    const subDialMenu = ["world clock"];
+
+    const secondaryMenus = {
+        colour: { menu: swatches, noMenuKeys: true, onClick: (c) => setClockColor(c), activeItem: clockColor },
+        leftDial: { menu: subDialMenu, noMenuKeys: true, onClick: null, activeItem: "world clock" },
+        rightDial: { menu: subDialMenu, noMenuKeys: true, onClick: null, activeItem: "world clock" },
+        bottomDial: { menu: subDialMenu, noMenuKeys: true, onClick: null, activeItem: "world clock" }
+    };
+
     return (
         <ThemeProvider theme={theme(clockColor)}>
             <Container>
-                <Menu
-                    activeItem={"colour"}
-                    menu={[
-                        { name: "style" },
-                        { name: "colour" },
-                        { name: "left dial" },
-                        { name: "right dial" },
-                        { name: "bottom dial" }
-                    ]}
-                />
+                <Menu activeItem={primaryMenu} menu={primaryMenuOptions} onClick={(c) => setPrimaryMenu(c)} />
                 <MenuConnector />
                 <MainDial />
                 <MenuConnector />
-                <Menu menu={swatches} noMenuKeys onClick={(c) => setClockColor(c)} reverse activeItem={clockColor} />
+                <Menu
+                    menu={secondaryMenus[primaryMenu].menu}
+                    noMenuKeys
+                    onClick={secondaryMenus[primaryMenu].onClick}
+                    reverse
+                    activeItem={secondaryMenus[primaryMenu].activeItem}
+                    menuSelected={primaryMenu}
+                />
             </Container>
         </ThemeProvider>
     );
