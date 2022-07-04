@@ -47,7 +47,7 @@ export default function App() {
             <Container>
                 <Menu activeItem={primaryMenu} menu={primaryMenuOptions} onClick={(c) => setPrimaryMenu(c)} />
                 <MenuConnector />
-                <MainDial primaryMenu={primaryMenu} />
+                <MainDial primaryMenu={primaryMenu} clockColor={clockColor} />
                 <MenuConnector />
                 <Menu
                     menu={secondaryMenus[primaryMenu].menu}

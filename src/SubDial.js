@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import * as styled from "./Dials.styled";
+import { theme } from "./theme";
 import { subTickData } from "./tickData";
 import { transformHands, timeToDegrees, getAmPm } from "./utilityFunctions";
 
-export default function SubDial({ dialId, city, offset, primaryMenu }) {
+export default function SubDial({ dialId, city, offset, primaryMenu, clockColor }) {
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
@@ -20,7 +21,7 @@ export default function SubDial({ dialId, city, offset, primaryMenu }) {
             <styled.City>{city}</styled.City>
             {subTickData.map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
-                    <div />
+                    <div style={{ backgroundColor: theme(clockColor).ticks }} />
                 </styled.Tick>
             ))}
             <styled.Hand size={[8, 50]} style={transformHands(time[0])} />

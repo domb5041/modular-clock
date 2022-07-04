@@ -1,4 +1,7 @@
+import { transparentize } from "polished";
 import styled, { css } from "styled-components";
+
+const colorTransition = "0.7s";
 
 export const MainDial = styled.div`
     width: 500px;
@@ -6,10 +9,15 @@ export const MainDial = styled.div`
     border-radius: 100%;
     border: 4px solid ${(props) => props.theme.base};
     position: relative;
-    background-image: radial-gradient(transparent, ${(props) => props.theme.dialInner});
-    box-shadow: 0 0 140px ${(props) => props.theme.dialOuter};
+    background-color: ${(props) => props.theme.dialInner};
+    transition: background-color ${colorTransition}, border ${colorTransition}, box-shadow ${colorTransition};
     flex-shrink: 0;
     overflow: hidden;
+    & .main-dial-shade {
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(${transparentize(0.3, "black")}, transparent);
+    }
 `;
 
 export const SubDial = styled.div`
@@ -20,7 +28,7 @@ export const SubDial = styled.div`
     position: absolute;
     background-color: ${(props) => props.theme.subDial};
     opacity: ${(props) => (props.primaryMenu !== props.dialId && props.primaryMenu !== "colour" ? 0.5 : 1)};
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, background-color ${colorTransition}, border ${colorTransition};
     ${(props) =>
         (props.dialId === "leftDial" &&
             css`
@@ -77,6 +85,7 @@ export const Hand = styled.div`
     height: ${(props) => props.size[1]}px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    transition: background-color ${colorTransition};
 `;
 
 export const Cap = styled.div`
@@ -109,11 +118,11 @@ export const Tick = styled.div`
     height: 50%;
     transform: ${(props) => `translateX(-50%) rotate(${props.tick.deg}deg)`};
     & > div {
-        background-color: ${(props) => props.theme.ticks};
         width: 100%;
         height: ${(props) => tickDimensions[props.tick.type].height};
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transition: background-color ${colorTransition};
     }
 `;
