@@ -51,7 +51,9 @@ export default function MainDial({ primaryMenu, clockColor, leftDial, rightDial,
                 />
                 <styled.Hand size={[15, 160]} style={transformHands(time[0])} />
                 <styled.Hand size={[10, 230]} style={transformHands(time[1])} />
-                <styled.Hand size={[5, 240]} style={transformHands(time[2])} secondHand />
+                {leftDial !== "seconds" && rightDial !== "seconds" && bottomDial !== "seconds" && (
+                    <styled.Hand size={[5, 240]} style={transformHands(time[2])} secondHand />
+                )}
                 <styled.Cap size={20} />
             </div>
         </styled.MainDial>

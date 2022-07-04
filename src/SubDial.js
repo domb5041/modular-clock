@@ -33,7 +33,17 @@ export default function SubDial({ dialId, city, offset, primaryMenu, clockColor,
             )}
             {dial === "temperature" && <>temperature</>}
             {dial === "sunrise sunset" && <>sunrise sunset</>}
-            {dial === "seconds" && <>seconds</>}
+            {dial === "seconds" && (
+                <>
+                    {subTickData.map((tick, i) => (
+                        <styled.Tick tick={tick} key={i}>
+                            <div style={{ backgroundColor: theme(clockColor).ticks }} />
+                        </styled.Tick>
+                    ))}
+                    <styled.Hand size={[5, 80]} style={transformHands(time[2])} secondHand />
+                    <styled.Cap size={12} />
+                </>
+            )}
         </styled.SubDial>
     );
 }
