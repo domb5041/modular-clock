@@ -23,11 +23,11 @@ const MenuConnector = styled.div`
 `;
 
 export default function App() {
-    const [clockColor, setClockColor] = useState(swatches[0]);
+    const [clockColor, setClockColor] = useState(swatches[0].id);
     const [primaryMenu, setPrimaryMenu] = useState("colour");
-    const [leftDial, setLeftDial] = useState("world clock");
-    const [rightDial, setRightDial] = useState("world clock");
-    const [bottomDial, setBottomDial] = useState("world clock");
+    const [leftDial, setLeftDial] = useState("world-clock");
+    const [rightDial, setRightDial] = useState("world-clock");
+    const [bottomDial, setBottomDial] = useState("world-clock");
 
     const primaryMenuOptions = [
         { id: "colour", name: "colour" },
@@ -36,13 +36,18 @@ export default function App() {
         { id: "bottomDial", name: "bottom dial" }
     ];
 
-    const subDialMenu = ["world clock", "temperature", "sunrise sunset", "seconds"];
+    const subDialMenu = [
+        { id: "world-clock", name: "world clock", options: true },
+        { id: "temperature", name: "temperature" },
+        { id: "sun-dial", name: "sunrise sunset" },
+        { id: "seconds", name: "seconds" }
+    ];
 
     const secondaryMenus = {
-        colour: { menu: swatches, noMenuKeys: true, onClick: (c) => setClockColor(c), activeItem: clockColor },
-        leftDial: { menu: subDialMenu, noMenuKeys: true, onClick: (c) => setLeftDial(c), activeItem: leftDial },
-        rightDial: { menu: subDialMenu, noMenuKeys: true, onClick: (c) => setRightDial(c), activeItem: rightDial },
-        bottomDial: { menu: subDialMenu, noMenuKeys: true, onClick: (c) => setBottomDial(c), activeItem: bottomDial }
+        colour: { menu: swatches, onClick: (c) => setClockColor(c), activeItem: clockColor },
+        leftDial: { menu: subDialMenu, onClick: (c) => setLeftDial(c), activeItem: leftDial },
+        rightDial: { menu: subDialMenu, onClick: (c) => setRightDial(c), activeItem: rightDial },
+        bottomDial: { menu: subDialMenu, onClick: (c) => setBottomDial(c), activeItem: bottomDial }
     };
 
     return (
@@ -60,9 +65,8 @@ export default function App() {
                 <MenuConnector />
                 <Menu
                     menu={secondaryMenus[primaryMenu].menu}
-                    noMenuKeys
                     onClick={secondaryMenus[primaryMenu].onClick}
-                    reverse
+                    secondaryMenu
                     activeItem={secondaryMenus[primaryMenu].activeItem}
                     menuSelected={primaryMenu}
                 />

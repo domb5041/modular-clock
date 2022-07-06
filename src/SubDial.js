@@ -17,7 +17,7 @@ export default function SubDial({ dialId, city, offset, primaryMenu, clockColor,
 
     return (
         <styled.SubDial dialId={dialId} primaryMenu={primaryMenu}>
-            {dial === "world clock" && (
+            {dial === "world-clock" && (
                 <>
                     <styled.AmPm subDial>{getAmPm(offset)}</styled.AmPm>
                     <styled.City>{city}</styled.City>
@@ -32,7 +32,7 @@ export default function SubDial({ dialId, city, offset, primaryMenu, clockColor,
                 </>
             )}
             {dial === "temperature" && <>temperature</>}
-            {dial === "sunrise sunset" && <>sunrise sunset</>}
+            {dial === "sun-dial" && <>sunrise sunset</>}
             {dial === "seconds" && (
                 <>
                     {subTickData.map((tick, i) => (

@@ -13,13 +13,13 @@ const ContainerInner = styled.div`
     position: absolute;
     top: calc(50% - 20px);
     transform: translateY(${(props) => props.menuOffset}px);
-    transition: all 0.7s cubic-bezier(0, 0, 0, 1.01);
+    transition: 0.7s cubic-bezier(0, 0, 0, 1.01);
 `;
 
 const MenuItem = styled.div`
     height: 40px;
     display: flex;
-    justify-content: ${(props) => (props.reverse ? "flex-start" : "flex-end")};
+    justify-content: ${(props) => (props.secondaryMenu ? "flex-start" : "flex-end")};
     align-items: center;
     text-transform: uppercase;
     font-weight: bold;
@@ -38,12 +38,20 @@ const MenuItem = styled.div`
     }
 `;
 
-export default function Menu({ menu, noMenuKeys, reverse, onClick, activeItem, menuSelected }) {
+const OptionsBlock = styled.div`
+    border-bottom: 1px solid grey;
+    overflow: hidden;
+    height: ${(props) => (props.active ? 100 : 0)}px;
+    opacity: ${(props) => (props.active ? 1 : 0)};
+    transition: 0.7s cubic-bezier(0, 0, 0, 1.01);
+`;
+
+export default function Menu({ menu, secondaryMenu, onClick, activeItem, menuSelected }) {
     const [menuOffset, setMenuOffset] = useState(0);
 
     useEffect(() => {
         const i = menu.findIndex((m) => {
-            return activeItem === (noMenuKeys ? m : m.id);
+            return activeItem === m.id;
         });
 
         setMenuOffset(i * -40);
@@ -53,17 +61,22 @@ export default function Menu({ menu, noMenuKeys, reverse, onClick, activeItem, m
         <Container>
             <ContainerInner menuOffset={menuOffset}>
                 {menu.map((m, i) => (
-                    <MenuItem
-                        key={i}
-                        onClick={() => {
-                            onClick(noMenuKeys ? m : m.id);
-                            setMenuOffset(i * -40);
-                        }}
-                        active={activeItem === (noMenuKeys ? m : m.id)}
-                        reverse={reverse}
-                    >
-                        <div className="inner-text">{noMenuKeys ? m : m.name}</div>
-                    </MenuItem>
+                    <>
+                        <MenuItem
+                            key={i}
+                            onClick={() => {
+                                onClick(m.id);
+                                setMenuOffset(i * -40);
+                            }}
+                            active={activeItem === m.id}
+                            secondaryMenu={secondaryMenu}
+                        >
+                            <div className="inner-text">{m.name}</div>
+                        </MenuItem>
+                        {secondaryMenu && m.options === true && (
+                            <OptionsBlock active={activeItem === m.id}></OptionsBlock>
+                        )}
+                    </>
                 ))}
             </ContainerInner>
         </Container>

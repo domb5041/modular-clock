@@ -2,7 +2,12 @@ import { darken, transparentize } from "polished";
 
 export const theme = (color) => ({ ...colorsDef[color], text: transparentize(0.1, "silver") });
 
-export const swatches = ["nickel", "copper", "forest", "storm"];
+export const swatches = [
+    { id: "nickel", name: "nickel" },
+    { id: "copper", name: "copper" },
+    { id: "forest", name: "forest" },
+    { id: "storm", name: "storm" }
+];
 
 export const colorsDef = {
     nickel: {
