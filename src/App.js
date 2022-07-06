@@ -37,7 +37,22 @@ export default function App() {
     ];
 
     const subDialMenu = [
-        { id: "world-clock", name: "world clock", options: true },
+        {
+            id: "world-clock",
+            name: "world clock",
+            options: [
+                {
+                    id: "timezone-selector",
+                    type: "dropdown",
+                    list: [
+                        { name: "paris", value: 1 },
+                        { name: "tokyo", value: 9 },
+                        { name: "new dehli", value: 5.5 }
+                    ],
+                    label: "city"
+                }
+            ]
+        },
         { id: "temperature", name: "temperature" },
         { id: "sun-dial", name: "sunrise sunset" },
         { id: "seconds", name: "seconds" }

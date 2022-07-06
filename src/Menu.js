@@ -46,6 +46,22 @@ const OptionsBlock = styled.div`
     transition: 0.7s cubic-bezier(0, 0, 0, 1.01);
 `;
 
+const Dropdown = styled.div`
+    & label {
+        text-transform: uppercase;
+        font-size: 13px;
+        padding-right: 5px;
+    }
+    & select {
+        background-color: transparent;
+        border: 1px solid white;
+        color: white;
+        text-transform: uppercase;
+        outline: none;
+        border-radius: 4px;
+    }
+`;
+
 export default function Menu({ menu, secondaryMenu, onClick, activeItem, menuSelected }) {
     const [menuOffset, setMenuOffset] = useState(0);
 
@@ -63,7 +79,7 @@ export default function Menu({ menu, secondaryMenu, onClick, activeItem, menuSel
                 {menu.map((m, i) => (
                     <>
                         <MenuItem
-                            key={i}
+                            key={`menu-item-${i}`}
                             onClick={() => {
                                 onClick(m.id);
                                 setMenuOffset(i * -40);
@@ -73,8 +89,22 @@ export default function Menu({ menu, secondaryMenu, onClick, activeItem, menuSel
                         >
                             <div className="inner-text">{m.name}</div>
                         </MenuItem>
-                        {secondaryMenu && m.options === true && (
-                            <OptionsBlock active={activeItem === m.id}></OptionsBlock>
+                        {secondaryMenu && (
+                            <OptionsBlock active={activeItem === m.id && m.options} key={`option-block-${i}`}>
+                                {m.options &&
+                                    m.options.map((option) => (
+                                        <Dropdown id={option.id}>
+                                            <label id={`${option.id}-label`} htmlFor={`${option.id}-input`}>
+                                                city
+                                            </label>
+                                            <select name="" id={`${option.id}-input`}>
+                                                {option.list.map((l) => (
+                                                    <option value={l.value}>{l.name}</option>
+                                                ))}
+                                            </select>
+                                        </Dropdown>
+                                    ))}
+                            </OptionsBlock>
                         )}
                     </>
                 ))}
