@@ -8,7 +8,10 @@ export default function SubDial({ dialId, primaryMenu, clockColor }) {
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
-        setInterval(handleSetTime, 1000);
+        const timeInterval = setInterval(handleSetTime, 1000);
+        return () => {
+            clearInterval(timeInterval);
+        };
     }, []);
 
     const handleSetTime = () => {

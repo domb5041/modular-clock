@@ -4,17 +4,11 @@ import Seconds from "./complications/Seconds";
 import Temperature from "./complications/Temperature";
 import SunDial from "./complications/SunDial";
 
-export default function SubDial({ dialId, city, offset, primaryMenu, clockColor, dial }) {
+export default function SubDial({ dialId, timezone, primaryMenu, clockColor, dial }) {
     return (
         <>
             {dial === "world-clock" && (
-                <WorldClock
-                    dialId={dialId}
-                    city={city}
-                    offset={offset}
-                    primaryMenu={primaryMenu}
-                    clockColor={clockColor}
-                />
+                <WorldClock dialId={dialId} timezone={timezone} primaryMenu={primaryMenu} clockColor={clockColor} />
             )}
             {dial === "temperature" && (
                 <Temperature dialId={dialId} primaryMenu={primaryMenu} clockColor={clockColor} />

@@ -97,7 +97,11 @@ export default function Menu({ menu, secondaryMenu, onClick, activeItem, menuSel
                                             <label id={`${option.id}-label`} htmlFor={`${option.id}-input`}>
                                                 city
                                             </label>
-                                            <select name="" id={`${option.id}-input`}>
+                                            <select
+                                                name=""
+                                                id={`${option.id}-input`}
+                                                onChange={(e) => option.onChange(e.target.value)}
+                                            >
                                                 {option.list.map((l) => (
                                                     <option value={l.value}>{l.name}</option>
                                                 ))}

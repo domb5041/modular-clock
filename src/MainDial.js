@@ -5,7 +5,16 @@ import SubDial from "./SubDial";
 import { transformHands, timeToDegrees, getAmPm } from "./utilityFunctions";
 import { theme } from "./theme";
 
-export default function MainDial({ primaryMenu, clockColor, leftDial, rightDial, bottomDial }) {
+export default function MainDial({
+    primaryMenu,
+    clockColor,
+    leftDial,
+    rightDial,
+    bottomDial,
+    leftDialZone,
+    rightDialZone,
+    bottomDialZone
+}) {
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
@@ -27,24 +36,21 @@ export default function MainDial({ primaryMenu, clockColor, leftDial, rightDial,
                 ))}
                 <SubDial
                     dialId="leftDial"
-                    city="paris"
-                    offset={1}
+                    timezone={leftDialZone}
                     primaryMenu={primaryMenu}
                     clockColor={clockColor}
                     dial={leftDial}
                 />
                 <SubDial
                     dialId="rightDial"
-                    city="tokyo"
-                    offset={9}
+                    timezone={rightDialZone}
                     primaryMenu={primaryMenu}
                     clockColor={clockColor}
                     dial={rightDial}
                 />
                 <SubDial
                     dialId="bottomDial"
-                    city="new delhi"
-                    offset={5.5}
+                    timezone={bottomDialZone}
                     primaryMenu={primaryMenu}
                     clockColor={clockColor}
                     dial={bottomDial}

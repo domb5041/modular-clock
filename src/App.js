@@ -25,9 +25,14 @@ const MenuConnector = styled.div`
 export default function App() {
     const [clockColor, setClockColor] = useState(swatches[0].id);
     const [primaryMenu, setPrimaryMenu] = useState("colour");
+
     const [leftDial, setLeftDial] = useState("world-clock");
     const [rightDial, setRightDial] = useState("world-clock");
     const [bottomDial, setBottomDial] = useState("world-clock");
+
+    const [leftDialZone, setLeftDialZone] = useState({ city: "paris", offset: 1 });
+    const [rightDialZone, setRightDialZone] = useState({ city: "tokyo", offset: 9 });
+    const [bottomDialZone, setBottomDialZone] = useState({ city: "new delhi", offset: 5.5 });
 
     const primaryMenuOptions = [
         { id: "colour", name: "colour" },
@@ -36,7 +41,13 @@ export default function App() {
         { id: "bottomDial", name: "bottom dial" }
     ];
 
-    const subDialMenu = [
+    const timezones = {
+        paris: 1,
+        tokyo: 9,
+        "new delhi": 5.5
+    };
+
+    const subDialMenu = (dial) => [
         {
             id: "world-clock",
             name: "world clock",
@@ -45,11 +56,16 @@ export default function App() {
                     id: "timezone-selector",
                     type: "dropdown",
                     list: [
-                        { name: "paris", value: 1 },
-                        { name: "tokyo", value: 9 },
-                        { name: "new dehli", value: 5.5 }
+                        { name: "paris", value: "paris" },
+                        { name: "tokyo", value: "tokyo" },
+                        { name: "new delhi", value: "new delhi" }
                     ],
-                    label: "city"
+                    label: "city",
+                    onChange: (city) => {
+                        if (dial === "left") setLeftDialZone({ city: city, offset: timezones[city] });
+                        if (dial === "right") setRightDialZone({ city: city, offset: timezones[city] });
+                        if (dial === "bottom") setBottomDialZone({ city: city, offset: timezones[city] });
+                    }
                 }
             ]
         },
@@ -60,9 +76,9 @@ export default function App() {
 
     const secondaryMenus = {
         colour: { menu: swatches, onClick: (c) => setClockColor(c), activeItem: clockColor },
-        leftDial: { menu: subDialMenu, onClick: (c) => setLeftDial(c), activeItem: leftDial },
-        rightDial: { menu: subDialMenu, onClick: (c) => setRightDial(c), activeItem: rightDial },
-        bottomDial: { menu: subDialMenu, onClick: (c) => setBottomDial(c), activeItem: bottomDial }
+        leftDial: { menu: subDialMenu("left"), onClick: (c) => setLeftDial(c), activeItem: leftDial },
+        rightDial: { menu: subDialMenu("right"), onClick: (c) => setRightDial(c), activeItem: rightDial },
+        bottomDial: { menu: subDialMenu("bottom"), onClick: (c) => setBottomDial(c), activeItem: bottomDial }
     };
 
     return (
@@ -76,6 +92,9 @@ export default function App() {
                     leftDial={leftDial}
                     rightDial={rightDial}
                     bottomDial={bottomDial}
+                    leftDialZone={leftDialZone}
+                    rightDialZone={rightDialZone}
+                    bottomDialZone={bottomDialZone}
                 />
                 <MenuConnector />
                 <Menu

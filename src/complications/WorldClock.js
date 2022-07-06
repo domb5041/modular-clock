@@ -4,21 +4,24 @@ import { theme } from "../theme";
 import { subTickData } from "../tickData";
 import { transformHands, timeToDegrees, getAmPm } from "../utilityFunctions";
 
-export default function SubDial({ dialId, city, offset, primaryMenu, clockColor }) {
+export default function SubDial({ dialId, timezone, primaryMenu, clockColor }) {
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
-        setInterval(handleSetTime, 1000);
-    }, []);
+        const timeInterval = setInterval(handleSetTime, 1000);
+        return () => {
+            clearInterval(timeInterval);
+        };
+    }, [timezone]);
 
     const handleSetTime = () => {
-        setTime(timeToDegrees(offset));
+        setTime(timeToDegrees(timezone.offset));
     };
 
     return (
         <styled.SubDial dialId={dialId} primaryMenu={primaryMenu}>
-            <styled.AmPm subDial>{getAmPm(offset)}</styled.AmPm>
-            <styled.City>{city}</styled.City>
+            <styled.AmPm subDial>{getAmPm(timezone.offset)}</styled.AmPm>
+            <styled.City>{timezone.city}</styled.City>
             {subTickData.map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
                     <div style={{ backgroundColor: theme(clockColor).ticks }} />
