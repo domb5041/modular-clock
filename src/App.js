@@ -1,9 +1,10 @@
 import MainDial from "./MainDial";
 import styled from "styled-components";
-import { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { theme, swatches } from "./theme";
 import Menu from "./Menu";
+import { observer } from "mobx-react";
+import store from "./store/store";
 
 const Container = styled.div`
     position: absolute;
@@ -22,18 +23,7 @@ const MenuConnector = styled.div`
     margin: 0 20px;
 `;
 
-export default function App() {
-    const [clockColor, setClockColor] = useState(swatches[0].id);
-    const [primaryMenu, setPrimaryMenu] = useState("colour");
-
-    const [leftDial, setLeftDial] = useState("world-clock");
-    const [rightDial, setRightDial] = useState("world-clock");
-    const [bottomDial, setBottomDial] = useState("world-clock");
-
-    const [leftDialZone, setLeftDialZone] = useState({ city: "paris", offset: 1 });
-    const [rightDialZone, setRightDialZone] = useState({ city: "tokyo", offset: 9 });
-    const [bottomDialZone, setBottomDialZone] = useState({ city: "new delhi", offset: 5.5 });
-
+function App() {
     const primaryMenuOptions = [
         { id: "colour", name: "colour" },
         { id: "leftDial", name: "left dial" },
@@ -62,9 +52,9 @@ export default function App() {
                     ],
                     label: "city",
                     onChange: (city) => {
-                        if (dial === "left") setLeftDialZone({ city: city, offset: timezones[city] });
-                        if (dial === "right") setRightDialZone({ city: city, offset: timezones[city] });
-                        if (dial === "bottom") setBottomDialZone({ city: city, offset: timezones[city] });
+                        if (dial === "left") store.setLeftDialZone({ city: city, offset: timezones[city] });
+                        if (dial === "right") store.setRightDialZone({ city: city, offset: timezones[city] });
+                        if (dial === "bottom") store.setBottomDialZone({ city: city, offset: timezones[city] });
                     }
                 }
             ]
@@ -75,36 +65,37 @@ export default function App() {
     ];
 
     const secondaryMenus = {
-        colour: { menu: swatches, onClick: (c) => setClockColor(c), activeItem: clockColor },
-        leftDial: { menu: subDialMenu("left"), onClick: (c) => setLeftDial(c), activeItem: leftDial },
-        rightDial: { menu: subDialMenu("right"), onClick: (c) => setRightDial(c), activeItem: rightDial },
-        bottomDial: { menu: subDialMenu("bottom"), onClick: (c) => setBottomDial(c), activeItem: bottomDial }
+        colour: { menu: swatches, onClick: (c) => store.setClockColor(c), activeItem: store.clockColor },
+        leftDial: { menu: subDialMenu("left"), onClick: (c) => store.setLeftDial(c), activeItem: store.leftDial },
+        rightDial: { menu: subDialMenu("right"), onClick: (c) => store.setRightDial(c), activeItem: store.rightDial },
+        bottomDial: {
+            menu: subDialMenu("bottom"),
+            onClick: (c) => store.setBottomDial(c),
+            activeItem: store.bottomDial
+        }
     };
 
     return (
-        <ThemeProvider theme={theme(clockColor)}>
+        <ThemeProvider theme={theme(store.clockColor)}>
             <Container>
-                <Menu activeItem={primaryMenu} menu={primaryMenuOptions} onClick={(c) => setPrimaryMenu(c)} />
-                <MenuConnector />
-                <MainDial
-                    primaryMenu={primaryMenu}
-                    clockColor={clockColor}
-                    leftDial={leftDial}
-                    rightDial={rightDial}
-                    bottomDial={bottomDial}
-                    leftDialZone={leftDialZone}
-                    rightDialZone={rightDialZone}
-                    bottomDialZone={bottomDialZone}
+                <Menu
+                    activeItem={store.primaryMenu}
+                    menu={primaryMenuOptions}
+                    onClick={(c) => store.setPrimaryMenu(c)}
                 />
                 <MenuConnector />
+                <MainDial />
+                <MenuConnector />
                 <Menu
-                    menu={secondaryMenus[primaryMenu].menu}
-                    onClick={secondaryMenus[primaryMenu].onClick}
+                    menu={secondaryMenus[store.primaryMenu].menu}
+                    onClick={secondaryMenus[store.primaryMenu].onClick}
                     secondaryMenu
-                    activeItem={secondaryMenus[primaryMenu].activeItem}
-                    menuSelected={primaryMenu}
+                    activeItem={secondaryMenus[store.primaryMenu].activeItem}
+                    menuSelected={store.primaryMenu}
                 />
             </Container>
         </ThemeProvider>
     );
 }
+
+export default observer(App);
