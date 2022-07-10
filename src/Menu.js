@@ -92,8 +92,8 @@ export default function Menu({ menu, secondaryMenu, onClick, activeItem, menuSel
                         {secondaryMenu && (
                             <OptionsBlock active={activeItem === m.id && m.options} key={`option-block-${i}`}>
                                 {m.options &&
-                                    m.options.map((option) => (
-                                        <Dropdown id={option.id}>
+                                    m.options.map((option, i) => (
+                                        <Dropdown id={option.id} key={i}>
                                             <label id={`${option.id}-label`} htmlFor={`${option.id}-input`}>
                                                 city
                                             </label>
@@ -101,9 +101,10 @@ export default function Menu({ menu, secondaryMenu, onClick, activeItem, menuSel
                                                 name=""
                                                 id={`${option.id}-input`}
                                                 onChange={(e) => option.onChange(e.target.value)}
+                                                value={option.value}
                                             >
                                                 {option.list.map((l) => (
-                                                    <option value={l.value}>{l.name}</option>
+                                                    <option value={l}>{l}</option>
                                                 ))}
                                             </select>
                                         </Dropdown>

@@ -37,6 +37,19 @@ function App() {
         "new delhi": 5.5
     };
 
+    const subDialMenuKey = {
+        zone: {
+            left: store.leftDialZone,
+            right: store.rightDialZone,
+            bottom: store.bottomDialZone
+        },
+        setZone: {
+            left: (city) => store.setLeftDialZone({ city: city, offset: timezones[city] }),
+            right: (city) => store.setRightDialZone({ city: city, offset: timezones[city] }),
+            bottom: (city) => store.setBottomDialZone({ city: city, offset: timezones[city] })
+        }
+    };
+
     const subDialMenu = (dial) => [
         {
             id: "world-clock",
@@ -45,17 +58,10 @@ function App() {
                 {
                     id: "timezone-selector",
                     type: "dropdown",
-                    list: [
-                        { name: "paris", value: "paris" },
-                        { name: "tokyo", value: "tokyo" },
-                        { name: "new delhi", value: "new delhi" }
-                    ],
+                    value: subDialMenuKey.zone[dial].city,
+                    list: Object.keys(timezones),
                     label: "city",
-                    onChange: (city) => {
-                        if (dial === "left") store.setLeftDialZone({ city: city, offset: timezones[city] });
-                        if (dial === "right") store.setRightDialZone({ city: city, offset: timezones[city] });
-                        if (dial === "bottom") store.setBottomDialZone({ city: city, offset: timezones[city] });
-                    }
+                    onChange: subDialMenuKey.setZone[dial]
                 }
             ]
         },
