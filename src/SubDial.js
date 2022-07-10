@@ -3,15 +3,17 @@ import WorldClock from "./complications/WorldClock";
 import Seconds from "./complications/Seconds";
 import Temperature from "./complications/Temperature";
 import SunDial from "./complications/SunDial";
+import { observer } from "mobx-react";
+import store from "./store/store";
 
-function SubDial({ dialId, timezone, dial }) {
+function SubDial({ position }) {
     const complications = {
-        "world-clock": <WorldClock dialId={dialId} timezone={timezone} />,
-        temperature: <Temperature dialId={dialId} />,
-        "sun-dial": <SunDial dialId={dialId} />,
-        seconds: <Seconds dialId={dialId} />
+        "world-clock": <WorldClock position={position} />,
+        temperature: <Temperature position={position} />,
+        "sun-dial": <SunDial position={position} />,
+        seconds: <Seconds position={position} />
     };
-    return complications[dial];
+    return complications[store.subDial[position].currentlyVisible];
 }
 
-export default SubDial;
+export default observer(SubDial);

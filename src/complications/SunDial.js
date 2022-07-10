@@ -3,9 +3,9 @@ import * as styled from "../Dials.styled";
 import { observer } from "mobx-react";
 import store from "../store/store";
 
-function SunDial({ dialId }) {
+function SunDial({ position }) {
     return (
-        <styled.SubDial dialId={dialId} primaryMenu={store.primaryMenu}>
+        <styled.SubDial position={position} primaryMenu={store.primaryMenu}>
             sundial
         </styled.SubDial>
     );

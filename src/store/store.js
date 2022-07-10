@@ -3,12 +3,12 @@ import { action, makeObservable, observable } from "mobx";
 class Store {
     clockColor = "nickel";
     primaryMenu = "colour";
-    leftDial = "world-clock";
-    rightDial = "world-clock";
-    bottomDial = "world-clock";
-    leftDialZone = { city: "paris", offset: 1 };
-    rightDialZone = { city: "tokyo", offset: 9 };
-    bottomDialZone = { city: "new delhi", offset: 5.5 };
+
+    subDial = {
+        leftDial: { currentlyVisible: "world-clock", timezone: "paris" },
+        rightDial: { currentlyVisible: "world-clock", timezone: "tokyo" },
+        bottomDial: { currentlyVisible: "world-clock", timezone: "new delhi" }
+    };
 
     constructor() {
         makeObservable(this, {
@@ -16,18 +16,8 @@ class Store {
             setClockColor: action,
             primaryMenu: observable,
             setPrimaryMenu: action,
-            leftDial: observable,
-            setLeftDial: action,
-            rightDial: observable,
-            setRightDial: action,
-            bottomDial: observable,
-            setBottomDial: action,
-            leftDialZone: observable,
-            setLeftDialZone: action,
-            rightDialZone: observable,
-            setRightDialZone: action,
-            bottomDialZone: observable,
-            setBottomDialZone: action
+            subDial: observable,
+            setSubDial: action
         });
     }
 
@@ -39,28 +29,10 @@ class Store {
         this.primaryMenu = m;
     }
 
-    setLeftDial(d) {
-        this.leftDial = d;
-    }
-
-    setRightDial(d) {
-        this.rightDial = d;
-    }
-
-    setBottomDial(d) {
-        this.bottomDial = d;
-    }
-
-    setLeftDialZone(z) {
-        this.leftDialZone = z;
-    }
-
-    setRightDialZone(z) {
-        this.rightDialZone = z;
-    }
-
-    setBottomDialZone(z) {
-        this.bottomDialZone = z;
+    setSubDial(dial, attr, value) {
+        const newSubDial = { ...this.subDial };
+        newSubDial[dial][attr] = value;
+        this.subDial = newSubDial;
     }
 }
 

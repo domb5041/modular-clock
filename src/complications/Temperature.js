@@ -3,9 +3,9 @@ import * as styled from "../Dials.styled";
 import { observer } from "mobx-react";
 import store from "../store/store";
 
-function Temperature({ dialId }) {
+function Temperature({ position }) {
     return (
-        <styled.SubDial dialId={dialId} primaryMenu={store.primaryMenu}>
+        <styled.SubDial position={position} primaryMenu={store.primaryMenu}>
             temperature
         </styled.SubDial>
     );

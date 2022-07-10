@@ -18,6 +18,11 @@ function MainDial() {
         setTime(timeToDegrees(0));
     };
 
+    const noSubDialWithSeconds =
+        store.subDial.leftDial.currentlyVisible !== "seconds" &&
+        store.subDial.rightDial.currentlyVisible !== "seconds" &&
+        store.subDial.bottomDial.currentlyVisible !== "seconds";
+
     return (
         <styled.MainDial primaryMenu={store.primaryMenu}>
             <div className="main-dial-shade">
@@ -27,14 +32,12 @@ function MainDial() {
                         <div style={{ backgroundColor: theme(store.clockColor).ticks }} />
                     </styled.Tick>
                 ))}
-                <SubDial dialId="leftDial" timezone={store.leftDialZone} dial={store.leftDial} />
-                <SubDial dialId="rightDial" timezone={store.rightDialZone} dial={store.rightDial} />
-                <SubDial dialId="bottomDial" timezone={store.bottomDialZone} dial={store.bottomDial} />
+                <SubDial position="leftDial" />
+                <SubDial position="rightDial" />
+                <SubDial position="bottomDial" />
                 <styled.Hand size={[15, 160]} style={transformHands(time[0])} />
                 <styled.Hand size={[10, 230]} style={transformHands(time[1])} />
-                {store.leftDial !== "seconds" && store.rightDial !== "seconds" && store.bottomDial !== "seconds" && (
-                    <styled.Hand size={[5, 240]} style={transformHands(time[2])} secondHand />
-                )}
+                {noSubDialWithSeconds && <styled.Hand size={[5, 240]} style={transformHands(time[2])} secondHand />}
                 <styled.Cap size={20} />
             </div>
         </styled.MainDial>

@@ -6,7 +6,7 @@ import { transformHands, timeToDegrees } from "../utilityFunctions";
 import { observer } from "mobx-react";
 import store from "../store/store";
 
-function Seconds({ dialId }) {
+function Seconds({ position }) {
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ function Seconds({ dialId }) {
     };
 
     return (
-        <styled.SubDial dialId={dialId} primaryMenu={store.primaryMenu}>
+        <styled.SubDial position={position} primaryMenu={store.primaryMenu}>
             {subTickData.map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
                     <div style={{ backgroundColor: theme(store.clockColor).ticks }} />
