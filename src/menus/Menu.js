@@ -43,7 +43,7 @@ export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected,
                                                 value={option.value}
                                             >
                                                 {option.list.map((l) => (
-                                                    <option value={l}>{l}</option>
+                                                    <option value={l.id}>{l.name}</option>
                                                 ))}
                                             </select>
                                         </Dropdown>

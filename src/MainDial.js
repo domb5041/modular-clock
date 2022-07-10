@@ -15,7 +15,7 @@ function MainDial() {
     }, []);
 
     const handleSetTime = () => {
-        setTime(timeToDegrees(0));
+        setTime(timeToDegrees());
     };
 
     const noSubDialWithSeconds =
@@ -26,7 +26,7 @@ function MainDial() {
     return (
         <styled.MainDial primaryMenu={store.primaryMenu}>
             <div className="main-dial-shade">
-                <styled.AmPm>{getAmPm(0)}</styled.AmPm>
+                <styled.AmPm>{getAmPm()}</styled.AmPm>
                 {mainTickData.map((tick, i) => (
                     <styled.Tick tick={tick} key={i}>
                         <div style={{ backgroundColor: theme(store.clockColor).ticks }} />

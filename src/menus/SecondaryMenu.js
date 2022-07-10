@@ -2,7 +2,7 @@ import React from "react";
 import { swatches } from "../theme";
 import { observer } from "mobx-react";
 import store from "../store/store";
-import { timezones } from "../complications/WorldClock";
+import { timezones } from "../timezones";
 import Menu from "./Menu";
 
 export default observer(() => {
@@ -15,7 +15,9 @@ export default observer(() => {
                     id: "timezone-selector",
                     type: "dropdown",
                     value: store.subDial[pos].timezone,
-                    list: Object.keys(timezones),
+                    list: timezones.sort(function (a, b) {
+                        return a.name > b.name ? 1 : a.name === b.name ? 0 : -1;
+                    }),
                     label: "city",
                     onChange: (city) => store.setSubDial(pos, "timezone", city)
                 }

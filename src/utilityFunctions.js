@@ -1,16 +1,12 @@
-const adjustForTimezone = (offset) => {
-    const d = new Date();
-    const mSecUTC = d.getTime() + d.getTimezoneOffset() * 60000;
-    const newTime = mSecUTC + offset * 3600000;
-    return new Date(newTime);
-};
+import moment from "moment";
+import "moment-timezone";
 
-export const timeToDegrees = (offset) => {
-    const d = adjustForTimezone(offset);
+export const timeToDegrees = (timezone) => {
+    const d = timezone ? moment().tz(timezone) : moment();
 
-    const hrsToSeconds = d.getHours() * 3600;
-    const minsToSeconds = d.getMinutes() * 60;
-    const seconds = d.getSeconds();
+    const hrsToSeconds = d.hours() * 3600;
+    const minsToSeconds = d.minutes() * 60;
+    const seconds = d.seconds();
 
     const hrsToDeg = (hrsToSeconds + minsToSeconds + seconds) * (360 / 43200);
     const minsToDeg = (minsToSeconds + seconds) * (360 / 3600);
@@ -23,7 +19,7 @@ export const transformHands = (hand) => ({
     transform: `translateX(-50%) rotate(${hand}deg)`
 });
 
-export const getAmPm = (offset) => {
-    const d = adjustForTimezone(offset);
-    return d.getHours() < 12 ? "AM" : "PM";
+export const getAmPm = (timezone) => {
+    const d = timezone ? moment().tz(timezone) : moment();
+    return d.hours() < 12 ? "AM" : "PM";
 };

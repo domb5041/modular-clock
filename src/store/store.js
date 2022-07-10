@@ -5,9 +5,9 @@ class Store {
     primaryMenu = "colour";
 
     subDial = {
-        leftDial: { currentlyVisible: "world-clock", timezone: "paris" },
-        rightDial: { currentlyVisible: "world-clock", timezone: "tokyo" },
-        bottomDial: { currentlyVisible: "world-clock", timezone: "new delhi" }
+        leftDial: { currentlyVisible: "world-clock", timezone: "Europe/Paris" },
+        rightDial: { currentlyVisible: "world-clock", timezone: "Asia/Tokyo" },
+        bottomDial: { currentlyVisible: "world-clock", timezone: "America/New_York" }
     };
 
     constructor() {

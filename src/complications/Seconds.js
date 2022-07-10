@@ -17,7 +17,7 @@ function Seconds({ position }) {
     }, []);
 
     const handleSetTime = () => {
-        setTime(timeToDegrees(0));
+        setTime(timeToDegrees());
     };
 
     return (

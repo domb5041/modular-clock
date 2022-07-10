@@ -55,7 +55,6 @@ export const Dropdown = styled.div`
         background-color: transparent;
         border: 1px solid white;
         color: white;
-        text-transform: uppercase;
         outline: none;
         border-radius: 4px;
     }
