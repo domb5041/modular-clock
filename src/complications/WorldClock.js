@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as styled from "../Dials.styled";
+import { SubHourHand, SubMinuteHand, SubHandsCap } from "../Hands.styled";
 import { theme } from "../theme";
 import { subTickData } from "../tickData";
 import { transformHands, timeToDegrees, getAmPm } from "../utilityFunctions";
@@ -49,7 +50,7 @@ function WorldClock({ position }) {
     };
 
     return (
-        <styled.SubDial position={position} primaryMenu={store.primaryMenu}>
+        <>
             <styled.AmPm subDial>{getAmPm(timezone)}</styled.AmPm>
             <styled.City>{timezones.find((o) => o.id === timezone).name}</styled.City>
             {subTickData.map((tick, i) => (
@@ -57,10 +58,10 @@ function WorldClock({ position }) {
                     <div style={{ backgroundColor: theme(store.clockColor).ticks }} />
                 </styled.Tick>
             ))}
-            <styled.Hand size={[8, 50]} style={transformHands(time[0])} />
-            <styled.Hand size={[6, 80]} style={transformHands(time[1])} />
-            <styled.Cap size={13} />
-        </styled.SubDial>
+            <SubHourHand style={transformHands(time[0])} />
+            <SubMinuteHand style={transformHands(time[1])} />
+            <SubHandsCap />
+        </>
     );
 }
 

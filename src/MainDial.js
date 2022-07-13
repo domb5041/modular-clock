@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as styled from "./Dials.styled";
+import { HourHand, MinuteHand, SecondHand, HandsCap } from "./Hands.styled";
 import { mainTickData } from "./tickData";
 import SubDial from "./SubDial";
 import { transformHands, timeToDegrees, getAmPm } from "./utilityFunctions";
@@ -23,6 +24,9 @@ function MainDial() {
         store.subDial.rightDial.currentlyVisible !== "seconds" &&
         store.subDial.bottomDial.currentlyVisible !== "seconds";
 
+    const focusingOnSubDial =
+        store.primaryMenu === "leftDial" || store.primaryMenu === "rightDial" || store.primaryMenu === "bottomDial";
+
     return (
         <styled.MainDial primaryMenu={store.primaryMenu}>
             <div className="main-dial-shade">
@@ -35,10 +39,12 @@ function MainDial() {
                 <SubDial position="leftDial" />
                 <SubDial position="rightDial" />
                 <SubDial position="bottomDial" />
-                <styled.Hand size={[15, 160]} style={transformHands(time[0])} />
-                <styled.Hand size={[10, 230]} style={transformHands(time[1])} />
-                {noSubDialWithSeconds && <styled.Hand size={[5, 240]} style={transformHands(time[2])} secondHand />}
-                <styled.Cap size={20} />
+                <HourHand focusingOnSubDial={focusingOnSubDial} style={transformHands(time[0])} />
+                <MinuteHand focusingOnSubDial={focusingOnSubDial} style={transformHands(time[1])} />
+                {noSubDialWithSeconds && (
+                    <SecondHand focusingOnSubDial={focusingOnSubDial} style={transformHands(time[2])} />
+                )}
+                <HandsCap />
             </div>
         </styled.MainDial>
     );

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import store from "../store/store";
 import axios from "axios";
-import { SubDial, Hand, Cap, Tick } from "../Dials.styled";
+import { Tick } from "../Dials.styled";
+import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import styled from "styled-components";
 import { theme } from "../theme";
 
@@ -54,7 +55,7 @@ export const ticks = [
     { deg: 330, type: "sub" }
 ];
 
-function Temperature({ position }) {
+function Temperature() {
     const [temp, setTemp] = useState(0);
     const [tempMinMax, setTempMinMax] = useState([0, 0]);
     const [latLon, setLatLon] = useState([0, 0]);
@@ -104,7 +105,7 @@ function Temperature({ position }) {
     };
 
     return (
-        <SubDial position={position} primaryMenu={store.primaryMenu}>
+        <>
             {ticks.map((tick, i) => (
                 <Tick tick={tick} key={i}>
                     <div style={{ backgroundColor: theme(store.clockColor).ticks }} />
@@ -114,9 +115,9 @@ function Temperature({ position }) {
             <CurrentTemp>{temp}°C</CurrentTemp>
             <MaxTemp>H:{tempMinMax[1]}</MaxTemp>
             <City>{location}</City>
-            <Hand size={[5, 80]} style={transformTempToDegrees()} secondHand />
-            <Cap size={12} />
-        </SubDial>
+            <SubSecondHand style={transformTempToDegrees()} />
+            <SubHandsCap />
+        </>
     );
 }
 

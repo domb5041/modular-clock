@@ -27,8 +27,7 @@ export const SubDial = styled.div`
     border: 2px solid ${(props) => props.theme.base};
     position: absolute;
     background-color: ${(props) => props.theme.subDial};
-    opacity: ${(props) => (props.primaryMenu !== props.position && props.primaryMenu !== "colour" ? 0.5 : 1)};
-    transition: opacity 0.2s, background-color ${colorTransition}, border ${colorTransition};
+    transition: background-color ${colorTransition}, border ${colorTransition};
     ${(props) =>
         (props.position === "leftDial" &&
             css`
@@ -48,6 +47,19 @@ export const SubDial = styled.div`
                 left: 50%;
                 transform: translateX(-50%);
             `)}
+`;
+
+export const SubDialHighlight = styled.div`
+    position: absolute;
+    border: 4px solid white;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    border-radius: 100%;
+    transition: opacity 0.2s;
+    opacity: ${(props) => (props.primaryMenu === props.position ? 1 : 0)};
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 `;
 
 export const City = styled.div`
@@ -72,32 +84,6 @@ export const AmPm = styled.div`
     font-size: ${(props) => (props.subDial ? 12 : 20)}px;
     letter-spacing: 2px;
     text-shadow: 0 0 5px rgba(0, 0, 0.7);
-`;
-
-export const Hand = styled.div`
-    position: absolute;
-    background-color: ${(props) => (props.secondHand ? props.theme.secondHand : "white")};
-    bottom: 50%;
-    left: 50%;
-    transform-origin: center bottom;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-    width: ${(props) => props.size[0]}px;
-    height: ${(props) => props.size[1]}px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    transition: background-color ${colorTransition};
-`;
-
-export const Cap = styled.div`
-    position: absolute;
-    background-color: white;
-    top: 50%;
-    left: 50%;
-    width: ${(props) => props.size}px;
-    height: ${(props) => props.size}px;
-    transform: translate(-50%, -50%);
-    border-radius: 100%;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 `;
 
 const tickDimensions = {

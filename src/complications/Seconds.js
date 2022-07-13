@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import * as styled from "../Dials.styled";
+import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import { theme } from "../theme";
 import { subTickData } from "../tickData";
 import { transformHands, timeToDegrees } from "../utilityFunctions";
 import { observer } from "mobx-react";
 import store from "../store/store";
 
-function Seconds({ position }) {
+function Seconds() {
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
@@ -21,15 +22,15 @@ function Seconds({ position }) {
     };
 
     return (
-        <styled.SubDial position={position} primaryMenu={store.primaryMenu}>
+        <>
             {subTickData.map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
                     <div style={{ backgroundColor: theme(store.clockColor).ticks }} />
                 </styled.Tick>
             ))}
-            <styled.Hand size={[5, 80]} style={transformHands(time[2])} secondHand />
-            <styled.Cap size={12} />
-        </styled.SubDial>
+            <SubSecondHand style={transformHands(time[2])} />
+            <SubHandsCap />
+        </>
     );
 }
 
