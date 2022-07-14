@@ -23,7 +23,8 @@ export default observer(() => {
         },
         { id: "temperature", name: "temperature" },
         { id: "sun-dial", name: "sunrise sunset" },
-        { id: "seconds", name: "seconds" }
+        { id: "seconds", name: "seconds" },
+        { id: "none", name: "off" }
     ];
 
     const secondaryMenus = {

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import * as styled from "../Dials.styled";
 import { SubHourHand, SubMinuteHand, SubHandsCap } from "../Hands.styled";
 import { theme } from "../theme";
-import { subTickData } from "../tickData";
 import { transformHands, timeToDegrees, getAmPm } from "../utilityFunctions";
 import { observer } from "mobx-react";
 import store from "../store/store";
@@ -32,6 +31,21 @@ export const timezones = [
     { name: "Sao Paulo", id: "America/Sao_Paulo" },
     { name: "S. Georgia", id: "Atlantic/South_Georgia" },
     { name: "Azores", id: "Atlantic/Azores" }
+];
+
+export const subTickData = [
+    { deg: 0, type: "subLong" },
+    { deg: 30, type: "sub" },
+    { deg: 60, type: "sub" },
+    { deg: 90, type: "subLong" },
+    { deg: 120, type: "sub" },
+    { deg: 150, type: "sub" },
+    { deg: 180, type: "subLong" },
+    { deg: 210, type: "sub" },
+    { deg: 240, type: "sub" },
+    { deg: 270, type: "subLong" },
+    { deg: 300, type: "sub" },
+    { deg: 330, type: "sub" }
 ];
 
 function WorldClock({ position }) {

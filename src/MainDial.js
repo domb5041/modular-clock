@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as styled from "./Dials.styled";
 import { HourHand, MinuteHand, SecondHand, HandsCap } from "./Hands.styled";
-import { mainTickData } from "./tickData";
 import SubDial from "./SubDial";
 import { transformHands, timeToDegrees, getAmPm } from "./utilityFunctions";
 import { theme } from "./theme";
@@ -31,7 +30,7 @@ function MainDial() {
         <styled.MainDial primaryMenu={store.primaryMenu}>
             <div className="main-dial-shade">
                 <styled.AmPm>{getAmPm()}</styled.AmPm>
-                {mainTickData.map((tick, i) => (
+                {store.mainTickData.map((tick, i) => (
                     <styled.Tick tick={tick} key={i}>
                         <div style={{ backgroundColor: theme(store.clockColor).ticks }} />
                     </styled.Tick>

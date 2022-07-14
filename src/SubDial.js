@@ -12,13 +12,20 @@ function _SubDial({ position }) {
         "world-clock": <WorldClock position={position} />,
         temperature: <Temperature />,
         "sun-dial": <SunDial />,
-        seconds: <Seconds />
+        seconds: <Seconds />,
+        none: null
     };
     return (
-        <SubDial position={position} primaryMenu={store.primaryMenu}>
+        <>
+            <SubDial
+                position={position}
+                primaryMenu={store.primaryMenu}
+                isHidden={store.subDial[position].currentlyVisible === "none"}
+            >
+                {complications[store.subDial[position].currentlyVisible]}
+            </SubDial>
             <SubDialHighlight primaryMenu={store.primaryMenu} position={position} />
-            {complications[store.subDial[position].currentlyVisible]}
-        </SubDial>
+        </>
     );
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as styled from "../Dials.styled";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import { theme } from "../theme";
-import { subTickData } from "../tickData";
+import { subTickData } from "./WorldClock";
 import { transformHands, timeToDegrees } from "../utilityFunctions";
 import { observer } from "mobx-react";
 import store from "../store/store";

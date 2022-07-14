@@ -27,38 +27,37 @@ export const SubDial = styled.div`
     border: 2px solid ${(props) => props.theme.base};
     position: absolute;
     background-color: ${(props) => props.theme.subDial};
-    transition: background-color ${colorTransition}, border ${colorTransition};
+    transition: background-color ${colorTransition}, border ${colorTransition}, opacity 0.2s;
+    opacity: ${(props) => (props.isHidden ? 0 : 1)};
     ${(props) =>
         (props.position === "leftDial" &&
             css`
-                left: 15px;
+                left: 105px;
                 top: 50%;
-                transform: translateY(-50%);
+                transform: translate(-50%, -50%);
             `) ||
         (props.position === "rightDial" &&
             css`
-                right: 15px;
+                right: 105px;
                 top: 50%;
-                transform: translateY(-50%);
+                transform: translate(50%, -50%);
             `) ||
         (props.position === "bottomDial" &&
             css`
-                bottom: 15px;
+                bottom: 105px;
                 left: 50%;
-                transform: translateX(-50%);
-            `)}
+                transform: translate(-50%, 50%);
+            `)};
 `;
 
-export const SubDialHighlight = styled.div`
+export const SubDialHighlight = styled(SubDial)`
     position: absolute;
     border: 4px solid white;
-    top: -12px;
-    left: -12px;
-    right: -12px;
-    bottom: -12px;
-    border-radius: 100%;
+    width: 192px;
+    height: 192px;
     transition: opacity 0.2s;
     opacity: ${(props) => (props.primaryMenu === props.position ? 1 : 0)};
+    background-color: transparent;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 `;
 
