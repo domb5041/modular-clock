@@ -5,6 +5,7 @@ class Store {
     primaryMenu = "colour";
 
     subDial = {
+        topDial: { currentlyVisible: "none", timezone: "US/Hawaii" },
         leftDial: { currentlyVisible: "world-clock", timezone: "Europe/Paris" },
         rightDial: { currentlyVisible: "world-clock", timezone: "Asia/Tokyo" },
         bottomDial: { currentlyVisible: "temperature", timezone: "America/New_York" }
@@ -38,7 +39,7 @@ class Store {
 
     get mainTickData() {
         return [
-            { deg: 0, type: "hrLong" },
+            { deg: 0, type: this.subDial.topDial.currentlyVisible === "none" ? "hrLong" : "hrShort" },
             { deg: 6, type: "min" },
             { deg: 12, type: "min" },
             { deg: 18, type: "min" },

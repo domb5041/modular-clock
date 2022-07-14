@@ -19,12 +19,16 @@ function MainDial() {
     };
 
     const noSubDialWithSeconds =
+        store.subDial.topDial.currentlyVisible !== "seconds" &&
         store.subDial.leftDial.currentlyVisible !== "seconds" &&
         store.subDial.rightDial.currentlyVisible !== "seconds" &&
         store.subDial.bottomDial.currentlyVisible !== "seconds";
 
     const focusingOnSubDial =
-        store.primaryMenu === "leftDial" || store.primaryMenu === "rightDial" || store.primaryMenu === "bottomDial";
+        store.primaryMenu === "topDial" ||
+        store.primaryMenu === "leftDial" ||
+        store.primaryMenu === "rightDial" ||
+        store.primaryMenu === "bottomDial";
 
     return (
         <styled.MainDial primaryMenu={store.primaryMenu}>
@@ -35,6 +39,7 @@ function MainDial() {
                         <div style={{ backgroundColor: theme(store.clockColor).ticks }} />
                     </styled.Tick>
                 ))}
+                <SubDial position="topDial" />
                 <SubDial position="leftDial" />
                 <SubDial position="rightDial" />
                 <SubDial position="bottomDial" />

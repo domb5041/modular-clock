@@ -29,6 +29,11 @@ export default observer(() => {
 
     const secondaryMenus = {
         colour: { menu: swatches, onClick: (c) => store.setClockColor(c), activeItem: store.clockColor },
+        topDial: {
+            menu: subDialMenu("topDial"),
+            onClick: (dialId) => store.setSubDial("topDial", "currentlyVisible", dialId),
+            activeItem: store.subDial.topDial.currentlyVisible
+        },
         leftDial: {
             menu: subDialMenu("leftDial"),
             onClick: (dialId) => store.setSubDial("leftDial", "currentlyVisible", dialId),

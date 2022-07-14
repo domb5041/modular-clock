@@ -30,6 +30,12 @@ export const SubDial = styled.div`
     transition: background-color ${colorTransition}, border ${colorTransition}, opacity 0.2s;
     opacity: ${(props) => (props.isHidden ? 0 : 1)};
     ${(props) =>
+        (props.position === "topDial" &&
+            css`
+                top: 105px;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            `) ||
         (props.position === "leftDial" &&
             css`
                 left: 105px;
