@@ -38,7 +38,7 @@ export const MenuItem = styled.div`
 `;
 
 export const OptionsBlock = styled.div`
-    border-bottom: 1px solid grey;
+    border-bottom: ${(props) => (props.active ? 1 : 0)}px solid grey;
     overflow: hidden;
     height: ${(props) => (props.active ? 100 : 0)}px;
     opacity: ${(props) => (props.active ? 1 : 0)};
