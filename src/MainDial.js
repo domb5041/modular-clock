@@ -36,7 +36,7 @@ function MainDial() {
                 <styled.AmPm>{getAmPm()}</styled.AmPm>
                 {store.mainTickData.map((tick, i) => (
                     <styled.Tick tick={tick} key={i}>
-                        <div style={{ backgroundColor: theme(store.clockColor).ticks }} />
+                        <div className="tick-marker" style={{ backgroundColor: theme(store.clockColor).ticks }} />
                     </styled.Tick>
                 ))}
                 <SubDial position="topDial" />

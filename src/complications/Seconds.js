@@ -25,7 +25,7 @@ function Seconds() {
         <>
             {subTickData.map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
-                    <div style={{ backgroundColor: theme(store.clockColor).ticks }} />
+                    <div className="tick-marker" style={{ backgroundColor: theme(store.clockColor).ticks }} />
                 </styled.Tick>
             ))}
             <SubSecondHand style={transformHands(time[2])} />

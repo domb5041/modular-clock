@@ -108,7 +108,7 @@ export const Tick = styled.div`
     width: ${(props) => tickDimensions[props.tick.type].width};
     height: 50%;
     transform: ${(props) => `translateX(-50%) rotate(${props.tick.deg}deg)`};
-    & > div {
+    & > .tick-marker {
         width: 100%;
         height: ${(props) => tickDimensions[props.tick.type].height};
         border-bottom-left-radius: 10px;

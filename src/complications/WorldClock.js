@@ -69,7 +69,7 @@ function WorldClock({ position }) {
             <styled.City>{timezones.find((o) => o.id === timezone).name}</styled.City>
             {subTickData.map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
-                    <div style={{ backgroundColor: theme(store.clockColor).ticks }} />
+                    <div className="tick-marker" style={{ backgroundColor: theme(store.clockColor).ticks }} />
                 </styled.Tick>
             ))}
             <SubHourHand style={transformHands(time[0])} />

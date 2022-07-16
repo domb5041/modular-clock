@@ -8,7 +8,7 @@ class Store {
         topDial: { currentlyVisible: "none", timezone: "US/Hawaii" },
         leftDial: { currentlyVisible: "world-clock", timezone: "Europe/Paris" },
         rightDial: { currentlyVisible: "world-clock", timezone: "Asia/Tokyo" },
-        bottomDial: { currentlyVisible: "temperature", timezone: "America/New_York" }
+        bottomDial: { currentlyVisible: "sun-dial", timezone: "America/New_York" }
     };
 
     constructor() {
