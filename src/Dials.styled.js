@@ -71,7 +71,7 @@ export const City = styled.div`
     color: ${(props) => props.theme.text};
     text-transform: uppercase;
     position: absolute;
-    bottom: 40px;
+    bottom: 60px;
     width: 100%;
     text-align: center;
     font-size: 12px;
@@ -83,7 +83,7 @@ export const AmPm = styled.div`
     color: ${(props) => props.theme.text};
     text-transform: uppercase;
     position: absolute;
-    top: ${(props) => (props.subDial ? 40 : 90)}px;
+    top: ${(props) => (props.subDial ? 60 : 90)}px;
     width: 100%;
     text-align: center;
     font-size: ${(props) => (props.subDial ? 12 : 20)}px;
@@ -115,5 +115,13 @@ export const Tick = styled.div`
         border-bottom-right-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         transition: background-color ${colorTransition};
+    }
+    & > .tick-number {
+        position: absolute;
+        top: 18px;
+        left: 50%;
+        transform: ${(props) => `translateX(-50%) rotate(-${props.tick.deg}deg)`};
+        font-size: 14px;
+        color: ${(props) => props.theme.text};
     }
 `;

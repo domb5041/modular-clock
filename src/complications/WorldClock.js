@@ -34,18 +34,18 @@ export const timezones = [
 ];
 
 export const subTickData = [
-    { deg: 0, type: "subLong" },
-    { deg: 30, type: "sub" },
-    { deg: 60, type: "sub" },
-    { deg: 90, type: "subLong" },
-    { deg: 120, type: "sub" },
-    { deg: 150, type: "sub" },
-    { deg: 180, type: "subLong" },
-    { deg: 210, type: "sub" },
-    { deg: 240, type: "sub" },
-    { deg: 270, type: "subLong" },
-    { deg: 300, type: "sub" },
-    { deg: 330, type: "sub" }
+    { deg: 0, type: "sub", number: "12" },
+    { deg: 30, type: "sub", number: "1" },
+    { deg: 60, type: "sub", number: "2" },
+    { deg: 90, type: "sub", number: "3" },
+    { deg: 120, type: "sub", number: "4" },
+    { deg: 150, type: "sub", number: "5" },
+    { deg: 180, type: "sub", number: "6" },
+    { deg: 210, type: "sub", number: "7" },
+    { deg: 240, type: "sub", number: "8" },
+    { deg: 270, type: "sub", number: "9" },
+    { deg: 300, type: "sub", number: "10" },
+    { deg: 330, type: "sub", number: "11" }
 ];
 
 function WorldClock({ position }) {
@@ -70,6 +70,7 @@ function WorldClock({ position }) {
             {subTickData.map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
                     <div className="tick-marker" style={{ backgroundColor: theme(store.clockColor).ticks }} />
+                    {tick.number && <div className="tick-number">{tick.number}</div>}
                 </styled.Tick>
             ))}
             <SubHourHand style={transformHands(time[0])} />

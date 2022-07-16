@@ -5,16 +5,6 @@ import { theme } from "../theme";
 import moment from "moment";
 import { observer } from "mobx-react";
 import store from "../store/store";
-import styled from "styled-components";
-
-const Number = styled.div`
-    position: absolute;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 14px;
-    color: ${(props) => props.theme.text};
-`;
 
 const subTickData = [
     { deg: 0, type: "sub", number: "12" },
@@ -78,7 +68,7 @@ function SunDial() {
             {subTickData.map((tick, i) => (
                 <Tick tick={tick} key={i}>
                     <div className="tick-marker" style={{ backgroundColor: theme(store.clockColor).ticks }} />
-                    {tick.number && <Number>{tick.number}</Number>}
+                    {tick.number && <div className="tick-number">{tick.number}</div>}
                 </Tick>
             ))}
             <SubMinuteHand style={transformHands(hour)} />
