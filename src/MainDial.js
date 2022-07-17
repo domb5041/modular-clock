@@ -37,6 +37,7 @@ function MainDial() {
                 {store.mainTickData.map((tick, i) => (
                     <styled.Tick tick={tick} key={i}>
                         <div className="tick-marker" style={{ backgroundColor: theme(store.clockColor).ticks }} />
+                        {tick.number && <div className="tick-number">{tick.number}</div>}
                     </styled.Tick>
                 ))}
                 <SubDial position="topDial" />

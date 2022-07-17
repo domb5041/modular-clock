@@ -93,10 +93,10 @@ export const AmPm = styled.div`
 
 const tickDimensions = {
     hrLong: { width: "10px", height: "30%" },
-    hrShort: { width: "10px", height: "4%" },
+    hrShort: { width: "10px", height: "4%", fontSize: "22px" },
     hr: { width: "7px", height: "15%" },
     min: { width: "4px", height: "4%" },
-    sub: { width: "5px", height: "15%" },
+    sub: { width: "5px", height: "15%", fontSize: "14px" },
     subLong: { width: "5px", height: "30%" }
 };
 
@@ -121,7 +121,7 @@ export const Tick = styled.div`
         top: 18px;
         left: 50%;
         transform: ${(props) => `translateX(-50%) rotate(-${props.tick.deg}deg)`};
-        font-size: 14px;
+        font-size: ${(props) => tickDimensions[props.tick.type].fontSize};
         color: ${(props) => props.theme.text};
     }
 `;
