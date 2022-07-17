@@ -1,10 +1,35 @@
 import React, { useState, useEffect } from "react";
-import * as styled from "../Dials.styled";
+import { Tick } from "../Ticks.styled";
 import { SubHourHand, SubMinuteHand, SubHandsCap } from "../Hands.styled";
 import { theme } from "../theme";
 import { transformHands, timeToDegrees, getAmPm } from "../utilityFunctions";
 import { observer } from "mobx-react";
 import store from "../store/store";
+import styled from "styled-components";
+
+const City = styled.div`
+    color: ${(props) => props.theme.text};
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 55px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px rgba(0, 0, 0.7);
+`;
+
+const AmPm = styled.div`
+    color: ${(props) => props.theme.text};
+    text-transform: uppercase;
+    position: absolute;
+    top: ${(props) => (props.subDial ? 55 : 90)}px;
+    width: 100%;
+    text-align: center;
+    font-size: ${(props) => (props.subDial ? 12 : 20)}px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px rgba(0, 0, 0.7);
+`;
 
 export const timezones = [
     { name: "London", id: "Europe/London" },
@@ -34,18 +59,18 @@ export const timezones = [
 ];
 
 export const subTickData = [
-    { deg: 0, type: "sub", number: "12" },
-    { deg: 30, type: "sub", number: "1" },
-    { deg: 60, type: "sub", number: "2" },
-    { deg: 90, type: "sub", number: "3" },
-    { deg: 120, type: "sub", number: "4" },
-    { deg: 150, type: "sub", number: "5" },
-    { deg: 180, type: "sub", number: "6" },
-    { deg: 210, type: "sub", number: "7" },
-    { deg: 240, type: "sub", number: "8" },
-    { deg: 270, type: "sub", number: "9" },
-    { deg: 300, type: "sub", number: "10" },
-    { deg: 330, type: "sub", number: "11" }
+    { deg: 0, type: "subShort", number: "12" },
+    { deg: 30, type: "subShort", number: "1" },
+    { deg: 60, type: "subShort", number: "2" },
+    { deg: 90, type: "subShort", number: "3" },
+    { deg: 120, type: "subShort", number: "4" },
+    { deg: 150, type: "subShort", number: "5" },
+    { deg: 180, type: "subShort", number: "6" },
+    { deg: 210, type: "subShort", number: "7" },
+    { deg: 240, type: "subShort", number: "8" },
+    { deg: 270, type: "subShort", number: "9" },
+    { deg: 300, type: "subShort", number: "10" },
+    { deg: 330, type: "subShort", number: "11" }
 ];
 
 function WorldClock({ position }) {
@@ -65,13 +90,13 @@ function WorldClock({ position }) {
 
     return (
         <>
-            <styled.AmPm subDial>{getAmPm(timezone)}</styled.AmPm>
-            <styled.City>{timezones.find((o) => o.id === timezone).name}</styled.City>
+            <AmPm subDial>{getAmPm(timezone)}</AmPm>
+            <City>{timezones.find((o) => o.id === timezone).name}</City>
             {subTickData.map((tick, i) => (
-                <styled.Tick tick={tick} key={i}>
+                <Tick tick={tick} key={i}>
                     <div className="tick-marker" style={{ backgroundColor: theme(store.clockColor).ticks }} />
                     {tick.number && <div className="tick-number">{tick.number}</div>}
-                </styled.Tick>
+                </Tick>
             ))}
             <SubHourHand style={transformHands(time[0])} />
             <SubMinuteHand style={transformHands(time[1])} />

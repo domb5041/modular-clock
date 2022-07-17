@@ -9,6 +9,8 @@ export const swatches = [
     { id: "storm", name: "storm" }
 ];
 
+export const colorTransition = "0.7s";
+
 export const colorsDef = {
     nickel: {
         base: "#ACA496",

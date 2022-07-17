@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from "react";
-import * as styled from "../Dials.styled";
+import * as styled from "../Ticks.styled";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import { theme } from "../theme";
-import { transformHands, timeToDegrees } from "../utilityFunctions";
 import { observer } from "mobx-react";
 import store from "../store/store";
+import moment from "moment";
 
 const subTickData = [
-    { deg: 0, type: "sub", number: "60" },
-    { deg: 30, type: "sub", number: "05" },
-    { deg: 60, type: "sub", number: "10" },
-    { deg: 90, type: "sub", number: "15" },
-    { deg: 120, type: "sub", number: "20" },
-    { deg: 150, type: "sub", number: "25" },
-    { deg: 180, type: "sub", number: "30" },
-    { deg: 210, type: "sub", number: "35" },
-    { deg: 240, type: "sub", number: "40" },
-    { deg: 270, type: "sub", number: "45" },
-    { deg: 300, type: "sub", number: "50" },
-    { deg: 330, type: "sub", number: "55" }
+    { deg: 0, type: "subShort", number: "60" },
+    { deg: 30, type: "subShort", number: "05" },
+    { deg: 60, type: "subShort", number: "10" },
+    { deg: 90, type: "subShort", number: "15" },
+    { deg: 120, type: "subShort", number: "20" },
+    { deg: 150, type: "subShort", number: "25" },
+    { deg: 180, type: "subShort", number: "30" },
+    { deg: 210, type: "subShort", number: "35" },
+    { deg: 240, type: "subShort", number: "40" },
+    { deg: 270, type: "subShort", number: "45" },
+    { deg: 300, type: "subShort", number: "50" },
+    { deg: 330, type: "subShort", number: "55" }
 ];
 
 function Seconds() {
-    const [time, setTime] = useState([0, 0, 0]);
+    const [seconds, setSeconds] = useState(0);
 
     useEffect(() => {
         const timeInterval = setInterval(handleSetTime, 1000);
@@ -32,8 +32,18 @@ function Seconds() {
     }, []);
 
     const handleSetTime = () => {
-        setTime(timeToDegrees());
+        setSeconds(timeToDegrees());
     };
+
+    const timeToDegrees = () => {
+        const s = moment().seconds();
+        const secsToDeg = s * (360 / 60);
+        return secsToDeg;
+    };
+
+    const transformHands = (hand) => ({
+        transform: `translateX(-50%) rotate(${hand}deg)`
+    });
 
     return (
         <>
@@ -43,7 +53,7 @@ function Seconds() {
                     {tick.number && <div className="tick-number">{tick.number}</div>}
                 </styled.Tick>
             ))}
-            <SubSecondHand style={transformHands(time[2])} />
+            <SubSecondHand style={transformHands(seconds)} />
             <SubHandsCap />
         </>
     );

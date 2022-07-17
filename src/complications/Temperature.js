@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import store from "../store/store";
 import axios from "axios";
-import { Tick } from "../Dials.styled";
+import { Tick } from "../Ticks.styled";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import styled from "styled-components";
 import { theme } from "../theme";
