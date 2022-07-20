@@ -5,6 +5,7 @@ import Menu from "./Menu";
 
 export default observer(() => {
     const primaryMenuOptions = [
+        { id: "style", name: "style" },
         { id: "colour", name: "colour" },
         { id: "topDial", name: "top dial" },
         { id: "leftDial", name: "left dial" },
