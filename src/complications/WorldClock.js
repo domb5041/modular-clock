@@ -58,21 +58,6 @@ export const timezones = [
     { name: "Azores", id: "Atlantic/Azores" }
 ];
 
-export const subTickData = [
-    { deg: 0, type: "subShort", number: "12" },
-    { deg: 30, type: "subShort", number: "1" },
-    { deg: 60, type: "subShort", number: "2" },
-    { deg: 90, type: "subShort", number: "3" },
-    { deg: 120, type: "subShort", number: "4" },
-    { deg: 150, type: "subShort", number: "5" },
-    { deg: 180, type: "subShort", number: "6" },
-    { deg: 210, type: "subShort", number: "7" },
-    { deg: 240, type: "subShort", number: "8" },
-    { deg: 270, type: "subShort", number: "9" },
-    { deg: 300, type: "subShort", number: "10" },
-    { deg: 330, type: "subShort", number: "11" }
-];
-
 function WorldClock({ position }) {
     const [time, setTime] = useState([0, 0, 0]);
     const timezone = store.subDial[position].timezone;
@@ -92,7 +77,7 @@ function WorldClock({ position }) {
         <>
             <AmPm subDial>{getAmPm(timezone)}</AmPm>
             <City>{timezones.find((o) => o.id === timezone).name}</City>
-            {subTickData.map((tick, i) => (
+            {store.worldClockTickData.map((tick, i) => (
                 <Tick tick={tick} key={i}>
                     <div className="tick-marker" style={{ backgroundColor: theme(store.clockColor).ticks }} />
                     {tick.number && <div className="tick-number">{tick.number}</div>}

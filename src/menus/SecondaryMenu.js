@@ -27,7 +27,13 @@ export default observer(() => {
         { id: "none", name: "off" }
     ];
 
+    const styleMenu = [
+        { id: "minimal", name: "minimal" },
+        { id: "numbers", name: "numerical" }
+    ];
+
     const secondaryMenus = {
+        style: { menu: styleMenu, onClick: (c) => store.setClockStyle(c), activeItem: store.clockStyle },
         colour: { menu: swatches, onClick: (c) => store.setClockColor(c), activeItem: store.clockColor },
         topDial: {
             menu: subDialMenu("topDial"),
