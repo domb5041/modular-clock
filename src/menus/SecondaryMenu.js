@@ -29,7 +29,7 @@ export default observer(() => {
 
     const styleMenu = [
         { id: "minimal", name: "minimal" },
-        { id: "numbers", name: "numerical" }
+        { id: "numbers", name: "detailed" }
     ];
 
     const secondaryMenus = {
