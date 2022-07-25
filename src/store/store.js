@@ -6,7 +6,7 @@ class Store {
     primaryMenu = "colour";
 
     subDial = {
-        topDial: { currentlyVisible: "text", timezone: "US/Hawaii" },
+        topDial: { currentlyVisible: "monogram", timezone: "US/Hawaii", monogram: "DB" },
         leftDial: { currentlyVisible: "world-clock", timezone: "Europe/Paris" },
         rightDial: { currentlyVisible: "world-clock", timezone: "Asia/Tokyo" },
         bottomDial: { currentlyVisible: "sun-dial", timezone: "America/New_York" }
@@ -51,19 +51,24 @@ class Store {
         const minimal = this.clockStyle === "minimal";
         if (pos) {
             const dialOff = this.subDial[pos].currentlyVisible === "none";
-            return minimal && dialOff ? "hrLong" : "hrShort";
+            const monogram = this.subDial[pos].currentlyVisible === "monogram";
+            return (minimal && dialOff) || monogram ? "hrLong" : "hrShort";
         }
         return minimal ? "hr" : "hrShort";
     }
 
-    returnNumberType(n) {
+    returnNumberType(n, dialPosition) {
         const minimal = this.clockStyle === "minimal";
-        return minimal ? null : n;
+        let showNumber = true;
+        if (dialPosition) {
+            showNumber = this.subDial[dialPosition].currentlyVisible === "none";
+        }
+        return minimal || !showNumber ? null : n;
     }
 
     get mainTickData() {
         return [
-            { deg: 0, type: this.returnTickType("topDial"), number: this.returnNumberType("12") },
+            { deg: 0, type: this.returnTickType("topDial"), number: this.returnNumberType("12", "topDial") },
             { deg: 6, type: "min" },
             { deg: 12, type: "min" },
             { deg: 18, type: "min" },
@@ -78,7 +83,7 @@ class Store {
             { deg: 72, type: "min" },
             { deg: 78, type: "min" },
             { deg: 84, type: "min" },
-            { deg: 90, type: this.returnTickType("rightDial"), number: this.returnNumberType("3") },
+            { deg: 90, type: this.returnTickType("rightDial"), number: this.returnNumberType("3", "rightDial") },
             { deg: 96, type: "min" },
             { deg: 102, type: "min" },
             { deg: 108, type: "min" },
@@ -93,7 +98,7 @@ class Store {
             { deg: 162, type: "min" },
             { deg: 168, type: "min" },
             { deg: 174, type: "min" },
-            { deg: 180, type: this.returnTickType("bottomDial"), number: this.returnNumberType("6") },
+            { deg: 180, type: this.returnTickType("bottomDial"), number: this.returnNumberType("6", "bottomDial") },
             { deg: 186, type: "min" },
             { deg: 192, type: "min" },
             { deg: 198, type: "min" },
@@ -108,7 +113,7 @@ class Store {
             { deg: 252, type: "min" },
             { deg: 258, type: "min" },
             { deg: 264, type: "min" },
-            { deg: 270, type: this.returnTickType("leftDial"), number: this.returnNumberType("9") },
+            { deg: 270, type: this.returnTickType("leftDial"), number: this.returnNumberType("9", "leftDial") },
             { deg: 276, type: "min" },
             { deg: 282, type: "min" },
             { deg: 288, type: "min" },

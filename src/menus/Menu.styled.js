@@ -45,13 +45,14 @@ export const OptionsBlock = styled.div`
     transition: 0.7s cubic-bezier(0, 0, 0, 1.01);
 `;
 
-export const Dropdown = styled.div`
+export const TextInput = styled.div`
     & label {
         text-transform: uppercase;
         font-size: 13px;
         padding-right: 5px;
     }
-    & select {
+    & select,
+    & input {
         background-color: transparent;
         border: 1px solid white;
         color: white;

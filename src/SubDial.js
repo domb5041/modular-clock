@@ -59,13 +59,13 @@ const DialHighlight = styled(DialSlot)`
 
 function SubDial({ position }) {
     const { currentlyVisible } = store.subDial[position];
-    const isHidden = currentlyVisible === "none" || currentlyVisible === "text";
+    const isHidden = currentlyVisible === "none" || currentlyVisible === "monogram";
     const dialComplications = {
         "world-clock": <WorldClock position={position} />,
         temperature: <Temperature />,
         "sun-dial": <SunDial />,
         seconds: <Seconds />,
-        text: <Monogram />,
+        monogram: <Monogram position={position} />,
         none: null
     };
 

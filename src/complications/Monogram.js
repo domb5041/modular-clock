@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import styled from "styled-components";
+import store from "../store/store";
 
 const Text = styled.div`
     position: absolute;
@@ -10,11 +11,20 @@ const Text = styled.div`
     text-transform: uppercase;
     color: ${(props) => props.theme.text};
     letter-spacing: 4px;
-    font-size: 18px;
+    width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
 `;
 
-function Monogram() {
-    return <Text>Reactclock</Text>;
+function Monogram({ position }) {
+    const getFontSize = () => {
+        const length = store.subDial[position].monogram.length || 1;
+        const size = 30 / length;
+        return size + 18;
+    };
+    return <Text style={{ fontSize: getFontSize() }}>{store.subDial[position].monogram}</Text>;
 }
 
 export default observer(Monogram);
