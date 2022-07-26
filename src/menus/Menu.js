@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Container, ContainerInner, MenuItem, OptionsBlock, TextInput } from "./Menu.styled";
+import { Container, ContainerInner, MenuItem } from "./Menu.styled";
+import OptionsBlock from "./OptionsBlock";
 
 export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected, menu }) {
     const [menuOffset, setMenuOffset] = useState(0);
@@ -16,66 +17,25 @@ export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected,
         <Container>
             <ContainerInner menuOffset={menuOffset}>
                 {menu.map(
-                    (m, i) =>
-                        m && (
-                            <div key={`menu-item-${i}`}>
+                    (menuItem, i) =>
+                        menuItem && (
+                            <div id={`menu-item-${i}`} key={`menu-item-${i}`}>
                                 <MenuItem
                                     onClick={() => {
-                                        onClick(m.id);
+                                        onClick(menuItem.id);
                                         setMenuOffset(i * -40);
                                     }}
-                                    active={activeItem === m.id}
+                                    active={activeItem === menuItem.id}
                                     secondaryMenu={secondaryMenu}
-                                    disabled={m.disabled}
+                                    disabled={menuItem.disabled}
                                 >
-                                    <div className="inner-text">{m.name}</div>
+                                    <div className="inner-text">{menuItem.name}</div>
                                 </MenuItem>
                                 {secondaryMenu && (
-                                    <OptionsBlock active={activeItem === m.id && m.options} key={`option-block-${i}`}>
-                                        {m.options &&
-                                            m.options.map((option, i) => (
-                                                <div key={i}>
-                                                    {option.type === "dropdown" && (
-                                                        <TextInput id={option.id}>
-                                                            <label
-                                                                id={`${option.id}-label`}
-                                                                htmlFor={`${option.id}-input`}
-                                                            >
-                                                                city
-                                                            </label>
-                                                            <select
-                                                                name=""
-                                                                id={`${option.id}-input`}
-                                                                onChange={(e) => option.onChange(e.target.value)}
-                                                                value={option.value}
-                                                            >
-                                                                {option.list.map((l, i) => (
-                                                                    <option key={i} value={l.id}>
-                                                                        {l.name}
-                                                                    </option>
-                                                                ))}
-                                                            </select>
-                                                        </TextInput>
-                                                    )}
-                                                    {option.type === "text" && (
-                                                        <TextInput id={option.id}>
-                                                            <label
-                                                                id={`${option.id}-label`}
-                                                                htmlFor={`${option.id}-input`}
-                                                            >
-                                                                text
-                                                            </label>
-                                                            <input
-                                                                value={option.value}
-                                                                onChange={(e) => option.onChange(e.target.value)}
-                                                                id={`${option.id}-input`}
-                                                                maxLength="20"
-                                                            />
-                                                        </TextInput>
-                                                    )}
-                                                </div>
-                                            ))}
-                                    </OptionsBlock>
+                                    <OptionsBlock
+                                        options={menuItem.options}
+                                        active={activeItem === menuItem.id && menuItem.options}
+                                    />
                                 )}
                             </div>
                         )

@@ -36,27 +36,3 @@ export const MenuItem = styled.div`
         background-color: ${(props) => (props.active ? "white" : transparentize(0.7, "white"))};
     }
 `;
-
-export const OptionsBlock = styled.div`
-    border-bottom: ${(props) => (props.active ? 1 : 0)}px solid grey;
-    overflow: hidden;
-    height: ${(props) => (props.active ? 100 : 0)}px;
-    opacity: ${(props) => (props.active ? 1 : 0)};
-    transition: 0.7s cubic-bezier(0, 0, 0, 1.01);
-`;
-
-export const TextInput = styled.div`
-    & label {
-        text-transform: uppercase;
-        font-size: 13px;
-        padding-right: 5px;
-    }
-    & select,
-    & input {
-        background-color: transparent;
-        border: 1px solid white;
-        color: white;
-        outline: none;
-        border-radius: 4px;
-    }
-`;
