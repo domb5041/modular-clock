@@ -24,20 +24,18 @@ export default observer(() => {
         { id: "temperature", name: "temperature" },
         { id: "sun-dial", name: "sunrise sunset" },
         { id: "seconds", name: "seconds" },
-        {
-            ...(pos === "topDial" && {
-                id: "monogram",
-                name: "monogram",
-                options: [
-                    {
-                        id: "monogram-text",
-                        type: "text",
-                        value: store.subDial[pos].monogram,
-                        label: "text",
-                        onChange: (text) => store.setSubDial(pos, "monogram", text)
-                    }
-                ]
-            })
+        pos === "topDial" && {
+            id: "monogram",
+            name: "monogram",
+            options: [
+                {
+                    id: "monogram-text",
+                    type: "text",
+                    value: store.subDial[pos].monogram,
+                    label: "text",
+                    onChange: (text) => store.setSubDial(pos, "monogram", text)
+                }
+            ]
         },
         { id: "none", name: "off" }
     ];
