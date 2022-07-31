@@ -17,30 +17,28 @@ export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected,
     return (
         <Container>
             <ContainerInner menuOffset={menuOffset}>
-                {menu.map(
-                    (menuItem, i) =>
-                        menuItem && (
-                            <div id={`menu-item-${i}`} key={`menu-item-${i}`}>
-                                <MenuItem
-                                    onClick={() => {
-                                        onClick(menuItem.id);
-                                        setMenuOffset(i * -40);
-                                    }}
-                                    active={activeItem === menuItem.id}
-                                    secondaryMenu={secondaryMenu}
-                                    disabled={menuItem.disabled}
-                                >
-                                    <div className="inner-text">{menuItem.name}</div>
-                                </MenuItem>
-                                {secondaryMenu && (
-                                    <OptionsBlock
-                                        options={menuItem.options}
-                                        active={activeItem === menuItem.id && menuItem.options}
-                                    />
-                                )}
-                            </div>
-                        )
-                )}
+                {menu.map((menuItem, i) => (
+                    <div id={`menu-item-${i}`} key={`menu-item-${i}`}>
+                        <MenuItem
+                            onClick={() => {
+                                onClick(menuItem.id);
+                                setMenuOffset(i * -40);
+                            }}
+                            active={activeItem === menuItem.id}
+                            secondaryMenu={secondaryMenu}
+                            disabled={menuItem.disabled}
+                        >
+                            <div className="inner-text">{menuItem.name}</div>
+                        </MenuItem>
+                        {secondaryMenu && (
+                            <OptionsBlock
+                                options={menuItem.options}
+                                active={activeItem === menuItem.id && menuItem.options}
+                                disabled={menuItem.disabled}
+                            />
+                        )}
+                    </div>
+                ))}
             </ContainerInner>
         </Container>
     );

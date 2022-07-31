@@ -24,11 +24,12 @@ export const MenuItem = styled.div`
     font-weight: bold;
     font-size: 18px;
     cursor: pointer;
+    pointer-events: ${(props) => (props.disabled ? "none" : "all")};
     & .inner-text {
         transition: 0.2s;
         padding: 0 4px;
         background-color: ${(props) => (props.active ? "white" : "transparent")};
-        color: ${(props) => (props.active ? "black" : "white")};
+        color: ${(props) => (props.disabled ? "silver" : props.active ? "black" : "white")};
         border-radius: 4px;
         display: inline-block;
     }

@@ -26,9 +26,10 @@ export default observer(() => {
         { id: "temperature", name: "temperature" },
         { id: "sun-dial", name: "sunrise sunset" },
         { id: "seconds", name: "seconds" },
-        pos === "topDial" && {
+        {
             id: "monogram",
             name: "monogram",
+            disabled: pos !== "topDial",
             options: [
                 {
                     id: "monogram-text",

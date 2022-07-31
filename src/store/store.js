@@ -1,17 +1,8 @@
 import { action, computed, makeObservable, observable } from "mobx";
 
 class Store {
-    clockStyle = "minimal";
-    clockColor = "nickel";
     activeClock = "clock-0";
     primaryMenu = "colour";
-
-    subDial = {
-        topDial: { currentlyVisible: "monogram", timezone: "US/Hawaii", monogram: "DB" },
-        leftDial: { currentlyVisible: "world-clock", timezone: "Europe/Paris" },
-        rightDial: { currentlyVisible: "world-clock", timezone: "Asia/Tokyo" },
-        bottomDial: { currentlyVisible: "sun-dial", timezone: "America/New_York" }
-    };
 
     clocks = [
         {
@@ -27,7 +18,7 @@ class Store {
         },
         {
             id: "clock-01",
-            clockStyle: "detailed",
+            clockStyle: "numbers",
             clockColor: "copper",
             subDial: {
                 topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "DB" },
@@ -43,13 +34,10 @@ class Store {
             clocks: observable,
             activeClock: observable,
             setActiveClock: action,
-            clockStyle: observable,
             setClockStyle: action,
-            clockColor: observable,
             setClockColor: action,
             primaryMenu: observable,
             setPrimaryMenu: action,
-            subDial: observable,
             setSubDial: action,
             mainTickData: computed,
             worldClockTickData: computed,

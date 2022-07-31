@@ -25,10 +25,11 @@ const TextInput = styled.div`
     }
 `;
 
-export default function OptionsBlock({ options, active }) {
+export default function OptionsBlock({ options, active, disabled }) {
     return (
         <Container active={active}>
             {options &&
+                !disabled &&
                 options.map((option, i) => (
                     <div key={i}>
                         {option.type === "dropdown" && (
