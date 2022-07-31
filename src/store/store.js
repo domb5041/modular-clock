@@ -26,6 +26,17 @@ class Store {
                 rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
                 bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
             }
+        },
+        {
+            id: "clock-02",
+            clockStyle: "minimal",
+            clockColor: "forest",
+            subDial: {
+                topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "DB" },
+                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris" },
+                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
+                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
+            }
         }
     ];
 
