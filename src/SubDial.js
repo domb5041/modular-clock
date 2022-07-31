@@ -58,7 +58,7 @@ const DialHighlight = styled(DialSlot)`
 `;
 
 function SubDial({ position }) {
-    const { currentlyVisible } = store.subDial[position];
+    const { currentlyVisible } = store.clocks[store.activeIndex].subDial[position];
     const isHidden = currentlyVisible === "none" || currentlyVisible === "monogram";
     const dialComplications = {
         "world-clock": <WorldClock position={position} />,
@@ -73,7 +73,7 @@ function SubDial({ position }) {
         <>
             <DialBackground isHidden={isHidden} position={position} />
             <DialHighlight primaryMenu={store.primaryMenu} position={position} />
-            <DialSlot position={position}>{dialComplications[store.subDial[position].currentlyVisible]}</DialSlot>
+            <DialSlot position={position}>{dialComplications[currentlyVisible]}</DialSlot>
         </>
     );
 }

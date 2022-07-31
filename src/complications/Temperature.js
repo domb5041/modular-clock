@@ -108,7 +108,10 @@ function Temperature() {
         <>
             {ticks.map((tick, i) => (
                 <Tick tick={tick} key={i}>
-                    <div className="tick-marker" style={{ backgroundColor: theme(store.clockColor).ticks }} />
+                    <div
+                        className="tick-marker"
+                        style={{ backgroundColor: theme(store.clocks[store.activeIndex].clockColor).ticks }}
+                    />
                 </Tick>
             ))}
             <MinTemp>L:{tempMinMax[0]}</MinTemp>

@@ -3,6 +3,7 @@ import { action, computed, makeObservable, observable } from "mobx";
 class Store {
     clockStyle = "minimal";
     clockColor = "nickel";
+    activeClock = "clock-0";
     primaryMenu = "colour";
 
     subDial = {
@@ -12,8 +13,36 @@ class Store {
         bottomDial: { currentlyVisible: "sun-dial", timezone: "America/New_York" }
     };
 
+    clocks = [
+        {
+            id: "clock-0",
+            clockStyle: "minimal",
+            clockColor: "nickel",
+            subDial: {
+                topDial: { currentlyVisible: "monogram", timezone: "US/Hawaii", monogram: "DB" },
+                leftDial: { currentlyVisible: "world-clock", timezone: "Europe/Paris" },
+                rightDial: { currentlyVisible: "world-clock", timezone: "Asia/Tokyo" },
+                bottomDial: { currentlyVisible: "sun-dial", timezone: "America/New_York" }
+            }
+        },
+        {
+            id: "clock-01",
+            clockStyle: "detailed",
+            clockColor: "copper",
+            subDial: {
+                topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "DB" },
+                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris" },
+                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
+                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
+            }
+        }
+    ];
+
     constructor() {
         makeObservable(this, {
+            clocks: observable,
+            activeClock: observable,
+            setActiveClock: action,
             clockStyle: observable,
             setClockStyle: action,
             clockColor: observable,
@@ -25,16 +54,25 @@ class Store {
             mainTickData: computed,
             worldClockTickData: computed,
             secondsTickData: computed,
-            sunDialTickData: computed
+            sunDialTickData: computed,
+            activeIndex: computed
         });
     }
 
-    setClockStyle(s) {
-        this.clockStyle = s;
+    setActiveClock(id) {
+        this.activeClock = id;
     }
 
-    setClockColor(c) {
-        this.clockColor = c;
+    setClockStyle(style) {
+        const newClocks = [...this.clocks];
+        newClocks[this.activeIndex].clockStyle = style;
+        this.clocks = newClocks;
+    }
+
+    setClockColor(color) {
+        const newClocks = [...this.clocks];
+        newClocks[this.activeIndex].clockColor = color;
+        this.clocks = newClocks;
     }
 
     setPrimaryMenu(m) {
@@ -42,28 +80,34 @@ class Store {
     }
 
     setSubDial(dial, attr, value) {
-        const newSubDial = { ...this.subDial };
-        newSubDial[dial][attr] = value;
-        this.subDial = newSubDial;
+        const newClocks = [...this.clocks];
+        newClocks[this.activeIndex].subDial[dial][attr] = value;
+        this.clocks = newClocks;
     }
 
     returnTickType(pos) {
-        const minimal = this.clockStyle === "minimal";
+        const { clockStyle, subDial } = this.clocks[this.activeIndex];
+        const minimal = clockStyle === "minimal";
         if (pos) {
-            const dialOff = this.subDial[pos].currentlyVisible === "none";
-            const monogram = this.subDial[pos].currentlyVisible === "monogram";
+            const dialOff = subDial[pos].currentlyVisible === "none";
+            const monogram = subDial[pos].currentlyVisible === "monogram";
             return (minimal && dialOff) || monogram ? "hrLong" : "hrShort";
         }
         return minimal ? "hr" : "hrShort";
     }
 
     returnNumberType(n, dialPosition) {
-        const minimal = this.clockStyle === "minimal";
+        const { clockStyle, subDial } = this.clocks[this.activeIndex];
+        const minimal = clockStyle === "minimal";
         let showNumber = true;
         if (dialPosition) {
-            showNumber = this.subDial[dialPosition].currentlyVisible === "none";
+            showNumber = subDial[dialPosition].currentlyVisible === "none";
         }
         return minimal || !showNumber ? null : n;
+    }
+
+    get activeIndex() {
+        return this.clocks.findIndex((clock) => clock.id === this.activeClock);
     }
 
     get mainTickData() {
@@ -132,8 +176,9 @@ class Store {
     }
 
     get worldClockTickData() {
-        const major = this.clockStyle === "minimal" ? "subLong" : "subShort";
-        const minor = this.clockStyle === "minimal" ? "sub" : "subShort";
+        const { clockStyle } = this.clocks[this.activeIndex];
+        const major = clockStyle === "minimal" ? "subLong" : "subShort";
+        const minor = clockStyle === "minimal" ? "sub" : "subShort";
         return [
             { deg: 0, type: major, number: this.returnNumberType("12") },
             { deg: 30, type: minor, number: this.returnNumberType("1") },
@@ -151,8 +196,9 @@ class Store {
     }
 
     get secondsTickData() {
+        const { clockStyle } = this.clocks[this.activeIndex];
         const major = "subShort";
-        const minor = this.clockStyle === "minimal" ? "sub" : "subShort";
+        const minor = clockStyle === "minimal" ? "sub" : "subShort";
         return [
             { deg: 0, type: major, number: "60" },
             { deg: 30, type: minor, number: this.returnNumberType("05") },

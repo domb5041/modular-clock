@@ -60,7 +60,7 @@ export const timezones = [
 
 function WorldClock({ position }) {
     const [time, setTime] = useState([0, 0, 0]);
-    const timezone = store.subDial[position].timezone;
+    const timezone = store.clocks[store.activeIndex].subDial[position].timezone;
 
     useEffect(() => {
         const timeInterval = setInterval(handleSetTime, 1000);
@@ -79,7 +79,10 @@ function WorldClock({ position }) {
             <City>{timezones.find((o) => o.id === timezone).name}</City>
             {store.worldClockTickData.map((tick, i) => (
                 <Tick tick={tick} key={i}>
-                    <div className="tick-marker" style={{ backgroundColor: theme(store.clockColor).ticks }} />
+                    <div
+                        className="tick-marker"
+                        style={{ backgroundColor: theme(store.clocks[store.activeIndex].clockColor).ticks }}
+                    />
                     {tick.number && <div className="tick-number">{tick.number}</div>}
                 </Tick>
             ))}

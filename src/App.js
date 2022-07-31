@@ -24,10 +24,32 @@ const MenuConnector = styled.div`
     margin: 0 20px;
 `;
 
+const ClockMenu = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+`;
+
+const ClockMenuItem = styled.div`
+    color: ${(props) => (props.active ? "white" : "silver")};
+`;
+
 function App() {
     return (
-        <ThemeProvider theme={theme(store.clockColor)}>
+        <ThemeProvider theme={theme(store.clocks[store.activeIndex].clockColor)}>
             <Container>
+                <ClockMenu>
+                    {store.clocks.map((c) => (
+                        <ClockMenuItem
+                            active={c.id === store.activeClock}
+                            key={c.id}
+                            onClick={() => store.setActiveClock(c.id)}
+                        >
+                            {c.id}
+                        </ClockMenuItem>
+                    ))}
+                </ClockMenu>
                 <PrimaryMenu />
                 <MenuConnector />
                 <MainDial />

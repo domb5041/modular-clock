@@ -6,6 +6,8 @@ import { timezones } from "../complications/WorldClock";
 import Menu from "./Menu";
 
 export default observer(() => {
+    const { clockStyle, clockColor, subDial } = store.clocks[store.activeIndex];
+
     const subDialMenu = (pos) => [
         {
             id: "world-clock",
@@ -14,7 +16,7 @@ export default observer(() => {
                 {
                     id: "timezone-selector",
                     type: "dropdown",
-                    value: store.subDial[pos].timezone,
+                    value: subDial[pos].timezone,
                     list: timezones,
                     label: "city",
                     onChange: (city) => store.setSubDial(pos, "timezone", city)
@@ -31,7 +33,7 @@ export default observer(() => {
                 {
                     id: "monogram-text",
                     type: "text",
-                    value: store.subDial[pos].monogram,
+                    value: subDial[pos].monogram,
                     label: "text",
                     onChange: (text) => store.setSubDial(pos, "monogram", text)
                 }
@@ -46,27 +48,35 @@ export default observer(() => {
     ];
 
     const secondaryMenus = {
-        style: { menu: styleMenu, onClick: (c) => store.setClockStyle(c), activeItem: store.clockStyle },
-        colour: { menu: swatches, onClick: (c) => store.setClockColor(c), activeItem: store.clockColor },
+        style: {
+            menu: styleMenu,
+            onClick: (c) => store.setClockStyle(c),
+            activeItem: clockStyle
+        },
+        colour: {
+            menu: swatches,
+            onClick: (c) => store.setClockColor(c),
+            activeItem: clockColor
+        },
         topDial: {
             menu: subDialMenu("topDial"),
             onClick: (dialId) => store.setSubDial("topDial", "currentlyVisible", dialId),
-            activeItem: store.subDial.topDial.currentlyVisible
+            activeItem: subDial.topDial.currentlyVisible
         },
         leftDial: {
             menu: subDialMenu("leftDial"),
             onClick: (dialId) => store.setSubDial("leftDial", "currentlyVisible", dialId),
-            activeItem: store.subDial.leftDial.currentlyVisible
+            activeItem: subDial.leftDial.currentlyVisible
         },
         rightDial: {
             menu: subDialMenu("rightDial"),
             onClick: (dialId) => store.setSubDial("rightDial", "currentlyVisible", dialId),
-            activeItem: store.subDial.rightDial.currentlyVisible
+            activeItem: subDial.rightDial.currentlyVisible
         },
         bottomDial: {
             menu: subDialMenu("bottomDial"),
             onClick: (dialId) => store.setSubDial("bottomDial", "currentlyVisible", dialId),
-            activeItem: store.subDial.bottomDial.currentlyVisible
+            activeItem: subDial.bottomDial.currentlyVisible
         }
     };
 

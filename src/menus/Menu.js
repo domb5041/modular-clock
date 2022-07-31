@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, ContainerInner, MenuItem } from "./Menu.styled";
 import OptionsBlock from "./OptionsBlock";
+import store from "../store/store";
 
 export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected, menu }) {
     const [menuOffset, setMenuOffset] = useState(0);
@@ -11,7 +12,7 @@ export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected,
         });
 
         setMenuOffset(i * -40);
-    }, [menuSelected]);
+    }, [menuSelected, store.activeClock]);
 
     return (
         <Container>

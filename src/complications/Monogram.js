@@ -19,12 +19,13 @@ const Text = styled.div`
 `;
 
 function Monogram({ position }) {
+    const { monogram } = store.clocks[store.activeIndex].subDial[position];
     const getFontSize = () => {
-        const length = store.subDial[position].monogram.length || 1;
+        const length = monogram.length || 1;
         const size = 30 / length;
         return size + 18;
     };
-    return <Text style={{ fontSize: getFontSize() }}>{store.subDial[position].monogram}</Text>;
+    return <Text style={{ fontSize: getFontSize() }}>{monogram}</Text>;
 }
 
 export default observer(Monogram);

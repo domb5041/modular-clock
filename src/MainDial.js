@@ -38,10 +38,10 @@ function MainDial() {
     };
 
     const noSubDialWithSeconds =
-        store.subDial.topDial.currentlyVisible !== "seconds" &&
-        store.subDial.leftDial.currentlyVisible !== "seconds" &&
-        store.subDial.rightDial.currentlyVisible !== "seconds" &&
-        store.subDial.bottomDial.currentlyVisible !== "seconds";
+        store.clocks[store.activeIndex].subDial.topDial.currentlyVisible !== "seconds" &&
+        store.clocks[store.activeIndex].subDial.leftDial.currentlyVisible !== "seconds" &&
+        store.clocks[store.activeIndex].subDial.rightDial.currentlyVisible !== "seconds" &&
+        store.clocks[store.activeIndex].subDial.bottomDial.currentlyVisible !== "seconds";
 
     const focusingOnSubDial =
         store.primaryMenu === "topDial" ||
@@ -54,7 +54,10 @@ function MainDial() {
             <div className="main-dial-shade">
                 {store.mainTickData.map((tick, i) => (
                     <Tick tick={tick} key={i}>
-                        <div className="tick-marker" style={{ backgroundColor: theme(store.clockColor).ticks }} />
+                        <div
+                            className="tick-marker"
+                            style={{ backgroundColor: theme(store.clocks[store.activeIndex].clockColor).ticks }}
+                        />
                         {tick.number && <div className="tick-number">{tick.number}</div>}
                     </Tick>
                 ))}
