@@ -10,32 +10,32 @@ import { colorTransition } from "./theme";
 import Monogram from "./complications/Monogram";
 
 const DialSlot = styled.div`
-    width: 180px;
-    height: 180px;
+    width: 36%;
+    height: 36%;
     position: absolute;
     border-radius: 100%;
     ${(props) =>
         (props.position === "topDial" &&
             css`
-                top: 105px;
+                top: 21.5%;
                 left: 50%;
                 transform: translate(-50%, -50%);
             `) ||
         (props.position === "leftDial" &&
             css`
-                left: 105px;
+                left: 21.5%;
                 top: 50%;
                 transform: translate(-50%, -50%);
             `) ||
         (props.position === "rightDial" &&
             css`
-                right: 105px;
+                right: 21.5%;
                 top: 50%;
                 transform: translate(50%, -50%);
             `) ||
         (props.position === "bottomDial" &&
             css`
-                bottom: 105px;
+                bottom: 21.5%;
                 left: 50%;
                 transform: translate(-50%, 50%);
             `)};
@@ -50,8 +50,8 @@ const DialBackground = styled(DialSlot)`
 
 const DialHighlight = styled(DialSlot)`
     border: 4px solid white;
-    width: 192px;
-    height: 192px;
+    width: 40%;
+    height: 40%;
     transition: opacity 0.2s;
     opacity: ${(props) => (props.primaryMenu === props.position ? 1 : 0)};
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);

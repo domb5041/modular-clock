@@ -12,6 +12,11 @@ import styled from "styled-components";
 const Container = styled.div`
     width: 500px;
     height: 500px;
+    box-sizing: border-box;
+    @media (max-width: 500px) {
+        width: 100vw;
+        height: 100vw;
+    }
     border-radius: 100%;
     border: 4px solid ${(props) => props.theme.base};
     position: relative;

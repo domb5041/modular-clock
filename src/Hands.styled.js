@@ -15,37 +15,37 @@ export const Hand = styled.div`
 `;
 
 export const HourHand = styled(Hand)`
-    width: 15px;
-    height: 160px;
+    width: 2.5%;
+    height: 35%;
     opacity: ${(props) => (props.focusingOnSubDial ? 0 : 1)};
 `;
 
 export const MinuteHand = styled(Hand)`
-    width: 10px;
-    height: 230px;
+    width: 2.3%;
+    height: 46%;
     opacity: ${(props) => (props.focusingOnSubDial ? 0 : 1)};
 `;
 
 export const SecondHand = styled(Hand)`
-    width: 5px;
-    height: 230px;
+    width: 1.3%;
+    height: 46%;
     background-color: ${(props) => props.theme.secondHand};
     opacity: ${(props) => (props.focusingOnSubDial ? 0 : 1)};
 `;
 
 export const SubHourHand = styled(Hand)`
-    width: 8px;
-    height: 50px;
+    width: 3.7%;
+    height: 35%;
 `;
 
 export const SubMinuteHand = styled(Hand)`
-    width: 6px;
-    height: 80px;
+    width: 3.6%;
+    height: 46%;
 `;
 
 export const SubSecondHand = styled(Hand)`
-    width: 5px;
-    height: 80px;
+    width: 3%;
+    height: 46%;
     background-color: ${(props) => props.theme.secondHand};
 `;
 
@@ -54,14 +54,14 @@ export const HandsCap = styled.div`
     background-color: white;
     top: 50%;
     left: 50%;
-    width: 20px;
-    height: 20px;
+    width: 4.2%;
+    height: 4.2%;
     transform: translate(-50%, -50%);
     border-radius: 100%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 `;
 
 export const SubHandsCap = styled(HandsCap)`
-    width: 13px;
-    height: 13px;
+    width: 6%;
+    height: 6%;
 `;

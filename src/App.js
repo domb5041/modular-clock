@@ -32,6 +32,9 @@ const MenuConnector = styled.div`
     width: 50px;
     margin: 0 20px;
     flex-shrink: 0;
+    @media (max-width: 1000px) {
+        display: none;
+    }
 `;
 
 function App() {

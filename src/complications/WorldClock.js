@@ -11,10 +11,13 @@ const City = styled.div`
     color: ${(props) => props.theme.text};
     text-transform: uppercase;
     position: absolute;
-    bottom: 55px;
+    bottom: 30%;
     width: 100%;
     text-align: center;
     font-size: 12px;
+    @media (max-width: 500px) {
+        font-size: 2.4vw;
+    }
     letter-spacing: 2px;
     text-shadow: 0 0 5px rgba(0, 0, 0.7);
 `;
@@ -23,10 +26,13 @@ const AmPm = styled.div`
     color: ${(props) => props.theme.text};
     text-transform: uppercase;
     position: absolute;
-    top: ${(props) => (props.subDial ? 55 : 90)}px;
+    top: 30%;
     width: 100%;
     text-align: center;
-    font-size: ${(props) => (props.subDial ? 12 : 20)}px;
+    font-size: 12px;
+    @media (max-width: 500px) {
+        font-size: 2.4vw;
+    }
     letter-spacing: 2px;
     text-shadow: 0 0 5px rgba(0, 0, 0.7);
 `;

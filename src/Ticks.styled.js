@@ -2,13 +2,13 @@ import styled from "styled-components";
 import { colorTransition } from "./theme";
 
 const tickDimensions = {
-    hrLong: { width: "10px", height: "30%" },
-    hrShort: { width: "10px", height: "4%", fontSize: "22px", numberDistance: "18px" },
-    hr: { width: "7px", height: "15%" },
-    min: { width: "4px", height: "4%" },
-    sub: { width: "5px", height: "15%", fontSize: "14px" },
-    subLong: { width: "5px", height: "30%" },
-    subShort: { width: "4px", height: "10%", fontSize: "14px", numberDistance: "14px" }
+    hrLong: { width: "1.9%", height: "30%" },
+    hrShort: { width: "1.9%", height: "4%", fontSize: "22px", numberDistance: "18px" },
+    hr: { width: "1.3%", height: "15%" },
+    min: { width: "0.8%", height: "4%" },
+    sub: { width: "2.5%", height: "15%", fontSize: "14px" },
+    subLong: { width: "2.5%", height: "30%" },
+    subShort: { width: "2%", height: "10%", fontSize: "14px", numberDistance: "14px" }
 };
 
 export const Tick = styled.div`
