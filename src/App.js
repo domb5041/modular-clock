@@ -9,7 +9,7 @@ import store from "./store/store";
 import ClocksRow from "./ClocksRow";
 
 const Page = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -17,6 +17,7 @@ const Page = styled.div`
     display: flex;
     flex-direction: column;
     padding: 50px;
+    overflow: hidden;
 `;
 
 const ActiveClock = styled.div`
@@ -30,6 +31,7 @@ const MenuConnector = styled.div`
     border-bottom: 1px solid white;
     width: 50px;
     margin: 0 20px;
+    flex-shrink: 0;
 `;
 
 function App() {

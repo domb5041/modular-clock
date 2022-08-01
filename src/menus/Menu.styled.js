@@ -5,6 +5,7 @@ export const Container = styled.div`
     position: relative;
     height: 100%;
     width: 200px;
+    flex-shrink: 0;
 `;
 
 export const ContainerInner = styled.div`

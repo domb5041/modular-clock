@@ -21,6 +21,7 @@ const SelectRing = styled.div`
     border-radius: 100%;
     margin: 0 10px;
     transition: 0.2s;
+    flex-shrink: 0;
 `;
 
 const ClockIcon = styled.div`
