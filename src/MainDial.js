@@ -18,7 +18,7 @@ const Container = styled.div`
         height: 100vw;
     }
     border-radius: 100%;
-    border: 4px solid ${(props) => props.theme.base};
+    border: 0.4rem solid ${(props) => props.theme.base};
     position: relative;
     background-color: ${(props) => props.theme.dialInner};
     transition: background-color ${colorTransition}, border ${colorTransition}, box-shadow ${colorTransition};

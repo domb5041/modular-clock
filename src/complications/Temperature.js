@@ -11,37 +11,37 @@ export const City = styled.div`
     color: ${(props) => props.theme.text};
     text-transform: uppercase;
     position: absolute;
-    bottom: 52px;
+    bottom: 5.2rem;
     width: 100%;
     text-align: center;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-shadow: 0 0 5px rgba(0, 0, 0.7);
+    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+    text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
 `;
 
 const CurrentTemp = styled.div`
     position: absolute;
-    bottom: 24px;
+    bottom: 2.4rem;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 18px;
-    text-shadow: 0 0 5px rgba(0, 0, 0.7);
+    font-size: 1.8rem;
+    text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
     color: ${(props) => props.theme.text};
 `;
 
 const MinTemp = styled.div`
     position: absolute;
     top: 50%;
-    left: 22px;
+    left: 2.2rem;
     transform: translateY(-50%);
-    font-size: 14px;
-    text-shadow: 0 0 5px rgba(0, 0, 0.7);
+    font-size: 1.4rem;
+    text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
     color: ${(props) => props.theme.text};
 `;
 
 const MaxTemp = styled(MinTemp)`
     left: auto;
-    right: 22px;
+    right: 2.2rem;
 `;
 
 export const ticks = [

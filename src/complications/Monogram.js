@@ -10,8 +10,8 @@ const Text = styled.div`
     transform: translate(-50%, -50%);
     text-transform: uppercase;
     color: ${(props) => props.theme.text};
-    letter-spacing: 4px;
-    width: 180px;
+    letter-spacing: 0.4rem;
+    width: 18rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -22,8 +22,8 @@ function Monogram({ position }) {
     const { monogram } = store.clocks[store.activeIndex].subDial[position];
     const getFontSize = () => {
         const length = monogram.length || 1;
-        const size = 30 / length;
-        return size + 18;
+        const size = 3 / length;
+        return size + 1.8 + "rem";
     };
     return <Text style={{ fontSize: getFontSize() }}>{monogram}</Text>;
 }

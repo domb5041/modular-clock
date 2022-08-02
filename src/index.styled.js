@@ -4,6 +4,10 @@ export const GlobalStyles = createGlobalStyle`
 html {
     background-color: black;
     color: white;
+    font-size: 10px;
+    @media (max-width: 500px) {
+        font-size: 2vw;
+    }
 }
 
 body {

@@ -11,30 +11,24 @@ const City = styled.div`
     color: ${(props) => props.theme.text};
     text-transform: uppercase;
     position: absolute;
-    bottom: 30%;
+    bottom: 5.5rem;
     width: 100%;
     text-align: center;
-    font-size: 12px;
-    @media (max-width: 500px) {
-        font-size: 2.4vw;
-    }
+    font-size: 1.2rem;
     letter-spacing: 2px;
-    text-shadow: 0 0 5px rgba(0, 0, 0.7);
+    text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
 `;
 
 const AmPm = styled.div`
     color: ${(props) => props.theme.text};
     text-transform: uppercase;
     position: absolute;
-    top: 30%;
+    top: 5.5rem;
     width: 100%;
     text-align: center;
-    font-size: 12px;
-    @media (max-width: 500px) {
-        font-size: 2.4vw;
-    }
-    letter-spacing: 2px;
-    text-shadow: 0 0 5px rgba(0, 0, 0.7);
+    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+    text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
 `;
 
 export const timezones = [

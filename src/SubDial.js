@@ -10,51 +10,52 @@ import { colorTransition } from "./theme";
 import Monogram from "./complications/Monogram";
 
 const DialSlot = styled.div`
-    width: 36%;
-    height: 36%;
+    width: 18rem;
+    height: 18rem;
+    box-sizing: border-box;
     position: absolute;
     border-radius: 100%;
     ${(props) =>
         (props.position === "topDial" &&
             css`
-                top: 21.5%;
+                top: 10.5rem;
                 left: 50%;
                 transform: translate(-50%, -50%);
             `) ||
         (props.position === "leftDial" &&
             css`
-                left: 21.5%;
+                left: 10.5rem;
                 top: 50%;
                 transform: translate(-50%, -50%);
             `) ||
         (props.position === "rightDial" &&
             css`
-                right: 21.5%;
+                right: 10.5rem;
                 top: 50%;
                 transform: translate(50%, -50%);
             `) ||
         (props.position === "bottomDial" &&
             css`
-                bottom: 21.5%;
+                bottom: 10.5rem;
                 left: 50%;
                 transform: translate(-50%, 50%);
             `)};
 `;
 
 const DialBackground = styled(DialSlot)`
-    border: 2px solid ${(props) => props.theme.base};
+    border: 0.2rem solid ${(props) => props.theme.base};
     background-color: ${(props) => props.theme.subDial};
     transition: background-color ${colorTransition}, border ${colorTransition}, opacity 0.2s;
     opacity: ${(props) => (props.isHidden ? 0 : 1)};
 `;
 
 const DialHighlight = styled(DialSlot)`
-    border: 4px solid white;
-    width: 40%;
-    height: 40%;
+    border: 0.3rem solid white;
+    width: 19.5rem;
+    height: 19.5rem;
     transition: opacity 0.2s;
     opacity: ${(props) => (props.primaryMenu === props.position ? 1 : 0)};
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.5);
 `;
 
 function SubDial({ position }) {
