@@ -7,6 +7,7 @@ import PrimaryMenu from "./menus/PrimaryMenu";
 import { observer } from "mobx-react";
 import store from "./store/store";
 import ClocksRow from "./ClocksRow";
+import { transparentize } from "polished";
 
 const Page = styled.div`
     position: fixed;
@@ -17,6 +18,10 @@ const Page = styled.div`
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    @media (max-width: 1000px), (max-height: 800px) {
+        display: block;
+        position: relative;
+    }
 `;
 
 const ActiveClock = styled.div`
@@ -24,6 +29,7 @@ const ActiveClock = styled.div`
     justify-content: center;
     align-items: center;
     flex: 1;
+    overflow: hidden;
 `;
 
 const MenuConnector = styled.div`
@@ -31,8 +37,35 @@ const MenuConnector = styled.div`
     width: 50px;
     margin: 0 20px;
     flex-shrink: 0;
-    @media (max-width: 1000px) {
+    @media (max-width: 1000px), (max-height: 800px) {
         display: none;
+    }
+`;
+
+const MainDialContainer = styled.div`
+    position: relative;
+`;
+
+const NextPreviousButtons = styled.div`
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    right: 5px;
+    justify-content: space-between;
+    display: none;
+    @media (max-width: 1000px), (max-height: 800px) {
+        display: flex;
+    }
+    & > button {
+        background-color: ${transparentize(0.8, "white")};
+        border: none;
+        color: white;
+        border-radius: 5px;
+        font-size: 25px;
+        padding: 5px 12px;
+        &:disabled {
+            color: grey;
+        }
     }
 `;
 
@@ -43,7 +76,29 @@ function App() {
                 <ActiveClock>
                     <PrimaryMenu />
                     <MenuConnector />
-                    <MainDial />
+                    <MainDialContainer>
+                        <MainDial />
+                        <NextPreviousButtons>
+                            <button
+                                disabled={store.activeIndex < 1}
+                                onClick={() => {
+                                    const newId = store.clocks[store.activeIndex - 1].id;
+                                    store.setActiveClock(newId);
+                                }}
+                            >
+                                ◀︎
+                            </button>
+                            <button
+                                disabled={store.activeIndex >= store.clocks.length - 1}
+                                onClick={() => {
+                                    const newId = store.clocks[store.activeIndex + 1].id;
+                                    store.setActiveClock(newId);
+                                }}
+                            >
+                                ▶︎
+                            </button>
+                        </NextPreviousButtons>
+                    </MainDialContainer>
                     <MenuConnector />
                     <SecondaryMenu />
                 </ActiveClock>

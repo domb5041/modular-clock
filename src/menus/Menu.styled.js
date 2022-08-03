@@ -6,7 +6,7 @@ export const Container = styled.div`
     height: 100%;
     width: 200px;
     flex-shrink: 0;
-    @media (max-width: 1000px) {
+    @media (max-width: 1000px), (max-height: 800px) {
         display: none;
     }
 `;

@@ -10,7 +10,9 @@ const Clocks = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px;
+    @media (max-width: 1000px), (max-height: 800px) {
+        display: none;
+    }
 `;
 
 const SelectRing = styled.div`
