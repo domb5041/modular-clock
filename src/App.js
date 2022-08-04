@@ -8,6 +8,8 @@ import { observer } from "mobx-react";
 import store from "./store/store";
 import ClocksRow from "./ClocksRow";
 import ClockNavMobile from "./ClockNavMobile";
+import PrimaryMenuMobile from "./menus/PrimaryMenuMobile";
+import { useMediaQuery } from "react-responsive";
 
 const Page = styled.div`
     position: fixed;
@@ -32,29 +34,18 @@ const ActiveClock = styled.div`
     overflow: hidden;
 `;
 
-const MenuConnector = styled.div`
-    border-bottom: 1px solid white;
-    width: 50px;
-    margin: 0 20px;
-    flex-shrink: 0;
-    @media (max-width: 1000px), (max-height: 800px) {
-        display: none;
-    }
-`;
-
 function App() {
+    const isMobile = useMediaQuery({ query: "(max-width: 1000px), (max-height: 800px)" });
     return (
         <ThemeProvider theme={theme(store.clocks[store.activeIndex].clockColor)}>
             <Page>
-                <ClockNavMobile />
-                <ClocksRow />
+                {isMobile ? <ClockNavMobile /> : <ClocksRow />}
                 <ActiveClock>
-                    <PrimaryMenu />
-                    <MenuConnector />
+                    {!isMobile && <PrimaryMenu />}
                     <MainDial />
-                    <MenuConnector />
-                    <SecondaryMenu />
+                    {!isMobile && <SecondaryMenu />}
                 </ActiveClock>
+                {isMobile && <PrimaryMenuMobile />}
             </Page>
         </ThemeProvider>
     );

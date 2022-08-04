@@ -6,11 +6,8 @@ import { transparentize } from "polished";
 const Container = styled.div`
     justify-content: space-between;
     align-items: center;
-    display: none;
     padding: 5px;
-    @media (max-width: 1000px), (max-height: 800px) {
-        display: flex;
-    }
+    display: flex;
     & > label {
         font-size: 16px;
     }

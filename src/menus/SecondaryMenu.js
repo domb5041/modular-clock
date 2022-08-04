@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import store from "../store/store";
 import { timezones } from "../complications/WorldClock";
 import Menu from "./Menu";
+import { MenuConnector } from "./Menu.styled";
 
 export default observer(() => {
     const { clockStyle, clockColor, subDial } = store.clocks[store.activeIndex];
@@ -82,12 +83,15 @@ export default observer(() => {
     };
 
     return (
-        <Menu
-            menu={secondaryMenus[store.primaryMenu].menu}
-            onClick={secondaryMenus[store.primaryMenu].onClick}
-            secondaryMenu
-            activeItem={secondaryMenus[store.primaryMenu].activeItem}
-            menuSelected={store.primaryMenu}
-        />
+        <>
+            <MenuConnector />
+            <Menu
+                menu={secondaryMenus[store.primaryMenu].menu}
+                onClick={secondaryMenus[store.primaryMenu].onClick}
+                secondaryMenu
+                activeItem={secondaryMenus[store.primaryMenu].activeItem}
+                menuSelected={store.primaryMenu}
+            />
+        </>
     );
 });

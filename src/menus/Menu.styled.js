@@ -6,9 +6,6 @@ export const Container = styled.div`
     height: 100%;
     width: 200px;
     flex-shrink: 0;
-    @media (max-width: 1000px), (max-height: 800px) {
-        display: none;
-    }
 `;
 
 export const ContainerInner = styled.div`
@@ -40,4 +37,11 @@ export const MenuItem = styled.div`
     &:hover .inner-text {
         background-color: ${(props) => (props.active ? "white" : transparentize(0.7, "white"))};
     }
+`;
+
+export const MenuConnector = styled.div`
+    border-bottom: 1px solid white;
+    width: 50px;
+    margin: 0 20px;
+    flex-shrink: 0;
 `;
