@@ -25,9 +25,9 @@ const TextInput = styled.div`
     }
 `;
 
-export default function OptionsBlock({ options, active, disabled }) {
+export default function OptionsBlock({ options, active, disabled, style, className }) {
     return (
-        <Container active={active}>
+        <Container active={active} style={style} className={className}>
             {options &&
                 !disabled &&
                 options.map((option, i) => (
