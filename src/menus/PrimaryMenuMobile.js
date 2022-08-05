@@ -3,11 +3,14 @@ import { observer } from "mobx-react";
 import store from "../store/store";
 import { primaryMenuOptions } from "./PrimaryMenu";
 import styled from "styled-components";
+import { transparentize } from "polished";
 
 const Container = styled.div`
     display: flex;
-    padding: 15px 10px;
+    padding: 15px 10px 10px 10px;
     overflow-x: auto;
+    border-bottom: 1px solid ${transparentize(0.8, "white")};
+    margin-bottom: 10px;
 `;
 
 const MenuItem = styled.div`

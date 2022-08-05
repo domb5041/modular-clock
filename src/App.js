@@ -9,6 +9,7 @@ import store from "./store/store";
 import ClocksRow from "./ClocksRow";
 import ClockNavMobile from "./ClockNavMobile";
 import PrimaryMenuMobile from "./menus/PrimaryMenuMobile";
+import SecondaryMenuMobile from "./menus/SecondaryMenuMobile";
 import { useMediaQuery } from "react-responsive";
 
 const Page = styled.div`
@@ -46,6 +47,7 @@ function App() {
                     {!isMobile && <SecondaryMenu />}
                 </ActiveClock>
                 {isMobile && <PrimaryMenuMobile />}
+                {isMobile && <SecondaryMenuMobile />}
             </Page>
         </ThemeProvider>
     );

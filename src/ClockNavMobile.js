@@ -8,16 +8,23 @@ const Container = styled.div`
     align-items: center;
     padding: 5px;
     display: flex;
+    max-width: 500px;
+    margin: 0 auto;
     & > label {
         font-size: 16px;
+        letter-spacing: 3px;
     }
     & > button {
         background-color: ${transparentize(0.8, "white")};
         border: none;
         color: white;
         border-radius: 5px;
-        font-size: 25px;
-        padding: 5px 12px;
+        font-size: 22px;
+        width: 40px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         &:disabled {
             color: grey;
         }

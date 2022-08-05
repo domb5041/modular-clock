@@ -1,4 +1,6 @@
 import { action, computed, makeObservable, observable } from "mobx";
+import { swatches } from "../theme";
+import { timezones } from "../complications/WorldClock";
 
 class Store {
     activeClock = "clock-0";
@@ -10,7 +12,7 @@ class Store {
             clockStyle: "minimal",
             clockColor: "nickel",
             subDial: {
-                topDial: { currentlyVisible: "monogram", timezone: "US/Hawaii", monogram: "DB" },
+                topDial: { currentlyVisible: "monogram", timezone: "US/Hawaii", monogram: "react" },
                 leftDial: { currentlyVisible: "world-clock", timezone: "Europe/Paris" },
                 rightDial: { currentlyVisible: "world-clock", timezone: "Asia/Tokyo" },
                 bottomDial: { currentlyVisible: "sun-dial", timezone: "America/New_York" }
@@ -21,7 +23,7 @@ class Store {
             clockStyle: "numbers",
             clockColor: "copper",
             subDial: {
-                topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "DB" },
+                topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "react" },
                 leftDial: { currentlyVisible: "none", timezone: "Europe/Paris" },
                 rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
                 bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
@@ -32,7 +34,18 @@ class Store {
             clockStyle: "minimal",
             clockColor: "forest",
             subDial: {
-                topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "DB" },
+                topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "react" },
+                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris" },
+                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
+                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
+            }
+        },
+        {
+            id: "clock-03",
+            clockStyle: "minimal",
+            clockColor: "storm",
+            subDial: {
+                topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "react" },
                 leftDial: { currentlyVisible: "none", timezone: "Europe/Paris" },
                 rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
                 bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
@@ -54,7 +67,8 @@ class Store {
             worldClockTickData: computed,
             secondsTickData: computed,
             sunDialTickData: computed,
-            activeIndex: computed
+            activeIndex: computed,
+            secondaryMenus: computed
         });
     }
 
@@ -243,6 +257,84 @@ class Store {
             { deg: 330, type: minor, number: this.returnNumberType("10") },
             { deg: 345, type: minor }
         ];
+    }
+
+    subDialMenu(pos) {
+        const { subDial } = this.clocks[this.activeIndex];
+        return [
+            {
+                id: "world-clock",
+                name: "world clock",
+                options: [
+                    {
+                        id: "timezone-selector",
+                        type: "dropdown",
+                        value: subDial[pos].timezone,
+                        list: timezones,
+                        label: "city",
+                        onChange: (city) => this.setSubDial(pos, "timezone", city)
+                    }
+                ]
+            },
+            { id: "temperature", name: "temperature" },
+            { id: "sun-dial", name: "sunrise sunset" },
+            { id: "seconds", name: "seconds" },
+            {
+                id: "monogram",
+                name: "monogram",
+                disabled: pos !== "topDial",
+                options: [
+                    {
+                        id: "monogram-text",
+                        type: "text",
+                        value: subDial[pos].monogram,
+                        label: "text",
+                        onChange: (text) => this.setSubDial(pos, "monogram", text)
+                    }
+                ]
+            },
+            { id: "none", name: "off" }
+        ];
+    }
+
+    get secondaryMenus() {
+        const { clockStyle, clockColor, subDial } = this.clocks[this.activeIndex];
+        const styleMenu = [
+            { id: "minimal", name: "minimal" },
+            { id: "numbers", name: "detailed" }
+        ];
+        return {
+            style: {
+                menu: styleMenu,
+                onClick: (c) => this.setClockStyle(c),
+                activeItem: clockStyle
+            },
+            colour: {
+                menu: swatches,
+                onClick: (c) => this.setClockColor(c),
+                activeItem: clockColor
+            },
+            topDial: {
+                menu: this.subDialMenu("topDial"),
+                onClick: (dialId) => this.setSubDial("topDial", "currentlyVisible", dialId),
+                activeItem: subDial.topDial.currentlyVisible
+            },
+            leftDial: {
+                menu: this.subDialMenu("leftDial"),
+                onClick: (dialId) => this.setSubDial("leftDial", "currentlyVisible", dialId),
+                activeItem: subDial.leftDial.currentlyVisible
+            },
+            rightDial: {
+                menu: this.subDialMenu("rightDial"),
+                onClick: (dialId) => this.setSubDial("rightDial", "currentlyVisible", dialId),
+                activeItem: subDial.rightDial.currentlyVisible
+            },
+            bottomDial: {
+                menu: this.subDialMenu("bottomDial"),
+                onClick: (dialId) => this.setSubDial("bottomDial", "currentlyVisible", dialId),
+                activeItem: subDial.bottomDial.currentlyVisible
+            }
+        };
     }
 }
 
