@@ -34,8 +34,7 @@ export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected,
                         {secondaryMenu && (
                             <OptionsBlock
                                 options={menuItem.options}
-                                active={activeItem === menuItem.id && menuItem.options}
-                                disabled={menuItem.disabled}
+                                active={activeItem === menuItem.id && "options" in menuItem && !menuItem.disabled}
                             />
                         )}
                     </div>

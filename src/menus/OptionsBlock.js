@@ -1,12 +1,36 @@
 import React from "react";
 import styled from "styled-components";
+import { CSSTransition } from "react-transition-group";
 
 const Container = styled.div`
-    border-bottom: ${(props) => (props.active ? 1 : 0)}px solid grey;
+    border-bottom: 1px solid grey;
     overflow: hidden;
-    height: ${(props) => (props.active ? 100 : 0)}px;
-    opacity: ${(props) => (props.active ? 1 : 0)};
-    transition: 0.7s cubic-bezier(0, 0, 0, 1.01);
+    height: 100px;
+    opacity: 1;
+    padding: ${(props) => (props.mobileVersion ? "10px" : 0)};
+    box-sizing: border-box;
+    &.block-enter {
+        opacity: 0;
+        height: 0;
+        padding: ${(props) => (props.mobileVersion ? "0 10px" : 0)};
+    }
+    &.block-enter-active {
+        opacity: 1;
+        height: 100px;
+        padding: ${(props) => (props.mobileVersion ? "10px" : 0)};
+        transition: ${(props) => (props.mobileVersion ? "0.2s" : "0.7s cubic-bezier(0, 0, 0, 1.01)")};
+    }
+    &.block-exit {
+        opacity: 1;
+        height: 100px;
+        padding: ${(props) => (props.mobileVersion ? "10px" : 0)};
+    }
+    &.block-exit-active {
+        opacity: 0;
+        height: 0;
+        padding: ${(props) => (props.mobileVersion ? "0 10px" : 0)};
+        transition: ${(props) => (props.mobileVersion ? "0.2s" : "0.7s cubic-bezier(0, 0, 0, 1.01)")};
+    }
 `;
 
 const TextInput = styled.div`
@@ -25,47 +49,48 @@ const TextInput = styled.div`
     }
 `;
 
-export default function OptionsBlock({ options, active, disabled, style, className }) {
+export default function OptionsBlock({ options, active, mobileVersion }) {
     return (
-        <Container active={active} style={style} className={className}>
-            {options &&
-                !disabled &&
-                options.map((option, i) => (
-                    <div key={i}>
-                        {option.type === "dropdown" && (
-                            <TextInput id={option.id}>
-                                <label id={`${option.id}-label`} htmlFor={`${option.id}-input`}>
-                                    city
-                                </label>
-                                <select
-                                    name=""
-                                    id={`${option.id}-input`}
-                                    onChange={(e) => option.onChange(e.target.value)}
-                                    value={option.value}
-                                >
-                                    {option.list.map((l, i) => (
-                                        <option key={i} value={l.id}>
-                                            {l.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </TextInput>
-                        )}
-                        {option.type === "text" && (
-                            <TextInput id={option.id}>
-                                <label id={`${option.id}-label`} htmlFor={`${option.id}-input`}>
-                                    text
-                                </label>
-                                <input
-                                    value={option.value}
-                                    onChange={(e) => option.onChange(e.target.value)}
-                                    id={`${option.id}-input`}
-                                    maxLength="20"
-                                />
-                            </TextInput>
-                        )}
-                    </div>
-                ))}
-        </Container>
+        <CSSTransition in={active} unmountOnExit timeout={700} classNames="block">
+            <Container className="block" mobileVersion={mobileVersion}>
+                {options &&
+                    options.map((option, i) => (
+                        <div key={i}>
+                            {option.type === "dropdown" && (
+                                <TextInput id={option.id}>
+                                    <label id={`${option.id}-label`} htmlFor={`${option.id}-input`}>
+                                        city
+                                    </label>
+                                    <select
+                                        name=""
+                                        id={`${option.id}-input`}
+                                        onChange={(e) => option.onChange(e.target.value)}
+                                        value={option.value}
+                                    >
+                                        {option.list.map((l, i) => (
+                                            <option key={i} value={l.id}>
+                                                {l.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </TextInput>
+                            )}
+                            {option.type === "text" && (
+                                <TextInput id={option.id}>
+                                    <label id={`${option.id}-label`} htmlFor={`${option.id}-input`}>
+                                        text
+                                    </label>
+                                    <input
+                                        value={option.value}
+                                        onChange={(e) => option.onChange(e.target.value)}
+                                        id={`${option.id}-input`}
+                                        maxLength="20"
+                                    />
+                                </TextInput>
+                            )}
+                        </div>
+                    ))}
+            </Container>
+        </CSSTransition>
     );
 }

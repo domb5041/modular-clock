@@ -22,11 +22,6 @@ const MenuItem = styled.div`
     color: ${(props) => (props.disabled ? "silver" : "white")};
 `;
 
-const OptionsBlockMobile = styled(OptionsBlock)`
-    padding: ${(props) => (props.active ? 10 : 0)}px;
-    border-bottom: ${(props) => (props.active ? 1 : 0)}px solid ${transparentize(0.7, "white")};
-`;
-
 export default observer(() => {
     const { menuStore } = useStores();
     return (
@@ -41,13 +36,14 @@ export default observer(() => {
                     >
                         {menuItem.name}
                     </MenuItem>
-                    <OptionsBlockMobile
+                    <OptionsBlock
+                        mobileVersion
                         options={menuItem.options}
                         active={
                             menuStore.secondaryMenus[menuStore.primaryMenu].activeItem === menuItem.id &&
-                            menuItem.options
+                            "options" in menuItem &&
+                            !menuItem.disabled
                         }
-                        disabled={menuItem.disabled}
                     />
                 </>
             ))}
