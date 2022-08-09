@@ -1,8 +1,8 @@
 import React from "react";
 import { observer } from "mobx-react";
-import store from "../store/store";
 import Menu from "./Menu";
 import { MenuConnector } from "./Menu.styled";
+import { useStores } from "../store";
 
 export const primaryMenuOptions = [
     { id: "style", name: "style" },
@@ -14,9 +14,14 @@ export const primaryMenuOptions = [
 ];
 
 export default observer(() => {
+    const { menuStore } = useStores();
     return (
         <>
-            <Menu activeItem={store.primaryMenu} menu={primaryMenuOptions} onClick={(c) => store.setPrimaryMenu(c)} />
+            <Menu
+                activeItem={menuStore.primaryMenu}
+                menu={primaryMenuOptions}
+                onClick={(c) => menuStore.setPrimaryMenu(c)}
+            />
             <MenuConnector />
         </>
     );

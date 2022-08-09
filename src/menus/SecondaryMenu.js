@@ -1,19 +1,20 @@
 import React from "react";
 import { observer } from "mobx-react";
-import store from "../store/store";
 import Menu from "./Menu";
 import { MenuConnector } from "./Menu.styled";
+import { useStores } from "../store";
 
 export default observer(() => {
+    const { menuStore } = useStores();
     return (
         <>
             <MenuConnector />
             <Menu
-                menu={store.secondaryMenus[store.primaryMenu].menu}
-                onClick={store.secondaryMenus[store.primaryMenu].onClick}
+                menu={menuStore.secondaryMenus[menuStore.primaryMenu].menu}
+                onClick={menuStore.secondaryMenus[menuStore.primaryMenu].onClick}
                 secondaryMenu
-                activeItem={store.secondaryMenus[store.primaryMenu].activeItem}
-                menuSelected={store.primaryMenu}
+                activeItem={menuStore.secondaryMenus[menuStore.primaryMenu].activeItem}
+                menuSelected={menuStore.primaryMenu}
             />
         </>
     );

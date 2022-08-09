@@ -1,9 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
-import store from "../store/store";
 import { primaryMenuOptions } from "./PrimaryMenu";
 import styled from "styled-components";
 import { transparentize } from "polished";
+import { useStores } from "../store";
 
 const Container = styled.div`
     display: flex;
@@ -33,13 +33,14 @@ const MenuItem = styled.div`
 `;
 
 export default observer(() => {
+    const { menuStore } = useStores();
     return (
         <Container>
             {primaryMenuOptions.map((menuItem, i) => (
                 <MenuItem
                     key={i}
-                    onClick={() => store.setPrimaryMenu(menuItem.id)}
-                    active={store.primaryMenu === menuItem.id}
+                    onClick={() => menuStore.setPrimaryMenu(menuItem.id)}
+                    active={menuStore.primaryMenu === menuItem.id}
                 >
                     {menuItem.name}
                 </MenuItem>

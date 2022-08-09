@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Container, ContainerInner, MenuItem } from "./Menu.styled";
 import OptionsBlock from "./OptionsBlock";
-import store from "../store/store";
+import { useStores } from "../store";
 
 export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected, menu }) {
+    const { clockStore } = useStores();
     const [menuOffset, setMenuOffset] = useState(0);
 
     useEffect(() => {
@@ -12,7 +13,7 @@ export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected,
         });
 
         setMenuOffset(i * -40);
-    }, [menuSelected, store.activeClock]);
+    }, [menuSelected, clockStore.activeClock]);
 
     return (
         <Container>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { observer } from "mobx-react";
-import store from "./store/store";
 import { transparentize } from "polished";
+import { useStores } from "./store";
 
 const Container = styled.div`
     justify-content: space-between;
@@ -32,25 +32,26 @@ const Container = styled.div`
 `;
 
 function ClockNavMobile() {
+    const { clockStore } = useStores();
     return (
         <Container>
             <button
-                disabled={store.activeIndex < 1}
+                disabled={clockStore.activeIndex < 1}
                 onClick={() => {
-                    const newId = store.clocks[store.activeIndex - 1].id;
-                    store.setActiveClock(newId);
+                    const newId = clockStore.clocks[clockStore.activeIndex - 1].id;
+                    clockStore.setActiveClock(newId);
                 }}
             >
                 ◀︎
             </button>
             <label>
-                {store.activeIndex + 1}/{store.clocks.length}
+                {clockStore.activeIndex + 1}/{clockStore.clocks.length}
             </label>
             <button
-                disabled={store.activeIndex >= store.clocks.length - 1}
+                disabled={clockStore.activeIndex >= clockStore.clocks.length - 1}
                 onClick={() => {
-                    const newId = store.clocks[store.activeIndex + 1].id;
-                    store.setActiveClock(newId);
+                    const newId = clockStore.clocks[clockStore.activeIndex + 1].id;
+                    clockStore.setActiveClock(newId);
                 }}
             >
                 ▶︎

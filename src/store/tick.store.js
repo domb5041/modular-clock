@@ -1,105 +1,13 @@
-import { action, computed, makeObservable, observable } from "mobx";
-import { swatches } from "../theme";
-import { timezones } from "../complications/WorldClock";
+import { makeAutoObservable } from "mobx";
 
-class Store {
-    activeClock = "clock-0";
-    primaryMenu = "colour";
-
-    clocks = [
-        {
-            id: "clock-0",
-            clockStyle: "minimal",
-            clockColor: "nickel",
-            subDial: {
-                topDial: { currentlyVisible: "monogram", timezone: "US/Hawaii", monogram: "react" },
-                leftDial: { currentlyVisible: "world-clock", timezone: "Europe/Paris" },
-                rightDial: { currentlyVisible: "world-clock", timezone: "Asia/Tokyo" },
-                bottomDial: { currentlyVisible: "sun-dial", timezone: "America/New_York" }
-            }
-        },
-        {
-            id: "clock-01",
-            clockStyle: "numbers",
-            clockColor: "copper",
-            subDial: {
-                topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "react" },
-                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris" },
-                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
-                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
-            }
-        },
-        {
-            id: "clock-02",
-            clockStyle: "minimal",
-            clockColor: "forest",
-            subDial: {
-                topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "react" },
-                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris" },
-                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
-                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
-            }
-        },
-        {
-            id: "clock-03",
-            clockStyle: "minimal",
-            clockColor: "storm",
-            subDial: {
-                topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "react" },
-                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris" },
-                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
-                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
-            }
-        }
-    ];
-
-    constructor() {
-        makeObservable(this, {
-            clocks: observable,
-            activeClock: observable,
-            setActiveClock: action,
-            setClockStyle: action,
-            setClockColor: action,
-            primaryMenu: observable,
-            setPrimaryMenu: action,
-            setSubDial: action,
-            mainTickData: computed,
-            worldClockTickData: computed,
-            secondsTickData: computed,
-            sunDialTickData: computed,
-            activeIndex: computed,
-            secondaryMenus: computed
-        });
-    }
-
-    setActiveClock(id) {
-        this.activeClock = id;
-    }
-
-    setClockStyle(style) {
-        const newClocks = [...this.clocks];
-        newClocks[this.activeIndex].clockStyle = style;
-        this.clocks = newClocks;
-    }
-
-    setClockColor(color) {
-        const newClocks = [...this.clocks];
-        newClocks[this.activeIndex].clockColor = color;
-        this.clocks = newClocks;
-    }
-
-    setPrimaryMenu(m) {
-        this.primaryMenu = m;
-    }
-
-    setSubDial(dial, attr, value) {
-        const newClocks = [...this.clocks];
-        newClocks[this.activeIndex].subDial[dial][attr] = value;
-        this.clocks = newClocks;
+class tickStore {
+    constructor(rootStore) {
+        this.rootStore = rootStore;
+        makeAutoObservable(this);
     }
 
     returnTickType(pos) {
-        const { clockStyle, subDial } = this.clocks[this.activeIndex];
+        const { clockStyle, subDial } = this.rootStore.clockStore.clocks[this.rootStore.clockStore.activeIndex];
         const minimal = clockStyle === "minimal";
         if (pos) {
             const dialOff = subDial[pos].currentlyVisible === "none";
@@ -110,17 +18,13 @@ class Store {
     }
 
     returnNumberType(n, dialPosition) {
-        const { clockStyle, subDial } = this.clocks[this.activeIndex];
+        const { clockStyle, subDial } = this.rootStore.clockStore.clocks[this.rootStore.clockStore.activeIndex];
         const minimal = clockStyle === "minimal";
         let showNumber = true;
         if (dialPosition) {
             showNumber = subDial[dialPosition].currentlyVisible === "none";
         }
         return minimal || !showNumber ? null : n;
-    }
-
-    get activeIndex() {
-        return this.clocks.findIndex((clock) => clock.id === this.activeClock);
     }
 
     get mainTickData() {
@@ -189,7 +93,7 @@ class Store {
     }
 
     get worldClockTickData() {
-        const { clockStyle } = this.clocks[this.activeIndex];
+        const { clockStyle } = this.rootStore.clockStore.clocks[this.rootStore.clockStore.activeIndex];
         const major = clockStyle === "minimal" ? "subLong" : "subShort";
         const minor = clockStyle === "minimal" ? "sub" : "subShort";
         return [
@@ -209,7 +113,7 @@ class Store {
     }
 
     get secondsTickData() {
-        const { clockStyle } = this.clocks[this.activeIndex];
+        const { clockStyle } = this.rootStore.clockStore.clocks[this.rootStore.clockStore.activeIndex];
         const major = "subShort";
         const minor = clockStyle === "minimal" ? "sub" : "subShort";
         return [
@@ -258,84 +162,6 @@ class Store {
             { deg: 345, type: minor }
         ];
     }
-
-    subDialMenu(pos) {
-        const { subDial } = this.clocks[this.activeIndex];
-        return [
-            {
-                id: "world-clock",
-                name: "world clock",
-                options: [
-                    {
-                        id: "timezone-selector",
-                        type: "dropdown",
-                        value: subDial[pos].timezone,
-                        list: timezones,
-                        label: "city",
-                        onChange: (city) => this.setSubDial(pos, "timezone", city)
-                    }
-                ]
-            },
-            { id: "temperature", name: "temperature" },
-            { id: "sun-dial", name: "sunrise sunset" },
-            { id: "seconds", name: "seconds" },
-            {
-                id: "monogram",
-                name: "monogram",
-                disabled: pos !== "topDial",
-                options: [
-                    {
-                        id: "monogram-text",
-                        type: "text",
-                        value: subDial[pos].monogram,
-                        label: "text",
-                        onChange: (text) => this.setSubDial(pos, "monogram", text)
-                    }
-                ]
-            },
-            { id: "none", name: "off" }
-        ];
-    }
-
-    get secondaryMenus() {
-        const { clockStyle, clockColor, subDial } = this.clocks[this.activeIndex];
-        const styleMenu = [
-            { id: "minimal", name: "minimal" },
-            { id: "numbers", name: "detailed" }
-        ];
-        return {
-            style: {
-                menu: styleMenu,
-                onClick: (c) => this.setClockStyle(c),
-                activeItem: clockStyle
-            },
-            colour: {
-                menu: swatches,
-                onClick: (c) => this.setClockColor(c),
-                activeItem: clockColor
-            },
-            topDial: {
-                menu: this.subDialMenu("topDial"),
-                onClick: (dialId) => this.setSubDial("topDial", "currentlyVisible", dialId),
-                activeItem: subDial.topDial.currentlyVisible
-            },
-            leftDial: {
-                menu: this.subDialMenu("leftDial"),
-                onClick: (dialId) => this.setSubDial("leftDial", "currentlyVisible", dialId),
-                activeItem: subDial.leftDial.currentlyVisible
-            },
-            rightDial: {
-                menu: this.subDialMenu("rightDial"),
-                onClick: (dialId) => this.setSubDial("rightDial", "currentlyVisible", dialId),
-                activeItem: subDial.rightDial.currentlyVisible
-            },
-            bottomDial: {
-                menu: this.subDialMenu("bottomDial"),
-                onClick: (dialId) => this.setSubDial("bottomDial", "currentlyVisible", dialId),
-                activeItem: subDial.bottomDial.currentlyVisible
-            }
-        };
-    }
 }
 
-export default new Store();
+export default tickStore;

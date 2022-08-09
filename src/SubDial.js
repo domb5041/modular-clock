@@ -4,10 +4,10 @@ import Seconds from "./complications/Seconds";
 import Temperature from "./complications/Temperature";
 import SunDial from "./complications/SunDial";
 import { observer } from "mobx-react";
-import store from "./store/store";
 import styled, { css } from "styled-components";
 import { colorTransition } from "./theme";
 import Monogram from "./complications/Monogram";
+import { useStores } from "./store";
 
 const DialSlot = styled.div`
     width: 18rem;
@@ -59,7 +59,8 @@ const DialHighlight = styled(DialSlot)`
 `;
 
 function SubDial({ position }) {
-    const { currentlyVisible } = store.clocks[store.activeIndex].subDial[position];
+    const { clockStore, menuStore } = useStores();
+    const { currentlyVisible } = clockStore.clocks[clockStore.activeIndex].subDial[position];
     const isHidden = currentlyVisible === "none" || currentlyVisible === "monogram";
     const dialComplications = {
         "world-clock": <WorldClock position={position} />,
@@ -73,7 +74,7 @@ function SubDial({ position }) {
     return (
         <>
             <DialBackground isHidden={isHidden} position={position} />
-            <DialHighlight primaryMenu={store.primaryMenu} position={position} />
+            <DialHighlight primaryMenu={menuStore.primaryMenu} position={position} />
             <DialSlot position={position}>{dialComplications[currentlyVisible]}</DialSlot>
         </>
     );

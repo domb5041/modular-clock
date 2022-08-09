@@ -1,9 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
-import store from "../store/store";
 import styled from "styled-components";
 import { transparentize } from "polished";
 import OptionsBlock from "./OptionsBlock";
+import { useStores } from "../store";
 
 const Container = styled.div`
     max-width: 500px;
@@ -28,21 +28,25 @@ const OptionsBlockMobile = styled(OptionsBlock)`
 `;
 
 export default observer(() => {
+    const { menuStore } = useStores();
     return (
         <Container>
-            {store.secondaryMenus[store.primaryMenu].menu.map((menuItem, i) => (
+            {menuStore.secondaryMenus[menuStore.primaryMenu].menu.map((menuItem, i) => (
                 <>
                     <MenuItem
                         key={i}
-                        active={store.secondaryMenus[store.primaryMenu].activeItem === menuItem.id}
-                        onClick={() => store.secondaryMenus[store.primaryMenu].onClick(menuItem.id)}
+                        active={menuStore.secondaryMenus[menuStore.primaryMenu].activeItem === menuItem.id}
+                        onClick={() => menuStore.secondaryMenus[menuStore.primaryMenu].onClick(menuItem.id)}
                         disabled={menuItem.disabled}
                     >
                         {menuItem.name}
                     </MenuItem>
                     <OptionsBlockMobile
                         options={menuItem.options}
-                        active={store.secondaryMenus[store.primaryMenu].activeItem === menuItem.id && menuItem.options}
+                        active={
+                            menuStore.secondaryMenus[menuStore.primaryMenu].activeItem === menuItem.id &&
+                            menuItem.options
+                        }
                         disabled={menuItem.disabled}
                     />
                 </>

@@ -4,9 +4,10 @@ import { SubMinuteHand, SubHandsCap } from "../Hands.styled";
 import { theme } from "../theme";
 import moment from "moment";
 import { observer } from "mobx-react";
-import store from "../store/store";
+import { useStores } from "../store";
 
 function SunDial() {
+    const { tickStore, clockStore } = useStores();
     const [hour, setHour] = useState(0);
 
     useEffect(() => {
@@ -38,11 +39,11 @@ function SunDial() {
 
     return (
         <>
-            {store.sunDialTickData.map((tick, i) => (
+            {tickStore.sunDialTickData.map((tick, i) => (
                 <Tick tick={tick} key={i}>
                     <div
                         className="tick-marker"
-                        style={{ backgroundColor: theme(store.clocks[store.activeIndex].clockColor).ticks }}
+                        style={{ backgroundColor: theme(clockStore.clocks[clockStore.activeIndex].clockColor).ticks }}
                     />
                     {tick.number && <div className="tick-number">{tick.number}</div>}
                 </Tick>

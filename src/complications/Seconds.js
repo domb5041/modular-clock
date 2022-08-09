@@ -3,10 +3,11 @@ import * as styled from "../Ticks.styled";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import { theme } from "../theme";
 import { observer } from "mobx-react";
-import store from "../store/store";
+import { useStores } from "../store";
 import moment from "moment";
 
 function Seconds() {
+    const { tickStore, clockStore } = useStores();
     const [seconds, setSeconds] = useState(0);
 
     useEffect(() => {
@@ -32,11 +33,11 @@ function Seconds() {
 
     return (
         <>
-            {store.secondsTickData.map((tick, i) => (
+            {tickStore.secondsTickData.map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
                     <div
                         className="tick-marker"
-                        style={{ backgroundColor: theme(store.clocks[store.activeIndex].clockColor).ticks }}
+                        style={{ backgroundColor: theme(clockStore.clocks[clockStore.activeIndex].clockColor).ticks }}
                     />
                     {tick.number && <div className="tick-number">{tick.number}</div>}
                 </styled.Tick>

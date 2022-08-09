@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
-import store from "../store/store";
+import { useStores } from "../store";
 import axios from "axios";
 import { Tick } from "../Ticks.styled";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
@@ -56,6 +56,7 @@ export const ticks = [
 ];
 
 function Temperature() {
+    const { clockStore } = useStores();
     const [temp, setTemp] = useState(0);
     const [tempMinMax, setTempMinMax] = useState([0, 0]);
     const [latLon, setLatLon] = useState([0, 0]);
@@ -110,7 +111,7 @@ function Temperature() {
                 <Tick tick={tick} key={i}>
                     <div
                         className="tick-marker"
-                        style={{ backgroundColor: theme(store.clocks[store.activeIndex].clockColor).ticks }}
+                        style={{ backgroundColor: theme(clockStore.clocks[clockStore.activeIndex].clockColor).ticks }}
                     />
                 </Tick>
             ))}

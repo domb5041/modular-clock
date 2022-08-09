@@ -5,9 +5,9 @@ import { transformHands, timeToDegrees } from "./utilityFunctions";
 import { Tick } from "./Ticks.styled";
 import { theme, colorTransition } from "./theme";
 import { observer } from "mobx-react";
-import store from "./store/store";
 import { transparentize } from "polished";
 import styled from "styled-components";
+import { useStores } from "./store";
 
 const Container = styled.div`
     width: 500px;
@@ -32,6 +32,7 @@ const Container = styled.div`
 `;
 
 function MainDial() {
+    const { clockStore, menuStore, tickStore } = useStores();
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
@@ -43,25 +44,27 @@ function MainDial() {
     };
 
     const noSubDialWithSeconds =
-        store.clocks[store.activeIndex].subDial.topDial.currentlyVisible !== "seconds" &&
-        store.clocks[store.activeIndex].subDial.leftDial.currentlyVisible !== "seconds" &&
-        store.clocks[store.activeIndex].subDial.rightDial.currentlyVisible !== "seconds" &&
-        store.clocks[store.activeIndex].subDial.bottomDial.currentlyVisible !== "seconds";
+        clockStore.clocks[clockStore.activeIndex].subDial.topDial.currentlyVisible !== "seconds" &&
+        clockStore.clocks[clockStore.activeIndex].subDial.leftDial.currentlyVisible !== "seconds" &&
+        clockStore.clocks[clockStore.activeIndex].subDial.rightDial.currentlyVisible !== "seconds" &&
+        clockStore.clocks[clockStore.activeIndex].subDial.bottomDial.currentlyVisible !== "seconds";
 
     const focusingOnSubDial =
-        store.primaryMenu === "topDial" ||
-        store.primaryMenu === "leftDial" ||
-        store.primaryMenu === "rightDial" ||
-        store.primaryMenu === "bottomDial";
+        menuStore.primaryMenu === "topDial" ||
+        menuStore.primaryMenu === "leftDial" ||
+        menuStore.primaryMenu === "rightDial" ||
+        menuStore.primaryMenu === "bottomDial";
 
     return (
-        <Container primaryMenu={store.primaryMenu}>
+        <Container primaryMenu={menuStore.primaryMenu}>
             <div className="main-dial-shade">
-                {store.mainTickData.map((tick, i) => (
+                {tickStore.mainTickData.map((tick, i) => (
                     <Tick tick={tick} key={i}>
                         <div
                             className="tick-marker"
-                            style={{ backgroundColor: theme(store.clocks[store.activeIndex].clockColor).ticks }}
+                            style={{
+                                backgroundColor: theme(clockStore.clocks[clockStore.activeIndex].clockColor).ticks
+                            }}
                         />
                         {tick.number && <div className="tick-number">{tick.number}</div>}
                     </Tick>

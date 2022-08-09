@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import styled from "styled-components";
-import store from "../store/store";
+import { useStores } from "../store";
 
 const Text = styled.div`
     position: absolute;
@@ -19,7 +19,8 @@ const Text = styled.div`
 `;
 
 function Monogram({ position }) {
-    const { monogram } = store.clocks[store.activeIndex].subDial[position];
+    const { clockStore } = useStores();
+    const { monogram } = clockStore.clocks[clockStore.activeIndex].subDial[position];
     const getFontSize = () => {
         const length = monogram.length || 1;
         const size = 3 / length;

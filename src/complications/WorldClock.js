@@ -4,7 +4,7 @@ import { SubHourHand, SubMinuteHand, SubHandsCap } from "../Hands.styled";
 import { theme } from "../theme";
 import { transformHands, timeToDegrees, getAmPm } from "../utilityFunctions";
 import { observer } from "mobx-react";
-import store from "../store/store";
+import { useStores } from "../store";
 import styled from "styled-components";
 
 const City = styled.div`
@@ -59,8 +59,9 @@ export const timezones = [
 ];
 
 function WorldClock({ position }) {
+    const { tickStore, clockStore } = useStores();
     const [time, setTime] = useState([0, 0, 0]);
-    const timezone = store.clocks[store.activeIndex].subDial[position].timezone;
+    const timezone = clockStore.clocks[clockStore.activeIndex].subDial[position].timezone;
 
     useEffect(() => {
         const timeInterval = setInterval(handleSetTime, 1000);
@@ -77,11 +78,11 @@ function WorldClock({ position }) {
         <>
             <AmPm subDial>{getAmPm(timezone)}</AmPm>
             <City>{timezones.find((o) => o.id === timezone).name}</City>
-            {store.worldClockTickData.map((tick, i) => (
+            {tickStore.worldClockTickData.map((tick, i) => (
                 <Tick tick={tick} key={i}>
                     <div
                         className="tick-marker"
-                        style={{ backgroundColor: theme(store.clocks[store.activeIndex].clockColor).ticks }}
+                        style={{ backgroundColor: theme(clockStore.clocks[clockStore.activeIndex].clockColor).ticks }}
                     />
                     {tick.number && <div className="tick-number">{tick.number}</div>}
                 </Tick>

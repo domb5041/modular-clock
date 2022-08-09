@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 import { observer } from "mobx-react";
-import store from "./store/store";
 import { colorsDef } from "./theme";
 import { SubHourHand, SubMinuteHand, SubSecondHand, SubHandsCap } from "./Hands.styled";
 import { Tick } from "./Ticks.styled";
 import { transparentize } from "polished";
+import { useStores } from "./store";
 
 const Clocks = styled.div`
     display: flex;
@@ -99,6 +99,7 @@ const MicroTick = styled(Tick)`
 `;
 
 function ClocksRow() {
+    const { clockStore } = useStores();
     const tickData = [
         { deg: 0, type: "subShort" },
         { deg: 30, type: "subShort" },
@@ -115,11 +116,11 @@ function ClocksRow() {
     ];
     return (
         <Clocks>
-            {store.clocks.map((c, i) => {
-                const { topDial, leftDial, rightDial, bottomDial } = store.clocks[i].subDial;
+            {clockStore.clocks.map((c, i) => {
+                const { topDial, leftDial, rightDial, bottomDial } = clockStore.clocks[i].subDial;
                 return (
-                    <SelectRing active={c.id === store.activeClock} key={i}>
-                        <ClockIcon key={c.id} onClick={() => store.setActiveClock(c.id)} color={c.clockColor}>
+                    <SelectRing active={c.id === clockStore.activeClock} key={i}>
+                        <ClockIcon key={c.id} onClick={() => clockStore.setActiveClock(c.id)} color={c.clockColor}>
                             {tickData.map((tick, i) => (
                                 <MicroTick tick={tick} key={i} color={c.clockColor}>
                                     <div className="tick-marker" />
