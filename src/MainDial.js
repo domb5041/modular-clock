@@ -18,9 +18,11 @@ const Container = styled.div`
         height: 100vw;
     }
     border-radius: 100%;
-    border: 0.4rem solid ${(props) => props.theme.base};
-    position: relative;
-    background-color: ${(props) => props.theme.dialInner};
+    border: 0.4rem solid ${(props) => props.theme[props.color].base};
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: ${(props) => props.theme[props.color].dialInner};
     transition: background-color ${colorTransition}, border ${colorTransition}, box-shadow ${colorTransition};
     flex-shrink: 0;
     overflow: hidden;
@@ -29,10 +31,28 @@ const Container = styled.div`
         height: 100%;
         background-image: radial-gradient(${transparentize(0.3, "black")}, transparent);
     }
+    &.dial-enter {
+        opacity: 0;
+        transform: translateY(-110%);
+    }
+    &.dial-enter-active {
+        opacity: 1;
+        transition: 0.7s;
+        transform: translateY(0);
+    }
+    &.dial-exit {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    &.dial-exit-active {
+        opacity: 0;
+        transition: 0.7s;
+        transform: translateY(110%);
+    }
 `;
 
-function MainDial() {
-    const { clockStore, menuStore, tickStore } = useStores();
+function MainDial({ clock }) {
+    const { menuStore, tickStore } = useStores();
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
@@ -44,10 +64,10 @@ function MainDial() {
     };
 
     const noSubDialWithSeconds =
-        clockStore.clocks[clockStore.activeIndex].subDial.topDial.currentlyVisible !== "seconds" &&
-        clockStore.clocks[clockStore.activeIndex].subDial.leftDial.currentlyVisible !== "seconds" &&
-        clockStore.clocks[clockStore.activeIndex].subDial.rightDial.currentlyVisible !== "seconds" &&
-        clockStore.clocks[clockStore.activeIndex].subDial.bottomDial.currentlyVisible !== "seconds";
+        clock.subDial.topDial.currentlyVisible !== "seconds" &&
+        clock.subDial.leftDial.currentlyVisible !== "seconds" &&
+        clock.subDial.rightDial.currentlyVisible !== "seconds" &&
+        clock.subDial.bottomDial.currentlyVisible !== "seconds";
 
     const focusingOnSubDial =
         menuStore.primaryMenu === "topDial" ||
@@ -56,27 +76,31 @@ function MainDial() {
         menuStore.primaryMenu === "bottomDial";
 
     return (
-        <Container primaryMenu={menuStore.primaryMenu}>
+        <Container primaryMenu={menuStore.primaryMenu} color={clock.clockColor}>
             <div className="main-dial-shade">
-                {tickStore.mainTickData.map((tick, i) => (
+                {tickStore.mainTickData(clock).map((tick, i) => (
                     <Tick tick={tick} key={i}>
                         <div
                             className="tick-marker"
                             style={{
-                                backgroundColor: theme(clockStore.clocks[clockStore.activeIndex].clockColor).ticks
+                                backgroundColor: theme[clock.clockColor].ticks
                             }}
                         />
                         {tick.number && <div className="tick-number">{tick.number}</div>}
                     </Tick>
                 ))}
-                <SubDial position="topDial" />
-                <SubDial position="leftDial" />
-                <SubDial position="rightDial" />
-                <SubDial position="bottomDial" />
+                <SubDial position="topDial" clock={clock} />
+                <SubDial position="leftDial" clock={clock} />
+                <SubDial position="rightDial" clock={clock} />
+                <SubDial position="bottomDial" clock={clock} />
                 <HourHand focusingOnSubDial={focusingOnSubDial} style={transformHands(time[0])} />
                 <MinuteHand focusingOnSubDial={focusingOnSubDial} style={transformHands(time[1])} />
                 {noSubDialWithSeconds && (
-                    <SecondHand focusingOnSubDial={focusingOnSubDial} style={transformHands(time[2])} />
+                    <SecondHand
+                        focusingOnSubDial={focusingOnSubDial}
+                        style={transformHands(time[2])}
+                        color={clock.clockColor}
+                    />
                 )}
                 <HandsCap />
             </div>

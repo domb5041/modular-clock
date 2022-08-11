@@ -56,8 +56,8 @@ export const DialBackground = styled.div`
     height: 100%;
     border-radius: 100%;
     position: relative;
-    border: 0.2rem solid ${(props) => props.theme.base};
-    background-color: ${(props) => props.theme.subDial};
+    border: 0.2rem solid ${(props) => props.theme[props.color].base};
+    background-color: ${(props) => props.theme[props.color].subDial};
     transition: background-color ${colorTransition}, border ${colorTransition};
 `;
 
@@ -71,15 +71,15 @@ const DialHighlight = styled(DialSlot)`
     box-shadow: 0 0 2rem rgba(0, 0, 0, 0.5);
 `;
 
-function SubDial({ position }) {
-    const { clockStore, menuStore } = useStores();
-    const { currentlyVisible } = clockStore.clocks[clockStore.activeIndex].subDial[position];
+function SubDial({ position, clock }) {
+    const { menuStore } = useStores();
+    const { currentlyVisible } = clock.subDial[position];
     const dialComplications = {
-        "world-clock": <WorldClock position={position} />,
-        temperature: <Temperature />,
-        "sun-dial": <SunDial />,
-        seconds: <Seconds />,
-        monogram: <Monogram position={position} />,
+        "world-clock": <WorldClock position={position} clock={clock} />,
+        temperature: <Temperature clock={clock} />,
+        "sun-dial": <SunDial clock={clock} />,
+        seconds: <Seconds clock={clock} />,
+        monogram: <Monogram position={position} clock={clock} />,
         none: <></>
     };
 

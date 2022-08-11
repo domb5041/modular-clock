@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
-import { useStores } from "../store";
 import axios from "axios";
 import { Tick } from "../Ticks.styled";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
@@ -56,8 +55,7 @@ export const ticks = [
     { deg: 330, type: "sub" }
 ];
 
-function Temperature() {
-    const { clockStore } = useStores();
+function Temperature({ clock }) {
     const [temp, setTemp] = useState(0);
     const [tempMinMax, setTempMinMax] = useState([0, 0]);
     const [latLon, setLatLon] = useState([0, 0]);
@@ -107,20 +105,17 @@ function Temperature() {
     };
 
     return (
-        <DialBackground>
+        <DialBackground color={clock.clockColor}>
             {ticks.map((tick, i) => (
                 <Tick tick={tick} key={i}>
-                    <div
-                        className="tick-marker"
-                        style={{ backgroundColor: theme(clockStore.clocks[clockStore.activeIndex].clockColor).ticks }}
-                    />
+                    <div className="tick-marker" style={{ backgroundColor: theme[clock.clockColor].ticks }} />
                 </Tick>
             ))}
             <MinTemp>L:{tempMinMax[0]}</MinTemp>
             <CurrentTemp>{temp}°C</CurrentTemp>
             <MaxTemp>H:{tempMinMax[1]}</MaxTemp>
             <City>{location}</City>
-            <SubSecondHand style={transformTempToDegrees()} />
+            <SubSecondHand style={transformTempToDegrees()} color={clock.clockColor} />
             <SubHandsCap />
         </DialBackground>
     );

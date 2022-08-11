@@ -11,6 +11,7 @@ import PrimaryMenuMobile from "./menus/PrimaryMenuMobile";
 import SecondaryMenuMobile from "./menus/SecondaryMenuMobile";
 import { useMediaQuery } from "react-responsive";
 import { useStores } from "./store";
+import { CSSTransition } from "react-transition-group";
 
 const Page = styled.div`
     position: fixed;
@@ -19,9 +20,8 @@ const Page = styled.div`
     right: 0;
     bottom: 0;
     display: flex;
-    flex-direction: column;
     overflow: hidden;
-    @media (max-width: 1000px), (max-height: 800px) {
+    @media (max-width: 1000px), (max-height: 700px) {
         display: block;
         position: relative;
     }
@@ -33,18 +33,40 @@ const ActiveClock = styled.div`
     align-items: center;
     flex: 1;
     overflow: hidden;
+    & > #clock-slot {
+        position: relative;
+        width: 500px;
+        height: 500px;
+        flex-shrink: 0;
+        @media (max-width: 500px) {
+            width: 100vw;
+            height: 100vw;
+        }
+    }
 `;
 
 function App() {
-    const isMobile = useMediaQuery({ query: "(max-width: 1000px), (max-height: 800px)" });
+    const isMobile = useMediaQuery({ query: "(max-width: 1000px), (max-height: 700px)" });
     const { clockStore } = useStores();
     return (
-        <ThemeProvider theme={theme(clockStore.clocks[clockStore.activeIndex].clockColor)}>
+        <ThemeProvider theme={theme}>
             <Page>
                 {isMobile ? <ClockNavMobile /> : <ClocksRow />}
                 <ActiveClock>
                     {!isMobile && <PrimaryMenu />}
-                    <MainDial />
+                    <div id="clock-slot">
+                        {clockStore.clocks.map((clock, i) => (
+                            <CSSTransition
+                                in={i === clockStore.activeIndex}
+                                unmountOnExit
+                                timeout={700}
+                                classNames="dial"
+                                key={i}
+                            >
+                                <MainDial clock={clock} />
+                            </CSSTransition>
+                        ))}
+                    </div>
                     {!isMobile && <SecondaryMenu />}
                 </ActiveClock>
                 {isMobile && <PrimaryMenuMobile />}

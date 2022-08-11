@@ -59,10 +59,10 @@ export const timezones = [
     { name: "Azores", id: "Atlantic/Azores" }
 ];
 
-function WorldClock({ position }) {
-    const { tickStore, clockStore } = useStores();
+function WorldClock({ position, clock }) {
+    const { tickStore } = useStores();
     const [time, setTime] = useState([0, 0, 0]);
-    const timezone = clockStore.clocks[clockStore.activeIndex].subDial[position].timezone;
+    const timezone = clock.subDial[position].timezone;
 
     useEffect(() => {
         const timeInterval = setInterval(handleSetTime, 1000);
@@ -76,15 +76,12 @@ function WorldClock({ position }) {
     };
 
     return (
-        <DialBackground>
+        <DialBackground color={clock.clockColor}>
             <AmPm subDial>{getAmPm(timezone)}</AmPm>
             <City>{timezones.find((o) => o.id === timezone).name}</City>
             {tickStore.worldClockTickData.map((tick, i) => (
                 <Tick tick={tick} key={i}>
-                    <div
-                        className="tick-marker"
-                        style={{ backgroundColor: theme(clockStore.clocks[clockStore.activeIndex].clockColor).ticks }}
-                    />
+                    <div className="tick-marker" style={{ backgroundColor: theme[clock.clockColor].ticks }} />
                     {tick.number && <div className="tick-number">{tick.number}</div>}
                 </Tick>
             ))}

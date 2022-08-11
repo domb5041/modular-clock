@@ -1,17 +1,6 @@
 import { darken, transparentize } from "polished";
 
-export const theme = (color) => ({ ...colorsDef[color], text: transparentize(0.1, "silver") });
-
-export const swatches = [
-    { id: "nickel", name: "nickel" },
-    { id: "copper", name: "copper" },
-    { id: "forest", name: "forest" },
-    { id: "storm", name: "storm" }
-];
-
-export const colorTransition = "0.7s";
-
-export const colorsDef = {
+export const theme = {
     nickel: {
         base: "#ACA496",
         subDial: darken(0.45, "#ACA496"),
@@ -41,3 +30,12 @@ export const colorsDef = {
         ticks: transparentize(0.3, "#425495")
     }
 };
+
+export const swatches = [
+    { id: "nickel", name: "nickel" },
+    { id: "copper", name: "copper" },
+    { id: "forest", name: "forest" },
+    { id: "storm", name: "storm" }
+];
+
+export const colorTransition = "0.7s";

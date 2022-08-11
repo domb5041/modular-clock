@@ -7,8 +7,8 @@ import { useStores } from "../store";
 import moment from "moment";
 import { DialBackground } from "../SubDial";
 
-function Seconds() {
-    const { tickStore, clockStore } = useStores();
+function Seconds({ clock }) {
+    const { tickStore } = useStores();
     const [seconds, setSeconds] = useState(0);
 
     useEffect(() => {
@@ -33,17 +33,14 @@ function Seconds() {
     });
 
     return (
-        <DialBackground>
+        <DialBackground color={clock.clockColor}>
             {tickStore.secondsTickData.map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
-                    <div
-                        className="tick-marker"
-                        style={{ backgroundColor: theme(clockStore.clocks[clockStore.activeIndex].clockColor).ticks }}
-                    />
+                    <div className="tick-marker" style={{ backgroundColor: theme[clock.clockColor].ticks }} />
                     {tick.number && <div className="tick-number">{tick.number}</div>}
                 </styled.Tick>
             ))}
-            <SubSecondHand style={transformHands(seconds)} />
+            <SubSecondHand style={transformHands(seconds)} color={clock.clockColor} />
             <SubHandsCap />
         </DialBackground>
     );

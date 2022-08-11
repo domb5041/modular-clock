@@ -7,8 +7,8 @@ import { observer } from "mobx-react";
 import { useStores } from "../store";
 import { DialBackground } from "../SubDial";
 
-function SunDial() {
-    const { tickStore, clockStore } = useStores();
+function SunDial({ clock }) {
+    const { tickStore } = useStores();
     const [hour, setHour] = useState(0);
 
     useEffect(() => {
@@ -39,13 +39,10 @@ function SunDial() {
     });
 
     return (
-        <DialBackground>
+        <DialBackground color={clock.clockColor}>
             {tickStore.sunDialTickData.map((tick, i) => (
                 <Tick tick={tick} key={i}>
-                    <div
-                        className="tick-marker"
-                        style={{ backgroundColor: theme(clockStore.clocks[clockStore.activeIndex].clockColor).ticks }}
-                    />
+                    <div className="tick-marker" style={{ backgroundColor: theme[clock.clockColor].ticks }} />
                     {tick.number && <div className="tick-number">{tick.number}</div>}
                 </Tick>
             ))}
