@@ -5,6 +5,7 @@ import { theme } from "../theme";
 import moment from "moment";
 import { observer } from "mobx-react";
 import { useStores } from "../store";
+import { DialBackground } from "../SubDial";
 
 function SunDial() {
     const { tickStore, clockStore } = useStores();
@@ -38,7 +39,7 @@ function SunDial() {
     });
 
     return (
-        <>
+        <DialBackground>
             {tickStore.sunDialTickData.map((tick, i) => (
                 <Tick tick={tick} key={i}>
                     <div
@@ -50,7 +51,7 @@ function SunDial() {
             ))}
             <SubMinuteHand style={transformHands(hour)} />
             <SubHandsCap />
-        </>
+        </DialBackground>
     );
 }
 

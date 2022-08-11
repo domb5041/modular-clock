@@ -5,6 +5,7 @@ import { theme } from "../theme";
 import { observer } from "mobx-react";
 import { useStores } from "../store";
 import moment from "moment";
+import { DialBackground } from "../SubDial";
 
 function Seconds() {
     const { tickStore, clockStore } = useStores();
@@ -32,7 +33,7 @@ function Seconds() {
     });
 
     return (
-        <>
+        <DialBackground>
             {tickStore.secondsTickData.map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
                     <div
@@ -44,7 +45,7 @@ function Seconds() {
             ))}
             <SubSecondHand style={transformHands(seconds)} />
             <SubHandsCap />
-        </>
+        </DialBackground>
     );
 }
 

@@ -6,6 +6,7 @@ import { Tick } from "../Ticks.styled";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import styled from "styled-components";
 import { theme } from "../theme";
+import { DialBackground } from "../SubDial";
 
 export const City = styled.div`
     color: ${(props) => props.theme.text};
@@ -106,7 +107,7 @@ function Temperature() {
     };
 
     return (
-        <>
+        <DialBackground>
             {ticks.map((tick, i) => (
                 <Tick tick={tick} key={i}>
                     <div
@@ -121,7 +122,7 @@ function Temperature() {
             <City>{location}</City>
             <SubSecondHand style={transformTempToDegrees()} />
             <SubHandsCap />
-        </>
+        </DialBackground>
     );
 }
 

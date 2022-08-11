@@ -6,6 +6,7 @@ import { transformHands, timeToDegrees, getAmPm } from "../utilityFunctions";
 import { observer } from "mobx-react";
 import { useStores } from "../store";
 import styled from "styled-components";
+import { DialBackground } from "../SubDial";
 
 const City = styled.div`
     color: ${(props) => props.theme.text};
@@ -75,7 +76,7 @@ function WorldClock({ position }) {
     };
 
     return (
-        <>
+        <DialBackground>
             <AmPm subDial>{getAmPm(timezone)}</AmPm>
             <City>{timezones.find((o) => o.id === timezone).name}</City>
             {tickStore.worldClockTickData.map((tick, i) => (
@@ -90,7 +91,7 @@ function WorldClock({ position }) {
             <SubHourHand style={transformHands(time[0])} />
             <SubMinuteHand style={transformHands(time[1])} />
             <SubHandsCap />
-        </>
+        </DialBackground>
     );
 }
 
