@@ -40,7 +40,7 @@ function SunDial({ clock }) {
 
     return (
         <DialBackground color={clock.clockColor}>
-            {tickStore.sunDialTickData.map((tick, i) => (
+            {tickStore.sunDialTickData(clock).map((tick, i) => (
                 <Tick tick={tick} key={i}>
                     <div className="tick-marker" style={{ backgroundColor: theme[clock.clockColor].ticks }} />
                     {tick.number && <div className="tick-number">{tick.number}</div>}

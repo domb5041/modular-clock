@@ -34,7 +34,7 @@ function Seconds({ clock }) {
 
     return (
         <DialBackground color={clock.clockColor}>
-            {tickStore.secondsTickData.map((tick, i) => (
+            {tickStore.secondsTickData(clock).map((tick, i) => (
                 <styled.Tick tick={tick} key={i}>
                     <div className="tick-marker" style={{ backgroundColor: theme[clock.clockColor].ticks }} />
                     {tick.number && <div className="tick-number">{tick.number}</div>}

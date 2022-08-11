@@ -108,73 +108,73 @@ class tickStore {
         ];
     }
 
-    get worldClockTickData() {
-        const { clockStyle } = this.rootStore.clockStore.clocks[this.rootStore.clockStore.activeIndex];
+    worldClockTickData(clock) {
+        const { clockStyle } = clock;
         const major = clockStyle === "minimal" ? "subLong" : "subShort";
         const minor = clockStyle === "minimal" ? "sub" : "subShort";
         return [
-            { deg: 0, type: major, number: this.returnNumberType("12") },
-            { deg: 30, type: minor, number: this.returnNumberType("1") },
-            { deg: 60, type: minor, number: this.returnNumberType("2") },
-            { deg: 90, type: minor, number: this.returnNumberType("3") },
-            { deg: 120, type: minor, number: this.returnNumberType("4") },
-            { deg: 150, type: minor, number: this.returnNumberType("5") },
-            { deg: 180, type: minor, number: this.returnNumberType("6") },
-            { deg: 210, type: minor, number: this.returnNumberType("7") },
-            { deg: 240, type: minor, number: this.returnNumberType("8") },
-            { deg: 270, type: minor, number: this.returnNumberType("9") },
-            { deg: 300, type: minor, number: this.returnNumberType("10") },
-            { deg: 330, type: minor, number: this.returnNumberType("11") }
+            { deg: 0, type: major, number: this.returnNumberType(clock, "12") },
+            { deg: 30, type: minor, number: this.returnNumberType(clock, "1") },
+            { deg: 60, type: minor, number: this.returnNumberType(clock, "2") },
+            { deg: 90, type: minor, number: this.returnNumberType(clock, "3") },
+            { deg: 120, type: minor, number: this.returnNumberType(clock, "4") },
+            { deg: 150, type: minor, number: this.returnNumberType(clock, "5") },
+            { deg: 180, type: minor, number: this.returnNumberType(clock, "6") },
+            { deg: 210, type: minor, number: this.returnNumberType(clock, "7") },
+            { deg: 240, type: minor, number: this.returnNumberType(clock, "8") },
+            { deg: 270, type: minor, number: this.returnNumberType(clock, "9") },
+            { deg: 300, type: minor, number: this.returnNumberType(clock, "10") },
+            { deg: 330, type: minor, number: this.returnNumberType(clock, "11") }
         ];
     }
 
-    get secondsTickData() {
-        const { clockStyle } = this.rootStore.clockStore.clocks[this.rootStore.clockStore.activeIndex];
+    secondsTickData(clock) {
+        const { clockStyle } = clock;
         const major = "subShort";
         const minor = clockStyle === "minimal" ? "sub" : "subShort";
         return [
             { deg: 0, type: major, number: "60" },
-            { deg: 30, type: minor, number: this.returnNumberType("05") },
-            { deg: 60, type: minor, number: this.returnNumberType("10") },
+            { deg: 30, type: minor, number: this.returnNumberType(clock, "05") },
+            { deg: 60, type: minor, number: this.returnNumberType(clock, "10") },
             { deg: 90, type: major, number: "15" },
-            { deg: 120, type: minor, number: this.returnNumberType("20") },
-            { deg: 150, type: minor, number: this.returnNumberType("25") },
+            { deg: 120, type: minor, number: this.returnNumberType(clock, "20") },
+            { deg: 150, type: minor, number: this.returnNumberType(clock, "25") },
             { deg: 180, type: major, number: "30" },
-            { deg: 210, type: minor, number: this.returnNumberType("35") },
-            { deg: 240, type: minor, number: this.returnNumberType("40") },
+            { deg: 210, type: minor, number: this.returnNumberType(clock, "35") },
+            { deg: 240, type: minor, number: this.returnNumberType(clock, "40") },
             { deg: 270, type: major, number: "45" },
-            { deg: 300, type: minor, number: this.returnNumberType("50") },
-            { deg: 330, type: minor, number: this.returnNumberType("55") }
+            { deg: 300, type: minor, number: this.returnNumberType(clock, "50") },
+            { deg: 330, type: minor, number: this.returnNumberType(clock, "55") }
         ];
     }
 
-    get sunDialTickData() {
+    sunDialTickData(clock) {
         const major = "subShort";
         const minor = "subShort";
         return [
             { deg: 0, type: major, number: "12" },
             { deg: 15, type: minor },
-            { deg: 30, type: minor, number: this.returnNumberType("14") },
+            { deg: 30, type: minor, number: this.returnNumberType(clock, "14") },
             { deg: 45, type: minor },
-            { deg: 60, type: minor, number: this.returnNumberType("16") },
+            { deg: 60, type: minor, number: this.returnNumberType(clock, "16") },
             { deg: 75, type: minor },
             { deg: 90, type: major, number: "18" },
             { deg: 105, type: minor },
-            { deg: 120, type: minor, number: this.returnNumberType("20") },
+            { deg: 120, type: minor, number: this.returnNumberType(clock, "20") },
             { deg: 135, type: minor },
-            { deg: 150, type: minor, number: this.returnNumberType("22") },
+            { deg: 150, type: minor, number: this.returnNumberType(clock, "22") },
             { deg: 165, type: minor },
             { deg: 180, type: major, number: "24" },
             { deg: 195, type: minor },
-            { deg: 210, type: minor, number: this.returnNumberType("02") },
+            { deg: 210, type: minor, number: this.returnNumberType(clock, "02") },
             { deg: 225, type: minor },
-            { deg: 240, type: minor, number: this.returnNumberType("04") },
+            { deg: 240, type: minor, number: this.returnNumberType(clock, "04") },
             { deg: 255, type: minor },
             { deg: 270, type: major, number: "06" },
             { deg: 285, type: minor },
-            { deg: 300, type: minor, number: this.returnNumberType("08") },
+            { deg: 300, type: minor, number: this.returnNumberType(clock, "08") },
             { deg: 315, type: minor },
-            { deg: 330, type: minor, number: this.returnNumberType("10") },
+            { deg: 330, type: minor, number: this.returnNumberType(clock, "10") },
             { deg: 345, type: minor }
         ];
     }

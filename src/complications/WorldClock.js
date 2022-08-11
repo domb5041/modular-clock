@@ -79,7 +79,7 @@ function WorldClock({ position, clock }) {
         <DialBackground color={clock.clockColor}>
             <AmPm subDial>{getAmPm(timezone)}</AmPm>
             <City>{timezones.find((o) => o.id === timezone).name}</City>
-            {tickStore.worldClockTickData.map((tick, i) => (
+            {tickStore.worldClockTickData(clock).map((tick, i) => (
                 <Tick tick={tick} key={i}>
                     <div className="tick-marker" style={{ backgroundColor: theme[clock.clockColor].ticks }} />
                     {tick.number && <div className="tick-number">{tick.number}</div>}
