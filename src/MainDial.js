@@ -33,7 +33,10 @@ const Container = styled.div`
     }
     &.dial-enter {
         opacity: 0;
-        transform: translateY(-110%);
+        transform: translateY(${(props) => props.transitionDirection * 110}%);
+        @media (max-width: 1000px), (max-height: 700px) {
+            transform: translateX(${(props) => props.transitionDirection * 110}%);
+        }
     }
     &.dial-enter-active {
         opacity: 1;
@@ -47,12 +50,15 @@ const Container = styled.div`
     &.dial-exit-active {
         opacity: 0;
         transition: 0.7s;
-        transform: translateY(110%);
+        transform: translateY(${(props) => props.transitionDirection * -110}%);
+        @media (max-width: 1000px), (max-height: 700px) {
+            transform: translateX(${(props) => props.transitionDirection * -110}%);
+        }
     }
 `;
 
 function MainDial({ clock }) {
-    const { menuStore, tickStore } = useStores();
+    const { menuStore, tickStore, clockStore } = useStores();
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
@@ -76,7 +82,11 @@ function MainDial({ clock }) {
         menuStore.primaryMenu === "bottomDial";
 
     return (
-        <Container primaryMenu={menuStore.primaryMenu} color={clock.clockColor}>
+        <Container
+            primaryMenu={menuStore.primaryMenu}
+            color={clock.clockColor}
+            transitionDirection={clockStore.activeIndex > clockStore.previousActiveIndex ? 1 : -1}
+        >
             <div className="main-dial-shade">
                 {tickStore.mainTickData(clock).map((tick, i) => (
                     <Tick tick={tick} key={i}>

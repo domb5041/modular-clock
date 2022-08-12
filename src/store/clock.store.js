@@ -55,6 +55,7 @@ class clockStore {
     ];
 
     setActiveClock(id) {
+        this.previousActiveIndex = this.activeIndex;
         this.activeClock = id;
     }
 
@@ -75,6 +76,8 @@ class clockStore {
         newClocks[this.activeIndex].subDial[dial][attr] = value;
         this.clocks = newClocks;
     }
+
+    previousActiveIndex = -1;
 
     get activeIndex() {
         return this.clocks.findIndex((clock) => clock.id === this.activeClock);
