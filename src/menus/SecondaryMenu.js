@@ -5,16 +5,16 @@ import { MenuConnector } from "./Menu.styled";
 import { useStores } from "../store";
 
 export default observer(() => {
-    const { menuStore } = useStores();
+    const { primaryMenu, secondaryMenus } = useStores().menuStore;
     return (
         <>
             <MenuConnector />
             <Menu
-                menu={menuStore.secondaryMenus[menuStore.primaryMenu].menu}
-                onClick={menuStore.secondaryMenus[menuStore.primaryMenu].onClick}
+                menu={secondaryMenus[primaryMenu].menu}
+                onClick={secondaryMenus[primaryMenu].onClick}
                 secondaryMenu
-                activeItem={menuStore.secondaryMenus[menuStore.primaryMenu].activeItem}
-                menuSelected={menuStore.primaryMenu}
+                activeItem={secondaryMenus[primaryMenu].activeItem}
+                menuSelected={primaryMenu}
             />
         </>
     );

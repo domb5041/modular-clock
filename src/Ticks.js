@@ -1,3 +1,6 @@
+import React from "react";
+import { theme } from "./theme";
+import { observer } from "mobx-react";
 import styled from "styled-components";
 import { colorTransition } from "./theme";
 
@@ -33,7 +36,23 @@ export const Tick = styled.div`
         left: 50%;
         transform: ${(props) => `translateX(-50%) rotate(-${props.tick.deg}deg)`};
         font-size: ${(props) => tickDimensions[props.tick.type].fontSize};
-        color: ${(props) => props.theme.text};
         text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
     }
 `;
+
+function Ticks({ clock, tickData }) {
+    const { ticks, text } = theme.colors[clock.clockColor];
+
+    return tickData?.map((tick, i) => (
+        <Tick key={i} tick={tick}>
+            <div className="tick-marker" style={{ backgroundColor: ticks }} />
+            {tick.number && (
+                <div className="tick-number" style={{ color: text }}>
+                    {tick.number}
+                </div>
+            )}
+        </Tick>
+    ));
+}
+
+export default observer(Ticks);

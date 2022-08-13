@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import axios from "axios";
-import { Tick } from "../Ticks.styled";
+import Ticks from "../Ticks";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import styled from "styled-components";
-import { theme } from "../theme";
 import { DialBackground } from "../SubDial";
 
 export const City = styled.div`
-    color: ${(props) => props.theme.text};
+    color: ${(props) => props.theme.colors[props.color].text};
     text-transform: uppercase;
     position: absolute;
     bottom: 5.2rem;
@@ -26,7 +25,7 @@ const CurrentTemp = styled.div`
     transform: translateX(-50%);
     font-size: 1.8rem;
     text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
-    color: ${(props) => props.theme.text};
+    color: ${(props) => props.theme.colors[props.color].text};
 `;
 
 const MinTemp = styled.div`
@@ -36,7 +35,7 @@ const MinTemp = styled.div`
     transform: translateY(-50%);
     font-size: 1.4rem;
     text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
-    color: ${(props) => props.theme.text};
+    color: ${(props) => props.theme.colors[props.color].text};
 `;
 
 const MaxTemp = styled(MinTemp)`
@@ -106,15 +105,11 @@ function Temperature({ clock }) {
 
     return (
         <DialBackground color={clock.clockColor}>
-            {ticks.map((tick, i) => (
-                <Tick tick={tick} key={i}>
-                    <div className="tick-marker" style={{ backgroundColor: theme[clock.clockColor].ticks }} />
-                </Tick>
-            ))}
-            <MinTemp>L:{tempMinMax[0]}</MinTemp>
-            <CurrentTemp>{temp}°C</CurrentTemp>
-            <MaxTemp>H:{tempMinMax[1]}</MaxTemp>
-            <City>{location}</City>
+            <Ticks clock={clock} tickData={ticks} />
+            <MinTemp color={clock.clockColor}>L:{tempMinMax[0]}</MinTemp>
+            <CurrentTemp color={clock.clockColor}>{temp}°C</CurrentTemp>
+            <MaxTemp color={clock.clockColor}>H:{tempMinMax[1]}</MaxTemp>
+            <City color={clock.clockColor}>{location}</City>
             <SubSecondHand style={transformTempToDegrees()} color={clock.clockColor} />
             <SubHandsCap />
         </DialBackground>

@@ -8,7 +8,7 @@ const Text = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     text-transform: uppercase;
-    color: ${(props) => props.theme[props.color].text};
+    color: ${(props) => props.theme.colors[props.color].text};
     letter-spacing: 0.4rem;
     width: 18rem;
     overflow: hidden;

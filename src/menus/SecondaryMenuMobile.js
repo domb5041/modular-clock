@@ -23,15 +23,15 @@ const MenuItem = styled.div`
 `;
 
 export default observer(() => {
-    const { menuStore } = useStores();
+    const { primaryMenu, secondaryMenus } = useStores().menuStore;
     return (
         <Container>
-            {menuStore.secondaryMenus[menuStore.primaryMenu].menu.map((menuItem, i) => (
+            {secondaryMenus[primaryMenu].menu.map((menuItem, i) => (
                 <>
                     <MenuItem
                         key={i}
-                        active={menuStore.secondaryMenus[menuStore.primaryMenu].activeItem === menuItem.id}
-                        onClick={() => menuStore.secondaryMenus[menuStore.primaryMenu].onClick(menuItem.id)}
+                        active={secondaryMenus[primaryMenu].activeItem === menuItem.id}
+                        onClick={() => secondaryMenus[primaryMenu].onClick(menuItem.id)}
                         disabled={menuItem.disabled}
                     >
                         {menuItem.name}
@@ -40,7 +40,7 @@ export default observer(() => {
                         mobileVersion
                         options={menuItem.options}
                         active={
-                            menuStore.secondaryMenus[menuStore.primaryMenu].activeItem === menuItem.id &&
+                            secondaryMenus[primaryMenu].activeItem === menuItem.id &&
                             "options" in menuItem &&
                             !menuItem.disabled
                         }

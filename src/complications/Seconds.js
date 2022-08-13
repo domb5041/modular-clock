@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import * as styled from "../Ticks.styled";
+import Ticks from "../Ticks";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
-import { theme } from "../theme";
 import { observer } from "mobx-react";
 import { useStores } from "../store";
 import moment from "moment";
@@ -34,12 +33,7 @@ function Seconds({ clock }) {
 
     return (
         <DialBackground color={clock.clockColor}>
-            {tickStore.secondsTickData(clock).map((tick, i) => (
-                <styled.Tick tick={tick} key={i}>
-                    <div className="tick-marker" style={{ backgroundColor: theme[clock.clockColor].ticks }} />
-                    {tick.number && <div className="tick-number">{tick.number}</div>}
-                </styled.Tick>
-            ))}
+            <Ticks clock={clock} tickData={tickStore.secondsTickData(clock)} />
             <SubSecondHand style={transformHands(seconds)} color={clock.clockColor} />
             <SubHandsCap />
         </DialBackground>

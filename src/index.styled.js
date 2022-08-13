@@ -5,7 +5,7 @@ html {
     background-color: black;
     color: white;
     font-size: 10px;
-    @media (max-width: 500px) {
+    @media ${(props) => props.theme.screen.clockSize}{
         font-size: 2vw;
     }
 }

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { observer } from "mobx-react";
 import { SubHourHand, SubMinuteHand, SubSecondHand, SubHandsCap } from "./Hands.styled";
-import { Tick } from "./Ticks.styled";
+import { Tick } from "./Ticks";
 import { transparentize } from "polished";
 import { useStores } from "./store";
 
@@ -27,9 +27,9 @@ const SelectRing = styled.div`
 const ClockIcon = styled.div`
     width: 100%;
     height: 100%;
-    border: 2px solid ${(props) => props.theme[props.color].base};
+    border: 2px solid ${(props) => props.theme.colors[props.color].base};
     box-sizing: border-box;
-    background-color: ${(props) => props.theme[props.color].subDial};
+    background-color: ${(props) => props.theme.colors[props.color].subDial};
     border-radius: 100%;
     cursor: pointer;
     transition: 0.2s;
@@ -43,21 +43,21 @@ const MicroHourHand = styled(SubHourHand)`
     transform: translateX(-50%) rotate(-50deg);
     height: 40px;
     width: 7px;
-    background-color: ${(props) => props.theme[props.color].base};
+    background-color: ${(props) => props.theme.colors[props.color].base};
 `;
 const MicroMinuteHand = styled(SubMinuteHand)`
     transform: translateX(-50%) rotate(50deg);
     height: 65px;
-    background-color: ${(props) => props.theme[props.color].base};
+    background-color: ${(props) => props.theme.colors[props.color].base};
 `;
 const MicroSecondHand = styled(SubSecondHand)`
     transform: translateX(-50%) rotate(180deg);
     height: 65px;
     width: 3px;
-    background-color: ${(props) => props.theme[props.color].secondHand};
+    background-color: ${(props) => props.theme.colors[props.color].secondHand};
 `;
 const MicroHandsCap = styled(SubHandsCap)`
-    background-color: ${(props) => props.theme[props.color].base};
+    background-color: ${(props) => props.theme.colors[props.color].base};
 `;
 
 const MicroDial = styled.div`
@@ -65,7 +65,7 @@ const MicroDial = styled.div`
     height: 42px;
     position: absolute;
     border-radius: 100%;
-    background-color: ${(props) => transparentize(0.5, props.theme[props.color].base)};
+    background-color: ${(props) => transparentize(0.5, props.theme.colors[props.color].base)};
     ${(props) =>
         (props.position === "topDial" &&
             css`
@@ -95,7 +95,7 @@ const MicroDial = styled.div`
 
 const MicroTick = styled(Tick)`
     & .tick-marker {
-        background-color: ${(props) => props.theme[props.color].base};
+        background-color: ${(props) => props.theme.colors[props.color].base};
     }
 `;
 

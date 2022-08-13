@@ -29,7 +29,7 @@ export const MinuteHand = styled(Hand)`
 export const SecondHand = styled(Hand)`
     width: 0.5rem;
     height: 23rem;
-    background-color: ${(props) => props.theme[props.color].secondHand};
+    background-color: ${(props) => props.theme.colors[props.color].secondHand};
     opacity: ${(props) => (props.focusingOnSubDial ? 0 : 1)};
 `;
 
@@ -46,7 +46,7 @@ export const SubMinuteHand = styled(Hand)`
 export const SubSecondHand = styled(Hand)`
     width: 0.5rem;
     height: 8rem;
-    background-color: ${(props) => props.theme[props.color].secondHand};
+    background-color: ${(props) => props.theme.colors[props.color].secondHand};
 `;
 
 export const HandsCap = styled.div`

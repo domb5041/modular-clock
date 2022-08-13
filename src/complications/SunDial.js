@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Tick } from "../Ticks.styled";
+import Ticks from "../Ticks";
 import { SubMinuteHand, SubHandsCap } from "../Hands.styled";
-import { theme } from "../theme";
 import moment from "moment";
 import { observer } from "mobx-react";
 import { useStores } from "../store";
@@ -40,12 +39,7 @@ function SunDial({ clock }) {
 
     return (
         <DialBackground color={clock.clockColor}>
-            {tickStore.sunDialTickData(clock).map((tick, i) => (
-                <Tick tick={tick} key={i}>
-                    <div className="tick-marker" style={{ backgroundColor: theme[clock.clockColor].ticks }} />
-                    {tick.number && <div className="tick-number">{tick.number}</div>}
-                </Tick>
-            ))}
+            <Ticks clock={clock} tickData={tickStore.sunDialTickData(clock)} />
             <SubMinuteHand style={transformHands(hour)} />
             <SubHandsCap />
         </DialBackground>

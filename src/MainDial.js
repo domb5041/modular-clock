@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { HourHand, MinuteHand, SecondHand, HandsCap } from "./Hands.styled";
 import SubDial from "./SubDial";
 import { transformHands, timeToDegrees } from "./utilityFunctions";
-import { Tick } from "./Ticks.styled";
-import { theme, colorTransition } from "./theme";
+import Ticks from "./Ticks";
+import { colorTransition } from "./theme";
 import { observer } from "mobx-react";
 import { transparentize } from "polished";
 import styled from "styled-components";
@@ -13,16 +13,16 @@ const Container = styled.div`
     width: 500px;
     height: 500px;
     box-sizing: border-box;
-    @media (max-width: 500px) {
+    @media ${(props) => props.theme.screen.clockSize} {
         width: 100vw;
         height: 100vw;
     }
     border-radius: 100%;
-    border: 0.4rem solid ${(props) => props.theme[props.color].base};
+    border: 0.4rem solid ${(props) => props.theme.colors[props.color].base};
     position: absolute;
     top: 0;
     left: 0;
-    background-color: ${(props) => props.theme[props.color].dialInner};
+    background-color: ${(props) => props.theme.colors[props.color].dialInner};
     transition: background-color ${colorTransition}, border ${colorTransition}, box-shadow ${colorTransition};
     flex-shrink: 0;
     overflow: hidden;
@@ -34,7 +34,7 @@ const Container = styled.div`
     &.dial-enter {
         opacity: 0;
         transform: translateY(${(props) => props.transitionDirection * 110}%);
-        @media (max-width: 1000px), (max-height: 700px) {
+        @media ${(props) => props.theme.screen.mobile} {
             transform: translateX(${(props) => props.transitionDirection * 110}%);
         }
     }
@@ -51,7 +51,7 @@ const Container = styled.div`
         opacity: 0;
         transition: 0.7s;
         transform: translateY(${(props) => props.transitionDirection * -110}%);
-        @media (max-width: 1000px), (max-height: 700px) {
+        @media ${(props) => props.theme.screen.mobile} {
             transform: translateX(${(props) => props.transitionDirection * -110}%);
         }
     }
@@ -59,6 +59,9 @@ const Container = styled.div`
 
 function MainDial({ clock }) {
     const { menuStore, tickStore, clockStore } = useStores();
+    const { topDial, leftDial, rightDial, bottomDial } = clock.subDial;
+    const { primaryMenu } = menuStore;
+
     const [time, setTime] = useState([0, 0, 0]);
 
     useEffect(() => {
@@ -70,16 +73,16 @@ function MainDial({ clock }) {
     };
 
     const noSubDialWithSeconds =
-        clock.subDial.topDial.currentlyVisible !== "seconds" &&
-        clock.subDial.leftDial.currentlyVisible !== "seconds" &&
-        clock.subDial.rightDial.currentlyVisible !== "seconds" &&
-        clock.subDial.bottomDial.currentlyVisible !== "seconds";
+        topDial.currentlyVisible !== "seconds" &&
+        leftDial.currentlyVisible !== "seconds" &&
+        rightDial.currentlyVisible !== "seconds" &&
+        bottomDial.currentlyVisible !== "seconds";
 
     const focusingOnSubDial =
-        menuStore.primaryMenu === "topDial" ||
-        menuStore.primaryMenu === "leftDial" ||
-        menuStore.primaryMenu === "rightDial" ||
-        menuStore.primaryMenu === "bottomDial";
+        primaryMenu === "topDial" ||
+        primaryMenu === "leftDial" ||
+        primaryMenu === "rightDial" ||
+        primaryMenu === "bottomDial";
 
     return (
         <Container
@@ -88,17 +91,7 @@ function MainDial({ clock }) {
             transitionDirection={clockStore.activeIndex > clockStore.previousActiveIndex ? 1 : -1}
         >
             <div className="main-dial-shade">
-                {tickStore.mainTickData(clock).map((tick, i) => (
-                    <Tick tick={tick} key={i}>
-                        <div
-                            className="tick-marker"
-                            style={{
-                                backgroundColor: theme[clock.clockColor].ticks
-                            }}
-                        />
-                        {tick.number && <div className="tick-number">{tick.number}</div>}
-                    </Tick>
-                ))}
+                <Ticks clock={clock} tickData={tickStore.mainTickData(clock)} />
                 <SubDial position="topDial" clock={clock} />
                 <SubDial position="leftDial" clock={clock} />
                 <SubDial position="rightDial" clock={clock} />

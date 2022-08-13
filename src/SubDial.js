@@ -56,8 +56,8 @@ export const DialBackground = styled.div`
     height: 100%;
     border-radius: 100%;
     position: relative;
-    border: 0.2rem solid ${(props) => props.theme[props.color].base};
-    background-color: ${(props) => props.theme[props.color].subDial};
+    border: 0.2rem solid ${(props) => props.theme.colors[props.color].base};
+    background-color: ${(props) => props.theme.colors[props.color].subDial};
     transition: background-color ${colorTransition}, border ${colorTransition};
 `;
 
