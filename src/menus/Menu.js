@@ -13,7 +13,7 @@ export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected,
         });
 
         setMenuOffset(i * -40);
-    }, [menuSelected, clockStore.activeClock]);
+    }, [menuSelected, clockStore.activeClock, activeItem, menu]);
 
     return (
         <Container>

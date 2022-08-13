@@ -64,11 +64,16 @@ export const DialBackground = styled.div`
 const DialHighlight = styled(DialSlot)`
     border-radius: 100%;
     border: 0.3rem solid white;
-    width: 19.5rem;
-    height: 19.5rem;
+    width: 19rem;
+    height: 19rem;
     transition: opacity 0.2s;
     opacity: ${(props) => (props.primaryMenu === props.position ? 1 : 0)};
-    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.5);
+    &:hover {
+        opacity: ${(props) => (props.primaryMenu === props.position ? 1 : 0.3)};
+    }
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    cursor: pointer;
 `;
 
 function SubDial({ position, clock }) {
@@ -85,7 +90,6 @@ function SubDial({ position, clock }) {
 
     return (
         <>
-            <DialHighlight primaryMenu={menuStore.primaryMenu} position={position} className={position} />
             <DialSlot position={position} className={position}>
                 <SwitchTransition>
                     <CSSTransition
@@ -97,6 +101,12 @@ function SubDial({ position, clock }) {
                     </CSSTransition>
                 </SwitchTransition>
             </DialSlot>
+            <DialHighlight
+                primaryMenu={menuStore.primaryMenu}
+                position={position}
+                className={position}
+                onClick={() => menuStore.setPrimaryMenu(position)}
+            />
         </>
     );
 }
