@@ -22,8 +22,7 @@ const Page = styled.div`
     display: flex;
     overflow: hidden;
     @media ${(props) => props.theme.screen.mobile} {
-        display: block;
-        position: relative;
+        flex-direction: column;
     }
 `;
 
@@ -33,6 +32,9 @@ const ActiveClock = styled.div`
     align-items: center;
     flex: 1;
     overflow: hidden;
+    @media ${(props) => props.theme.screen.mobile} {
+        overflow: visible;
+    }
     & > #clock-slot {
         position: relative;
         width: 500px;

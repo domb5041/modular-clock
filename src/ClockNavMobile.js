@@ -6,8 +6,9 @@ import { useStores } from "./store";
 const Container = styled.div`
     justify-content: space-between;
     align-items: center;
-    padding: 5px;
+    padding: 5px 0;
     display: flex;
+    width: 100%;
     max-width: 500px;
     margin: 0 auto;
     & > label {
@@ -15,6 +16,7 @@ const Container = styled.div`
         letter-spacing: 3px;
     }
     & > button {
+        margin: 0 5px;
         background-color: ${transparentize(0.8, "white")};
         border: none;
         color: white;

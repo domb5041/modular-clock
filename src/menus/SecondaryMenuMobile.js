@@ -6,12 +6,16 @@ import OptionsBlock from "./OptionsBlock";
 import { useStores } from "../store";
 
 const Container = styled.div`
+    width: 100%;
     max-width: 500px;
     margin: 0 auto;
-    padding: 0 5px;
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 0;
 `;
 
 const MenuItem = styled.div`
+    margin: 0 5px;
     padding: 10px;
     font-size: 16px;
     text-transform: uppercase;

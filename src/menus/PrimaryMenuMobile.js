@@ -10,7 +10,6 @@ const Container = styled.div`
     padding: 15px 10px 10px 10px;
     overflow-x: auto;
     border-bottom: 1px solid ${transparentize(0.8, "white")};
-    margin-bottom: 10px;
 `;
 
 const MenuItem = styled.div`
