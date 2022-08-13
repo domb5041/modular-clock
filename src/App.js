@@ -50,8 +50,11 @@ function App() {
     const { clockStore } = useStores();
 
     useEffect(() => {
-        setInterval(clockStore.setTime, 1000);
-    }, []);
+        const interval = setInterval(clockStore.setTime, 1000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, [clockStore.setTime]);
 
     return (
         <Page>

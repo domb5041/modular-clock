@@ -71,15 +71,12 @@ function WorldClock({ position, clock }) {
     const [time, setTime] = useState(timeToDegrees(timezone));
 
     useEffect(() => {
+        const handleSetTime = () => setTime(timeToDegrees(timezone));
         const timeInterval = setInterval(handleSetTime, 1000);
         return () => {
             clearInterval(timeInterval);
         };
     }, [timezone]);
-
-    const handleSetTime = () => {
-        setTime(timeToDegrees(timezone));
-    };
 
     const { text } = theme.colors[clock.clockColor];
 
