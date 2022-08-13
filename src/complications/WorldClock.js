@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { SubHourHand, SubMinuteHand, SubHandsCap } from "../Hands.styled";
 import { theme } from "../theme";
-import { transformHands, timeToDegrees, getAmPm } from "../utilityFunctions";
+import { transformHands, timeToDegrees } from "../utilityFunctions";
 import { observer } from "mobx-react";
 import { useStores } from "../store";
 import styled from "styled-components";
 import { DialBackground } from "../SubDial";
 import Ticks from "../Ticks";
+import moment from "moment";
+import "moment-timezone";
 
 const City = styled.div`
     text-transform: uppercase;
@@ -59,8 +61,14 @@ export const timezones = [
 
 function WorldClock({ position, clock }) {
     const { tickStore } = useStores();
-    const [time, setTime] = useState([0, 0, 0]);
     const timezone = clock.subDial[position].timezone;
+
+    const getAmPm = (timezone) => {
+        const d = timezone ? moment().tz(timezone) : moment();
+        return d.hours() < 12 ? "AM" : "PM";
+    };
+
+    const [time, setTime] = useState(timeToDegrees(timezone));
 
     useEffect(() => {
         const timeInterval = setInterval(handleSetTime, 1000);

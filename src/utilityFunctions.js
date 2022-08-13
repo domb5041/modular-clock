@@ -15,11 +15,6 @@ export const timeToDegrees = (timezone) => {
     return [hrsToDeg, minsToDeg, secsToDeg];
 };
 
-export const transformHands = (hand) => ({
-    transform: `translateX(-50%) rotate(${hand}deg)`
+export const transformHands = (handDegrees, modifier = 0) => ({
+    transform: `translateX(-50%) rotate(${handDegrees + modifier}deg)`
 });
-
-export const getAmPm = (timezone) => {
-    const d = timezone ? moment().tz(timezone) : moment();
-    return d.hours() < 12 ? "AM" : "PM";
-};

@@ -1,9 +1,16 @@
 import { makeAutoObservable } from "mobx";
+import { timeToDegrees } from "../utilityFunctions";
 
 class clockStore {
     constructor() {
         makeAutoObservable(this);
     }
+
+    time = timeToDegrees();
+
+    setTime = () => {
+        this.time = timeToDegrees();
+    };
 
     activeClock = "clock-0";
 

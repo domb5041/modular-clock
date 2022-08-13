@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { HourHand, MinuteHand, SecondHand, HandsCap } from "./Hands.styled";
 import SubDial from "./SubDial";
-import { transformHands, timeToDegrees } from "./utilityFunctions";
 import Ticks from "./Ticks";
 import { colorTransition } from "./theme";
 import { observer } from "mobx-react";
 import { transparentize } from "polished";
 import styled from "styled-components";
 import { useStores } from "./store";
+import { transformHands } from "./utilityFunctions";
 
 const Container = styled.div`
     width: 500px;
@@ -62,16 +62,6 @@ function MainDial({ clock }) {
     const { topDial, leftDial, rightDial, bottomDial } = clock.subDial;
     const { primaryMenu } = menuStore;
 
-    const [time, setTime] = useState([0, 0, 0]);
-
-    useEffect(() => {
-        setInterval(handleSetTime, 1000);
-    }, []);
-
-    const handleSetTime = () => {
-        setTime(timeToDegrees());
-    };
-
     const noSubDialWithSeconds =
         topDial.currentlyVisible !== "seconds" &&
         leftDial.currentlyVisible !== "seconds" &&
@@ -96,12 +86,12 @@ function MainDial({ clock }) {
                 <SubDial position="leftDial" clock={clock} />
                 <SubDial position="rightDial" clock={clock} />
                 <SubDial position="bottomDial" clock={clock} />
-                <HourHand focusingOnSubDial={focusingOnSubDial} style={transformHands(time[0])} />
-                <MinuteHand focusingOnSubDial={focusingOnSubDial} style={transformHands(time[1])} />
+                <HourHand focusingOnSubDial={focusingOnSubDial} style={transformHands(clockStore.time[0])} />
+                <MinuteHand focusingOnSubDial={focusingOnSubDial} style={transformHands(clockStore.time[1])} />
                 {noSubDialWithSeconds && (
                     <SecondHand
                         focusingOnSubDial={focusingOnSubDial}
-                        style={transformHands(time[2])}
+                        style={transformHands(clockStore.time[2])}
                         color={clock.clockColor}
                     />
                 )}

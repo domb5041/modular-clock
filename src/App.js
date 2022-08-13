@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import MainDial from "./MainDial";
 import styled from "styled-components";
 import { theme } from "./theme";
@@ -47,6 +48,11 @@ const ActiveClock = styled.div`
 function App() {
     const isMobile = useMediaQuery({ query: theme.screen.mobile });
     const { clockStore } = useStores();
+
+    useEffect(() => {
+        setInterval(clockStore.setTime, 1000);
+    }, []);
+
     return (
         <Page>
             {isMobile ? <ClockNavMobile /> : <ClocksRow />}
