@@ -1,15 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import { HourHand, MinuteHand, SecondHand, HandsCap } from "./Hands.styled";
 import SubDial from "./SubDial";
 import Ticks from "./Ticks";
-import { colorTransition } from "./theme";
+import { colorTransition, theme } from "./theme";
 import { observer } from "mobx-react";
 import { transparentize } from "polished";
 import styled from "styled-components";
 import { useStores } from "./store";
 import { transformHands } from "./utilityFunctions";
 
-const Container = styled.div`
+const Container = styled.div<{ transitionDirection: number }>`
     width: 500px;
     height: 500px;
     box-sizing: border-box;
@@ -57,7 +57,25 @@ const Container = styled.div`
     }
 `;
 
-function MainDial({ clock }) {
+export interface ISubDial {
+    currentlyVisible: string;
+    timezone: string;
+    monogram?: string;
+}
+
+export interface IClock {
+    id: string;
+    clockStyle: string;
+    clockColor: keyof typeof theme.colors;
+    subDial: {
+        topDial: ISubDial;
+        leftDial: ISubDial;
+        rightDial: ISubDial;
+        bottomDial: ISubDial;
+    };
+}
+
+const MainDial: FC<{ clock: IClock }> = ({ clock }) => {
     const { menuStore, tickStore, clockStore } = useStores();
     const { topDial, leftDial, rightDial, bottomDial } = clock.subDial;
     const { primaryMenu } = menuStore;
@@ -99,6 +117,6 @@ function MainDial({ clock }) {
             </div>
         </Container>
     );
-}
+};
 
 export default observer(MainDial);

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { observer } from "mobx-react";
 import { SubHourHand, SubMinuteHand, SubSecondHand, SubHandsCap } from "./Hands.styled";
 import { Tick } from "./Ticks";
@@ -13,7 +13,7 @@ const Clocks = styled.div`
     border-right: 1px solid ${transparentize(0.8, "white")};
 `;
 
-const SelectRing = styled.div`
+const SelectRing = styled.div<{ active: boolean }>`
     width: 150px;
     height: 150px;
     border: 2px solid ${(props) => (props.active ? "white" : "transparent")};
@@ -66,31 +66,26 @@ const MicroDial = styled.div`
     position: absolute;
     border-radius: 100%;
     background-color: ${(props) => transparentize(0.5, props.theme.colors[props.color].base)};
-    ${(props) =>
-        (props.position === "topDial" &&
-            css`
-                top: 35px;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            `) ||
-        (props.position === "leftDial" &&
-            css`
-                left: 35px;
-                top: 50%;
-                transform: translate(-50%, -50%);
-            `) ||
-        (props.position === "rightDial" &&
-            css`
-                right: 35px;
-                top: 50%;
-                transform: translate(50%, -50%);
-            `) ||
-        (props.position === "bottomDial" &&
-            css`
-                bottom: 35px;
-                left: 50%;
-                transform: translate(-50%, 50%);
-            `)};
+    &.topDial {
+        top: 35px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    &.leftDial {
+        left: 35px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    &.rightDial {
+        right: 35px;
+        top: 50%;
+        transform: translate(50%, -50%);
+    }
+    &.bottomDial {
+        bottom: 35px;
+        left: 50%;
+        transform: translate(-50%, 50%);
+    }
 `;
 
 const MicroTick = styled(Tick)`
@@ -128,16 +123,16 @@ function ClocksNav() {
                                 </MicroTick>
                             ))}
                             {topDial.currentlyVisible !== "none" && topDial.currentlyVisible !== "monogram" && (
-                                <MicroDial color={c.clockColor} position="topDial" />
+                                <MicroDial color={c.clockColor} className="topDial" />
                             )}
                             {leftDial.currentlyVisible !== "none" && (
-                                <MicroDial color={c.clockColor} position="leftDial" />
+                                <MicroDial color={c.clockColor} className="leftDial" />
                             )}
                             {rightDial.currentlyVisible !== "none" && (
-                                <MicroDial color={c.clockColor} position="rightDial" />
+                                <MicroDial color={c.clockColor} className="rightDial" />
                             )}
                             {bottomDial.currentlyVisible !== "none" && (
-                                <MicroDial color={c.clockColor} position="bottomDial" />
+                                <MicroDial color={c.clockColor} className="bottomDial" />
                             )}
                             <MicroHourHand color={c.clockColor} />
                             <MicroMinuteHand color={c.clockColor} />

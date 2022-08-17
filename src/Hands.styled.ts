@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const colorTransition = "0.7s";
 
-export const Hand = styled.div`
+export const Hand = styled.div<{ focusingOnSubDial: boolean }>`
     position: absolute;
     background-color: white;
     bottom: 50%;

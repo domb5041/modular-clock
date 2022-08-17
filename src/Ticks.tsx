@@ -1,20 +1,27 @@
-import React from "react";
+import React, { FC } from "react";
 import { theme } from "./theme";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 import { colorTransition } from "./theme";
+import { IClock } from "./MainDial";
 
 const tickDimensions = {
-    hrLong: { width: "1rem", height: "30%" },
+    hrLong: { width: "1rem", height: "30%", fontSize: "2.2rem", numberDistance: "1.8rem" },
     hrShort: { width: "1rem", height: "4%", fontSize: "2.2rem", numberDistance: "1.8rem" },
-    hr: { width: "0.7rem", height: "15%" },
-    min: { width: "0.4rem", height: "4%" },
-    sub: { width: "0.5rem", height: "15%", fontSize: "1.4rem" },
-    subLong: { width: "0.5rem", height: "30%" },
+    hr: { width: "0.7rem", height: "15%", fontSize: "2.2rem", numberDistance: "1.8rem" },
+    min: { width: "0.4rem", height: "4%", fontSize: "2.2rem", numberDistance: "1.8rem" },
+    sub: { width: "0.5rem", height: "15%", fontSize: "1.4rem", numberDistance: "1.8rem" },
+    subLong: { width: "0.5rem", height: "30%", fontSize: "2.2rem", numberDistance: "1.8rem" },
     subShort: { width: "0.4rem", height: "10%", fontSize: "1.4rem", numberDistance: "1.4rem" }
 };
 
-export const Tick = styled.div`
+interface ITickProps {
+    type: keyof typeof tickDimensions;
+    deg: number;
+    number: number;
+}
+
+export const Tick = styled.div<{ tick: ITickProps }>`
     position: absolute;
     bottom: 50%;
     left: 50%;
@@ -40,19 +47,30 @@ export const Tick = styled.div`
     }
 `;
 
-function Ticks({ clock, tickData }) {
+interface ITicksProps {
+    clock: IClock;
+    tickData: ITickProps[];
+}
+
+const Ticks: FC<ITicksProps> = ({ clock, tickData }) => {
     const { ticks, text } = theme.colors[clock.clockColor];
 
-    return tickData?.map((tick, i) => (
-        <Tick key={i} tick={tick}>
-            <div className="tick-marker" style={{ backgroundColor: ticks }} />
-            {tick.number && (
-                <div className="tick-number" style={{ color: text }}>
-                    {tick.number}
-                </div>
-            )}
-        </Tick>
-    ));
-}
+    return (
+        tickData && (
+            <>
+                {tickData.map((tick, i) => (
+                    <Tick key={i} tick={tick}>
+                        <div className="tick-marker" style={{ backgroundColor: ticks }} />
+                        {tick.number && (
+                            <div className="tick-number" style={{ color: text }}>
+                                {tick.number}
+                            </div>
+                        )}
+                    </Tick>
+                ))}
+            </>
+        )
+    );
+};
 
 export default observer(Ticks);
