@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { observer } from "mobx-react";
 import { SubHourHand, SubMinuteHand, SubSecondHand, SubHandsCap } from "./Hands.styled";
-import { Tick } from "./Ticks";
+import { ITickProps, Tick } from "./Ticks";
 import { transparentize } from "polished";
 import { useStores } from "./store";
 
@@ -118,7 +118,7 @@ function ClocksNav() {
                     <SelectRing active={c.id === clockStore.activeClock} key={i}>
                         <ClockIcon key={c.id} onClick={() => clockStore.setActiveClock(c.id)} color={c.clockColor}>
                             {tickData.map((tick, i) => (
-                                <MicroTick tick={tick} key={i} color={c.clockColor}>
+                                <MicroTick tick={tick as ITickProps} key={i} color={c.clockColor}>
                                     <div className="tick-marker" />
                                 </MicroTick>
                             ))}

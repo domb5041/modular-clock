@@ -11,7 +11,7 @@ export const primaryMenuOptions = [
     { id: "leftDial", name: "left dial" },
     { id: "rightDial", name: "right dial" },
     { id: "bottomDial", name: "bottom dial" }
-];
+] as const;
 
 export default observer(() => {
     const { menuStore } = useStores();

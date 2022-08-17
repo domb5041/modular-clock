@@ -12,6 +12,7 @@ import SecondaryMenuMobile from "./menus/SecondaryMenuMobile";
 import { useMediaQuery } from "react-responsive";
 import { useStores } from "./store";
 import { CSSTransition } from "react-transition-group";
+import { IClock } from "./sharedTypes";
 
 const Page = styled.div`
     position: fixed;
@@ -72,7 +73,7 @@ function App() {
                             classNames="dial"
                             key={i}
                         >
-                            <MainDial clock={clock} />
+                            <MainDial clock={clock as IClock} />
                         </CSSTransition>
                     ))}
                 </div>

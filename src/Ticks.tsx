@@ -3,7 +3,7 @@ import { theme } from "./theme";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 import { colorTransition } from "./theme";
-import { IClock } from "./MainDial";
+import { IClock } from "./sharedTypes";
 
 const tickDimensions = {
     hrLong: { width: "1rem", height: "30%", fontSize: "2.2rem", numberDistance: "1.8rem" },
@@ -15,10 +15,10 @@ const tickDimensions = {
     subShort: { width: "0.4rem", height: "10%", fontSize: "1.4rem", numberDistance: "1.4rem" }
 };
 
-interface ITickProps {
+export interface ITickProps {
     type: keyof typeof tickDimensions;
     deg: number;
-    number: number;
+    number?: number;
 }
 
 export const Tick = styled.div<{ tick: ITickProps }>`

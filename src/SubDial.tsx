@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import WorldClock from "./complications/WorldClock";
 import Seconds from "./complications/Seconds";
 import Temperature from "./complications/Temperature";
@@ -9,6 +9,8 @@ import { colorTransition } from "./theme";
 import Monogram from "./complications/Monogram";
 import { useStores } from "./store";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
+import { IClock } from "./sharedTypes";
+import { primaryMenuOptions } from "./menus/PrimaryMenu";
 
 const DialSlot = styled.div`
     width: 18rem;
@@ -61,7 +63,12 @@ export const DialBackground = styled.div`
     transition: background-color ${colorTransition}, border ${colorTransition};
 `;
 
-const DialHighlight = styled(DialSlot)`
+interface IDialHighlightProps {
+    position: keyof IClock["subDial"];
+    primaryMenu: typeof primaryMenuOptions[number]["id"];
+}
+
+const DialHighlight = styled(DialSlot)<IDialHighlightProps>`
     border-radius: 100%;
     border: 0.3rem solid white;
     width: 19rem;
@@ -76,7 +83,12 @@ const DialHighlight = styled(DialSlot)`
     cursor: pointer;
 `;
 
-function SubDial({ position, clock }) {
+interface ISubDialProps {
+    clock: IClock;
+    position: keyof IClock["subDial"];
+}
+
+const SubDial: FC<ISubDialProps> = ({ position, clock }) => {
     const { menuStore } = useStores();
     const { currentlyVisible } = clock.subDial[position];
     const dialComplications = {
@@ -90,25 +102,25 @@ function SubDial({ position, clock }) {
 
     return (
         <>
-            <DialSlot position={position} className={position}>
+            <DialSlot className={position}>
                 <SwitchTransition>
                     <CSSTransition
                         key={currentlyVisible}
                         addEndListener={(node, done) => node.addEventListener("transitionend", done, false)}
                         classNames="dial"
                     >
-                        {dialComplications[currentlyVisible]}
+                        {dialComplications[currentlyVisible as keyof typeof dialComplications]}
                     </CSSTransition>
                 </SwitchTransition>
             </DialSlot>
             <DialHighlight
-                primaryMenu={menuStore.primaryMenu}
+                primaryMenu={menuStore.primaryMenu as typeof primaryMenuOptions[number]["id"]}
                 position={position}
                 className={position}
                 onClick={() => menuStore.setPrimaryMenu(position)}
             />
         </>
     );
-}
+};
 
 export default observer(SubDial);

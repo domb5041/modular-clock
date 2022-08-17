@@ -1,13 +1,14 @@
 import React, { FC } from "react";
 import { HourHand, MinuteHand, SecondHand, HandsCap } from "./Hands.styled";
 import SubDial from "./SubDial";
-import Ticks from "./Ticks";
-import { colorTransition, theme } from "./theme";
+import Ticks, { ITickProps } from "./Ticks";
+import { colorTransition } from "./theme";
 import { observer } from "mobx-react";
 import { transparentize } from "polished";
 import styled from "styled-components";
 import { useStores } from "./store";
 import { transformHands } from "./utilityFunctions";
+import { IClock } from "./sharedTypes";
 
 const Container = styled.div<{ transitionDirection: number }>`
     width: 500px;
@@ -57,24 +58,6 @@ const Container = styled.div<{ transitionDirection: number }>`
     }
 `;
 
-export interface ISubDial {
-    currentlyVisible: string;
-    timezone: string;
-    monogram?: string;
-}
-
-export interface IClock {
-    id: string;
-    clockStyle: string;
-    clockColor: keyof typeof theme.colors;
-    subDial: {
-        topDial: ISubDial;
-        leftDial: ISubDial;
-        rightDial: ISubDial;
-        bottomDial: ISubDial;
-    };
-}
-
 const MainDial: FC<{ clock: IClock }> = ({ clock }) => {
     const { menuStore, tickStore, clockStore } = useStores();
     const { topDial, leftDial, rightDial, bottomDial } = clock.subDial;
@@ -94,12 +77,11 @@ const MainDial: FC<{ clock: IClock }> = ({ clock }) => {
 
     return (
         <Container
-            primaryMenu={menuStore.primaryMenu}
             color={clock.clockColor}
             transitionDirection={clockStore.activeIndex > clockStore.previousActiveIndex ? 1 : -1}
         >
             <div className="main-dial-shade">
-                <Ticks clock={clock} tickData={tickStore.mainTickData(clock)} />
+                <Ticks clock={clock} tickData={tickStore.mainTickData(clock) as ITickProps[]} />
                 <SubDial position="topDial" clock={clock} />
                 <SubDial position="leftDial" clock={clock} />
                 <SubDial position="rightDial" clock={clock} />
