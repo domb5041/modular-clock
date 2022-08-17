@@ -8,7 +8,7 @@ export const Container = styled.div`
     flex-shrink: 0;
 `;
 
-export const ContainerInner = styled.div`
+export const ContainerInner = styled.div<{ menuOffset: number }>`
     width: 100%;
     position: absolute;
     top: calc(50% - 20px);
@@ -16,7 +16,7 @@ export const ContainerInner = styled.div`
     transition: 0.7s cubic-bezier(0, 0, 0, 1.01);
 `;
 
-export const MenuItem = styled.div`
+export const MenuItem = styled.div<{ secondaryMenu: boolean; disabled: boolean; active: boolean }>`
     height: 40px;
     display: flex;
     justify-content: ${(props) => (props.secondaryMenu ? "flex-start" : "flex-end")};

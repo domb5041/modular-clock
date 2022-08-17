@@ -1,6 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import { observer } from "mobx-react";
 import styled from "styled-components";
+import { IClock } from "../sharedTypes";
 
 const Text = styled.div`
     position: absolute;
@@ -17,7 +18,12 @@ const Text = styled.div`
     text-align: center;
 `;
 
-function Monogram({ position, clock }) {
+interface IMonogramProps {
+    position: keyof IClock["subDial"];
+    clock: IClock;
+}
+
+const Monogram: FC<IMonogramProps> = ({ position, clock }) => {
     const { monogram } = clock.subDial[position];
     const getFontSize = () => {
         const length = monogram.length || 1;
@@ -29,6 +35,6 @@ function Monogram({ position, clock }) {
             {monogram}
         </Text>
     );
-}
+};
 
 export default observer(Monogram);

@@ -1,4 +1,4 @@
-import { theme } from "./theme";
+import { swatches } from "./theme";
 
 export interface ISubDial {
     currentlyVisible: string;
@@ -9,7 +9,7 @@ export interface ISubDial {
 export interface IClock {
     id: string;
     clockStyle: string;
-    clockColor: keyof typeof theme.colors;
+    clockColor: typeof swatches[number]["id"];
     subDial: {
         topDial: ISubDial;
         leftDial: ISubDial;

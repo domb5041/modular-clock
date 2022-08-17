@@ -20,7 +20,7 @@ export default observer(() => {
             <Menu
                 activeItem={menuStore.primaryMenu}
                 menu={primaryMenuOptions}
-                onClick={(c) => menuStore.setPrimaryMenu(c)}
+                onClick={(id) => menuStore.setPrimaryMenu(id)}
             />
             <MenuConnector />
         </>

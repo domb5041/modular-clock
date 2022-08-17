@@ -1,21 +1,26 @@
 import { makeAutoObservable } from "mobx";
 import { swatches } from "../theme";
 import { timezones } from "../complications/WorldClock";
+import { IClock } from "../sharedTypes";
+import { primaryMenuOptions } from "../menus/PrimaryMenu";
+import { RootStore } from ".";
 
 class menuStore {
-    constructor(rootStore) {
+    rootStore: RootStore;
+    constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
         makeAutoObservable(this);
     }
 
     primaryMenu = "colour";
 
-    setPrimaryMenu(m) {
-        this.primaryMenu = m;
+    setPrimaryMenu(id: typeof primaryMenuOptions[number]["id"]) {
+        this.primaryMenu = id;
     }
 
-    subDialMenu(pos) {
-        const { subDial } = this.rootStore.clockStore.clocks[this.rootStore.clockStore.activeIndex];
+    subDialMenu(pos: keyof IClock["subDial"]) {
+        const { clockStore } = this.rootStore;
+        const { subDial } = clockStore.clocks[clockStore.activeIndex];
         return [
             {
                 id: "world-clock",
@@ -27,7 +32,7 @@ class menuStore {
                         value: subDial[pos].timezone,
                         list: timezones,
                         label: "city",
-                        onChange: (city) => this.rootStore.clockStore.setSubDial(pos, "timezone", city)
+                        onChange: (city: typeof timezones[number]["id"]) => clockStore.setSubDial(pos, "timezone", city)
                     }
                 ]
             },
@@ -44,7 +49,7 @@ class menuStore {
                         type: "text",
                         value: subDial[pos].monogram,
                         label: "text",
-                        onChange: (text) => this.rootStore.clockStore.setSubDial(pos, "monogram", text)
+                        onChange: (text: string) => clockStore.setSubDial(pos, "monogram", text)
                     }
                 ]
             },
@@ -53,41 +58,41 @@ class menuStore {
     }
 
     get secondaryMenus() {
-        const { clockStyle, clockColor, subDial } =
-            this.rootStore.clockStore.clocks[this.rootStore.clockStore.activeIndex];
+        const { clockStore } = this.rootStore;
+        const { clockStyle, clockColor, subDial } = clockStore.clocks[clockStore.activeIndex];
         const styleMenu = [
             { id: "minimal", name: "minimal" },
             { id: "numbers", name: "detailed" }
-        ];
+        ] as const;
         return {
             style: {
                 menu: styleMenu,
-                onClick: (c) => this.rootStore.clockStore.setClockStyle(c),
+                onClick: (style: typeof styleMenu[number]["id"]) => clockStore.setClockStyle(style),
                 activeItem: clockStyle
             },
             colour: {
                 menu: swatches,
-                onClick: (c) => this.rootStore.clockStore.setClockColor(c),
+                onClick: (color: typeof swatches[number]["id"]) => clockStore.setClockColor(color),
                 activeItem: clockColor
             },
             topDial: {
                 menu: this.subDialMenu("topDial"),
-                onClick: (dialId) => this.rootStore.clockStore.setSubDial("topDial", "currentlyVisible", dialId),
+                onClick: (dialId: string) => clockStore.setSubDial("topDial", "currentlyVisible", dialId),
                 activeItem: subDial.topDial.currentlyVisible
             },
             leftDial: {
                 menu: this.subDialMenu("leftDial"),
-                onClick: (dialId) => this.rootStore.clockStore.setSubDial("leftDial", "currentlyVisible", dialId),
+                onClick: (dialId: string) => clockStore.setSubDial("leftDial", "currentlyVisible", dialId),
                 activeItem: subDial.leftDial.currentlyVisible
             },
             rightDial: {
                 menu: this.subDialMenu("rightDial"),
-                onClick: (dialId) => this.rootStore.clockStore.setSubDial("rightDial", "currentlyVisible", dialId),
+                onClick: (dialId: string) => clockStore.setSubDial("rightDial", "currentlyVisible", dialId),
                 activeItem: subDial.rightDial.currentlyVisible
             },
             bottomDial: {
                 menu: this.subDialMenu("bottomDial"),
-                onClick: (dialId) => this.rootStore.clockStore.setSubDial("bottomDial", "currentlyVisible", dialId),
+                onClick: (dialId: string) => clockStore.setSubDial("bottomDial", "currentlyVisible", dialId),
                 activeItem: subDial.bottomDial.currentlyVisible
             }
         };

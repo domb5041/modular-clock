@@ -1,12 +1,15 @@
 import { makeAutoObservable } from "mobx";
+import { RootStore } from ".";
+import { IClock } from "../sharedTypes";
 
 class tickStore {
-    constructor(rootStore) {
+    rootStore: RootStore;
+    constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
         makeAutoObservable(this);
     }
 
-    returnTickType(clock, pos) {
+    returnTickType(clock: IClock, pos?: keyof IClock["subDial"]) {
         const { clockStyle, subDial } = clock;
         const minimal = clockStyle === "minimal";
         if (pos) {
@@ -17,7 +20,7 @@ class tickStore {
         return minimal ? "hr" : "hrShort";
     }
 
-    returnNumberType(clock, n, dialPosition) {
+    returnNumberType(clock: IClock, n: string, dialPosition?: keyof IClock["subDial"]) {
         const { clockStyle, subDial } = clock;
         const minimal = clockStyle === "minimal";
         let showNumber = true;
@@ -27,7 +30,7 @@ class tickStore {
         return minimal || !showNumber ? null : n;
     }
 
-    mainTickData(clock) {
+    mainTickData(clock: IClock) {
         return [
             {
                 deg: 0,
@@ -108,7 +111,7 @@ class tickStore {
         ];
     }
 
-    worldClockTickData(clock) {
+    worldClockTickData(clock: IClock) {
         const { clockStyle } = clock;
         const major = clockStyle === "minimal" ? "subLong" : "subShort";
         const minor = clockStyle === "minimal" ? "sub" : "subShort";
@@ -128,7 +131,7 @@ class tickStore {
         ];
     }
 
-    secondsTickData(clock) {
+    secondsTickData(clock: IClock) {
         const { clockStyle } = clock;
         const major = "subShort";
         const minor = clockStyle === "minimal" ? "sub" : "subShort";
@@ -148,7 +151,7 @@ class tickStore {
         ];
     }
 
-    sunDialTickData(clock) {
+    sunDialTickData(clock: IClock) {
         const major = "subShort";
         const minor = "subShort";
         return [

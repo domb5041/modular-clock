@@ -12,7 +12,7 @@ const Container = styled.div`
     border-bottom: 1px solid ${transparentize(0.8, "white")};
 `;
 
-const MenuItem = styled.div`
+const MenuItem = styled.div<{ active: boolean }>`
     text-transform: uppercase;
     font-weight: bold;
     font-size: 18px;

@@ -1,12 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 import Ticks from "../Ticks";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import { observer } from "mobx-react";
 import { useStores } from "../store";
 import { DialBackground } from "../SubDial";
 import { transformHands } from "../utilityFunctions";
+import { IClock } from "../sharedTypes";
 
-function Seconds({ clock }) {
+const Seconds: FC<{ clock: IClock }> = ({ clock }) => {
     const { tickStore, clockStore } = useStores();
 
     return (
@@ -16,6 +17,6 @@ function Seconds({ clock }) {
             <SubHandsCap />
         </DialBackground>
     );
-}
+};
 
 export default observer(Seconds);

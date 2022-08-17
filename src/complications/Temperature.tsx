@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import axios from "axios";
 import Ticks from "../Ticks";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import styled from "styled-components";
 import { DialBackground } from "../SubDial";
+import { IClock } from "../sharedTypes";
 
 export const City = styled.div`
     color: ${(props) => props.theme.colors[props.color].text};
@@ -54,7 +55,7 @@ export const ticks = [
     { deg: 330, type: "sub" }
 ];
 
-function Temperature({ clock }) {
+const Temperature: FC<{ clock: IClock }> = ({ clock }) => {
     const [temp, setTemp] = useState(0);
     const [tempMinMax, setTempMinMax] = useState([0, 0]);
     const [latLon, setLatLon] = useState([0, 0]);
@@ -114,6 +115,6 @@ function Temperature({ clock }) {
             <SubHandsCap />
         </DialBackground>
     );
-}
+};
 
 export default observer(Temperature);

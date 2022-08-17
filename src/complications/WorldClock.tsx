@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import { SubHourHand, SubMinuteHand, SubHandsCap } from "../Hands.styled";
 import { theme } from "../theme";
 import { transformHands, timeToDegrees } from "../utilityFunctions";
@@ -9,6 +9,7 @@ import { DialBackground } from "../SubDial";
 import Ticks from "../Ticks";
 import moment from "moment";
 import "moment-timezone";
+import { IClock } from "../sharedTypes";
 
 const City = styled.div`
     text-transform: uppercase;
@@ -57,13 +58,18 @@ export const timezones = [
     { name: "Sao Paulo", id: "America/Sao_Paulo" },
     { name: "S. Georgia", id: "Atlantic/South_Georgia" },
     { name: "Azores", id: "Atlantic/Azores" }
-];
+] as const;
 
-function WorldClock({ position, clock }) {
+interface IWorldClockProps {
+    position: keyof IClock["subDial"];
+    clock: IClock;
+}
+
+const WorldClock: FC<IWorldClockProps> = ({ position, clock }) => {
     const { tickStore } = useStores();
-    const timezone = clock.subDial[position].timezone;
+    const timezone = clock.subDial[position].timezone as typeof timezones[number]["id"];
 
-    const getAmPm = (timezone) => {
+    const getAmPm = (timezone: typeof timezones[number]["id"]) => {
         const d = timezone ? moment().tz(timezone) : moment();
         return d.hours() < 12 ? "AM" : "PM";
     };
@@ -82,9 +88,7 @@ function WorldClock({ position, clock }) {
 
     return (
         <DialBackground color={clock.clockColor}>
-            <AmPm style={{ color: text }} subDial>
-                {getAmPm(timezone)}
-            </AmPm>
+            <AmPm style={{ color: text }}>{getAmPm(timezone)}</AmPm>
             <City style={{ color: text }}>{timezones.find((o) => o.id === timezone).name}</City>
             <Ticks clock={clock} tickData={tickStore.worldClockTickData(clock)} />
             <SubHourHand style={transformHands(time[0])} />
@@ -92,6 +96,6 @@ function WorldClock({ position, clock }) {
             <SubHandsCap />
         </DialBackground>
     );
-}
+};
 
 export default observer(WorldClock);

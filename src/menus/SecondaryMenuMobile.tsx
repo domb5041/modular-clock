@@ -14,7 +14,7 @@ const Container = styled.div`
     padding: 10px 0;
 `;
 
-const MenuItem = styled.div`
+const MenuItem = styled.div<{ active: boolean; disabled: boolean }>`
     margin: 0 5px;
     padding: 10px;
     font-size: 16px;
@@ -28,14 +28,15 @@ const MenuItem = styled.div`
 
 export default observer(() => {
     const { primaryMenu, secondaryMenus } = useStores().menuStore;
+    const menu = secondaryMenus[primaryMenu];
     return (
         <Container>
-            {secondaryMenus[primaryMenu].menu.map((menuItem, i) => (
+            {menu.menu.map((menuItem, i) => (
                 <>
                     <MenuItem
                         key={i}
-                        active={secondaryMenus[primaryMenu].activeItem === menuItem.id}
-                        onClick={() => secondaryMenus[primaryMenu].onClick(menuItem.id)}
+                        active={menu.activeItem === menuItem.id}
+                        onClick={() => menu.onClick(menuItem.id)}
                         disabled={menuItem.disabled}
                     >
                         {menuItem.name}
@@ -43,11 +44,7 @@ export default observer(() => {
                     <OptionsBlock
                         mobileVersion
                         options={menuItem.options}
-                        active={
-                            secondaryMenus[primaryMenu].activeItem === menuItem.id &&
-                            "options" in menuItem &&
-                            !menuItem.disabled
-                        }
+                        active={menu.activeItem === menuItem.id && "options" in menuItem && !menuItem.disabled}
                     />
                 </>
             ))}

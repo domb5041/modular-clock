@@ -1,8 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
+import { IMenuOption } from "./Menu";
 
-const Container = styled.div`
+const Container = styled.div<{ mobileVersion: boolean }>`
     border-bottom: 1px solid grey;
     overflow: hidden;
     height: 100px;
@@ -49,7 +50,13 @@ const TextInput = styled.div`
     }
 `;
 
-export default function OptionsBlock({ options, active, mobileVersion }) {
+interface IOptionsBlockProps {
+    options: IMenuOption[];
+    active: boolean;
+    mobileVersion?: boolean;
+}
+
+const OptionsBlock: FC<IOptionsBlockProps> = ({ options, active, mobileVersion }) => {
     return (
         <CSSTransition in={active} unmountOnExit timeout={700} classNames="block">
             <Container className="block" mobileVersion={mobileVersion}>
@@ -84,7 +91,7 @@ export default function OptionsBlock({ options, active, mobileVersion }) {
                                         value={option.value}
                                         onChange={(e) => option.onChange(e.target.value)}
                                         id={`${option.id}-input`}
-                                        maxLength="20"
+                                        maxLength={20}
                                     />
                                 </TextInput>
                             )}
@@ -93,4 +100,6 @@ export default function OptionsBlock({ options, active, mobileVersion }) {
             </Container>
         </CSSTransition>
     );
-}
+};
+
+export default OptionsBlock;

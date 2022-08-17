@@ -1,8 +1,13 @@
 import { makeAutoObservable } from "mobx";
 import { timeToDegrees } from "../utilityFunctions";
+import { swatches } from "../theme";
+import { IClock } from "../sharedTypes";
+import { RootStore } from ".";
 
 class clockStore {
-    constructor() {
+    rootStore: RootStore;
+    constructor(rootStore: RootStore) {
+        this.rootStore = rootStore;
         makeAutoObservable(this);
     }
 
@@ -61,24 +66,24 @@ class clockStore {
         }
     ];
 
-    setActiveClock(id) {
+    setActiveClock(id: string) {
         this.previousActiveIndex = this.activeIndex;
         this.activeClock = id;
     }
 
-    setClockStyle(style) {
+    setClockStyle(style: "minimal" | "numbers") {
         const newClocks = [...this.clocks];
         newClocks[this.activeIndex].clockStyle = style;
         this.clocks = newClocks;
     }
 
-    setClockColor(color) {
+    setClockColor(color: typeof swatches[number]["id"]) {
         const newClocks = [...this.clocks];
         newClocks[this.activeIndex].clockColor = color;
         this.clocks = newClocks;
     }
 
-    setSubDial(dial, attr, value) {
+    setSubDial(dial: keyof IClock["subDial"], attr: string, value: string) {
         const newClocks = [...this.clocks];
         newClocks[this.activeIndex].subDial[dial][attr] = value;
         this.clocks = newClocks;

@@ -50,6 +50,6 @@ export const swatches = [
     { id: "copper", name: "copper" },
     { id: "forest", name: "forest" },
     { id: "storm", name: "storm" }
-];
+] as const;
 
 export const colorTransition = "0.7s";

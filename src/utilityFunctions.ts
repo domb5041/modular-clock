@@ -1,7 +1,7 @@
 import moment from "moment";
 import "moment-timezone";
 
-export const timeToDegrees = (timezone) => {
+export const timeToDegrees = (timezone?: string) => {
     const d = timezone ? moment().tz(timezone) : moment();
 
     const hrsToSeconds = d.hours() * 3600;
@@ -15,6 +15,6 @@ export const timeToDegrees = (timezone) => {
     return [hrsToDeg, minsToDeg, secsToDeg];
 };
 
-export const transformHands = (handDegrees, modifier = 0) => ({
+export const transformHands = (handDegrees: number, modifier = 0) => ({
     transform: `translateX(-50%) rotate(${handDegrees + modifier}deg)`
 });

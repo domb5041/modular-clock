@@ -1,9 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import { Container, ContainerInner, MenuItem } from "./Menu.styled";
 import OptionsBlock from "./OptionsBlock";
 import { useStores } from "../store";
+import { primaryMenuOptions } from "./PrimaryMenu";
 
-export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected, menu }) {
+export interface IMenuProps {
+    secondaryMenu?: boolean;
+    onClick: (id: string) => void;
+    activeItem: string;
+    primaryMenuSelection?: typeof primaryMenuOptions[number]["id"];
+    menu: IMenu[];
+}
+
+export interface IMenu {
+    id: string;
+    name: string;
+    disabled?: boolean;
+    options?: IMenuOption[];
+}
+
+export interface IMenuOption {
+    id: string;
+    type: "text" | "dropdown";
+    value: string;
+    label: string;
+    onChange: (text: string) => void;
+    list?: any[];
+}
+
+const Menu: FC<IMenuProps> = ({ secondaryMenu, onClick, activeItem, primaryMenuSelection, menu }) => {
     const { clockStore } = useStores();
     const [menuOffset, setMenuOffset] = useState(0);
 
@@ -13,7 +38,7 @@ export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected,
         });
 
         setMenuOffset(i * -40);
-    }, [menuSelected, clockStore.activeClock, activeItem, menu]);
+    }, [primaryMenuSelection, clockStore.activeClock, activeItem, menu]);
 
     return (
         <Container>
@@ -42,4 +67,6 @@ export default function Menu({ secondaryMenu, onClick, activeItem, menuSelected,
             </ContainerInner>
         </Container>
     );
-}
+};
+
+export default Menu;
