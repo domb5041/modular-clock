@@ -16,6 +16,13 @@
         "react-transition-group": "^4.4.5",
         "styled-components": "^5.3.5"
     },
+    "devDependencies": {
+        "@types/node": "^18.7.6",
+        "@types/react": "^18.0.17",
+        "@types/react-dom": "^18.0.6",
+        "prettier": "^2.7.1",
+        "typescript": "^4.7.4"
+    },
     "scripts": {
         "start": "BROWSER=none react-scripts start",
         "build": "react-scripts build",
@@ -39,8 +46,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "devDependencies": {
-        "prettier": "^2.7.1"
     }
 }
