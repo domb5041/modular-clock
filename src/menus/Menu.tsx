@@ -9,14 +9,14 @@ export interface IMenuProps {
     onClick: (id: string) => void;
     activeItem: string;
     primaryMenuSelection?: typeof primaryMenuOptions[number]["id"];
-    menu: IMenu[];
+    menu: readonly IMenu[];
 }
 
 export interface IMenu {
     id: string;
     name: string;
     disabled?: boolean;
-    options?: IMenuOption[];
+    options?: readonly IMenuOption[];
 }
 
 export interface IMenuOption {
@@ -25,7 +25,7 @@ export interface IMenuOption {
     value: string;
     label: string;
     onChange: (text: string) => void;
-    list?: any[];
+    list?: readonly any[];
 }
 
 const Menu: FC<IMenuProps> = ({ secondaryMenu, onClick, activeItem, primaryMenuSelection, menu }) => {

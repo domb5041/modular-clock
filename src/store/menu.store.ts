@@ -48,12 +48,12 @@ class menuStore {
                         type: "text",
                         value: subDial.topDial.monogram,
                         label: "text",
-                        onChange: (text: string) => clockStore.setSubDial(pos, "monogram", text)
+                        onChange: (text: string) => clockStore.setSubDial("topDial", "monogram", text)
                     }
                 ]
             },
             { id: "none", name: "off" }
-        ];
+        ] as const;
     }
 
     get secondaryMenus() {

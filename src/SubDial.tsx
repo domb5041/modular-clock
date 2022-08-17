@@ -106,6 +106,7 @@ const SubDial: FC<ISubDialProps> = ({ position, clock }) => {
                 <SwitchTransition>
                     <CSSTransition
                         key={currentlyVisible}
+                        // @ts-ignore
                         addEndListener={(node, done) => node.addEventListener("transitionend", done, false)}
                         classNames="dial"
                     >

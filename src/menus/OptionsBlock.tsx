@@ -51,7 +51,7 @@ const TextInput = styled.div`
 `;
 
 interface IOptionsBlockProps {
-    options: IMenuOption[];
+    options: readonly IMenuOption[];
     active: boolean;
     mobileVersion?: boolean;
 }

@@ -26,9 +26,9 @@ class clockStore {
             clockColor: "nickel",
             subDial: {
                 topDial: { currentlyVisible: "monogram", timezone: "US/Hawaii", monogram: "react" },
-                leftDial: { currentlyVisible: "world-clock", timezone: "Europe/Paris" },
-                rightDial: { currentlyVisible: "world-clock", timezone: "Asia/Tokyo" },
-                bottomDial: { currentlyVisible: "sun-dial", timezone: "America/New_York" }
+                leftDial: { currentlyVisible: "world-clock", timezone: "Europe/Paris", monogram: "" },
+                rightDial: { currentlyVisible: "world-clock", timezone: "Asia/Tokyo", monogram: "" },
+                bottomDial: { currentlyVisible: "sun-dial", timezone: "America/New_York", monogram: "" }
             }
         },
         {
@@ -37,9 +37,9 @@ class clockStore {
             clockColor: "copper",
             subDial: {
                 topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "react" },
-                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris" },
-                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
-                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
+                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris", monogram: "" },
+                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo", monogram: "" },
+                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York", monogram: "" }
             }
         },
         {
@@ -48,9 +48,9 @@ class clockStore {
             clockColor: "forest",
             subDial: {
                 topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "react" },
-                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris" },
-                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
-                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
+                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris", monogram: "" },
+                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo", monogram: "" },
+                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York", monogram: "" }
             }
         },
         {
@@ -59,9 +59,9 @@ class clockStore {
             clockColor: "storm",
             subDial: {
                 topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "react" },
-                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris" },
-                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo" },
-                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York" }
+                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris", monogram: "" },
+                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo", monogram: "" },
+                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York", monogram: "" }
             }
         }
     ];
@@ -83,7 +83,7 @@ class clockStore {
         this.clocks = newClocks;
     }
 
-    setSubDial(dial: keyof IClock["subDial"], attr: string, value: string) {
+    setSubDial(dial: keyof IClock["subDial"], attr: keyof IClock["subDial"]["topDial"], value: string) {
         const newClocks = [...this.clocks];
         newClocks[this.activeIndex].subDial[dial][attr] = value;
         this.clocks = newClocks;
