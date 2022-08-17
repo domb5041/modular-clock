@@ -2,7 +2,6 @@ import { makeAutoObservable } from "mobx";
 import { swatches } from "../theme";
 import { timezones } from "../complications/WorldClock";
 import { IClock } from "../sharedTypes";
-import { primaryMenuOptions } from "../menus/PrimaryMenu";
 import { RootStore } from ".";
 
 class menuStore {
@@ -14,7 +13,7 @@ class menuStore {
 
     primaryMenu = "colour";
 
-    setPrimaryMenu(id: typeof primaryMenuOptions[number]["id"]) {
+    setPrimaryMenu(id: string) {
         this.primaryMenu = id;
     }
 
@@ -47,7 +46,7 @@ class menuStore {
                     {
                         id: "monogram-text",
                         type: "text",
-                        value: subDial[pos].monogram,
+                        value: subDial.topDial.monogram,
                         label: "text",
                         onChange: (text: string) => clockStore.setSubDial(pos, "monogram", text)
                     }

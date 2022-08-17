@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { transparentize } from "polished";
 import OptionsBlock from "./OptionsBlock";
 import { useStores } from "../store";
+import { primaryMenuOptions } from "./PrimaryMenu";
 
 const Container = styled.div`
     width: 100%;
@@ -28,7 +29,7 @@ const MenuItem = styled.div<{ active: boolean; disabled: boolean }>`
 
 export default observer(() => {
     const { primaryMenu, secondaryMenus } = useStores().menuStore;
-    const menu = secondaryMenus[primaryMenu];
+    const menu = secondaryMenus[primaryMenu as typeof primaryMenuOptions[number]["id"]];
     return (
         <Container>
             {menu.menu.map((menuItem, i) => (

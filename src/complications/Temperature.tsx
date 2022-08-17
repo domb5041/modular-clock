@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import axios from "axios";
-import Ticks from "../Ticks";
+import Ticks, { ITickProps } from "../Ticks";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import styled from "styled-components";
 import { DialBackground } from "../SubDial";
@@ -106,7 +106,7 @@ const Temperature: FC<{ clock: IClock }> = ({ clock }) => {
 
     return (
         <DialBackground color={clock.clockColor}>
-            <Ticks clock={clock} tickData={ticks} />
+            <Ticks clock={clock} tickData={ticks as ITickProps[]} />
             <MinTemp color={clock.clockColor}>L:{tempMinMax[0]}</MinTemp>
             <CurrentTemp color={clock.clockColor}>{temp}°C</CurrentTemp>
             <MaxTemp color={clock.clockColor}>H:{tempMinMax[1]}</MaxTemp>

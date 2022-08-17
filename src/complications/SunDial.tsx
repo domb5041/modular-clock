@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Ticks from "../Ticks";
+import Ticks, { ITickProps } from "../Ticks";
 import { SubMinuteHand, SubHandsCap } from "../Hands.styled";
 import { observer } from "mobx-react";
 import { useStores } from "../store";
@@ -12,7 +12,7 @@ const SunDial: FC<{ clock: IClock }> = ({ clock }) => {
 
     return (
         <DialBackground color={clock.clockColor}>
-            <Ticks clock={clock} tickData={tickStore.sunDialTickData(clock)} />
+            <Ticks clock={clock} tickData={tickStore.sunDialTickData(clock) as ITickProps[]} />
             <SubMinuteHand style={transformHands(clockStore.time[0] / 2, 180)} />
             <SubHandsCap />
         </DialBackground>

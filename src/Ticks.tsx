@@ -18,7 +18,7 @@ const tickDimensions = {
 export interface ITickProps {
     type: keyof typeof tickDimensions;
     deg: number;
-    number?: number;
+    number?: string;
 }
 
 export const Tick = styled.div<{ tick: ITickProps }>`

@@ -6,7 +6,7 @@ import { observer } from "mobx-react";
 import { useStores } from "../store";
 import styled from "styled-components";
 import { DialBackground } from "../SubDial";
-import Ticks from "../Ticks";
+import Ticks, { ITickProps } from "../Ticks";
 import moment from "moment";
 import "moment-timezone";
 import { IClock } from "../sharedTypes";
@@ -90,7 +90,7 @@ const WorldClock: FC<IWorldClockProps> = ({ position, clock }) => {
         <DialBackground color={clock.clockColor}>
             <AmPm style={{ color: text }}>{getAmPm(timezone)}</AmPm>
             <City style={{ color: text }}>{timezones.find((o) => o.id === timezone).name}</City>
-            <Ticks clock={clock} tickData={tickStore.worldClockTickData(clock)} />
+            <Ticks clock={clock} tickData={tickStore.worldClockTickData(clock) as ITickProps[]} />
             <SubHourHand style={transformHands(time[0])} />
             <SubMinuteHand style={transformHands(time[1])} />
             <SubHandsCap />

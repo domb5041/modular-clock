@@ -1,11 +1,12 @@
 import { createGlobalStyle } from "styled-components";
+import { theme } from "./theme";
 
 export const GlobalStyles = createGlobalStyle`
 html {
     background-color: black;
     color: white;
     font-size: 10px;
-    @media ${(props) => props.theme.screen.clockSize}{
+    @media ${theme.screen.clockSize}{
         font-size: 2vw;
     }
 }

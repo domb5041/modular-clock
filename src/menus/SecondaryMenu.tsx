@@ -7,7 +7,7 @@ import { primaryMenuOptions } from "./PrimaryMenu";
 
 export default observer(() => {
     const { primaryMenu, secondaryMenus } = useStores().menuStore;
-    const menu = secondaryMenus[primaryMenu];
+    const menu = secondaryMenus[primaryMenu as typeof primaryMenuOptions[number]["id"]];
     return (
         <>
             <MenuConnector />

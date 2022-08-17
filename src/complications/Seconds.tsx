@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Ticks from "../Ticks";
+import Ticks, { ITickProps } from "../Ticks";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import { observer } from "mobx-react";
 import { useStores } from "../store";
@@ -12,7 +12,7 @@ const Seconds: FC<{ clock: IClock }> = ({ clock }) => {
 
     return (
         <DialBackground color={clock.clockColor}>
-            <Ticks clock={clock} tickData={tickStore.secondsTickData(clock)} />
+            <Ticks clock={clock} tickData={tickStore.secondsTickData(clock) as ITickProps[]} />
             <SubSecondHand style={transformHands(clockStore.time[2])} color={clock.clockColor} />
             <SubHandsCap />
         </DialBackground>
