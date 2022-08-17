@@ -33,7 +33,7 @@ const Container = styled.div`
     }
 `;
 
-function ClockNavMobile() {
+function ClocksNavMobile() {
     const { clockStore } = useStores();
     return (
         <Container>
@@ -62,4 +62,4 @@ function ClockNavMobile() {
     );
 }
 
-export default observer(ClockNavMobile);
+export default observer(ClocksNavMobile);

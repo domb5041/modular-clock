@@ -5,8 +5,8 @@ import { theme } from "./theme";
 import SecondaryMenu from "./menus/SecondaryMenu";
 import PrimaryMenu from "./menus/PrimaryMenu";
 import { observer } from "mobx-react";
-import ClocksRow from "./ClocksRow";
-import ClockNavMobile from "./ClockNavMobile";
+import ClocksNav from "./ClocksNav";
+import ClocksNavMobile from "./ClocksNavMobile";
 import PrimaryMenuMobile from "./menus/PrimaryMenuMobile";
 import SecondaryMenuMobile from "./menus/SecondaryMenuMobile";
 import { useMediaQuery } from "react-responsive";
@@ -60,7 +60,7 @@ function App() {
 
     return (
         <Page>
-            {isMobile ? <ClockNavMobile /> : <ClocksRow />}
+            {isMobile ? <ClocksNavMobile /> : <ClocksNav />}
             <ActiveClock>
                 {!isMobile && <PrimaryMenu />}
                 <div id="clock-slot">

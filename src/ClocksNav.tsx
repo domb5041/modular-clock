@@ -99,7 +99,7 @@ const MicroTick = styled(Tick)`
     }
 `;
 
-function ClocksRow() {
+function ClocksNav() {
     const { clockStore } = useStores();
     const tickData = [
         { deg: 0, type: "subShort" },
@@ -151,4 +151,4 @@ function ClocksRow() {
     );
 }
 
-export default observer(ClocksRow);
+export default observer(ClocksNav);
