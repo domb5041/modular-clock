@@ -53,6 +53,14 @@ function App() {
     const { clockStore } = useStores();
 
     useEffect(() => {
+        fetch("/api")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            });
+    }, []);
+
+    useEffect(() => {
         const interval = setInterval(clockStore.setTime, 1000);
         return () => {
             clearInterval(interval);

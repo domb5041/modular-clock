@@ -2,6 +2,7 @@
     "name": "modular-clock",
     "version": "0.1.0",
     "private": true,
+    "proxy": "http://localhost:3001",
     "dependencies": {
         "axios": "^0.27.2",
         "mobx": "^6.6.1",
