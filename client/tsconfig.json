@@ -4,7 +4,7 @@
         "module": "es6",
         "target": "es6",
         "allowJs": true,
-        "outDir": "dist",
+        "outDir": "build",
         "experimentalDecorators": true,
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
