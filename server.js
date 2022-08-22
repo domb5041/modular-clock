@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 const path = require("path");
 require("dotenv").config();
 
@@ -8,8 +9,22 @@ const app = express();
 
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 
-app.get("/api", (req, res) => {
-    res.json({ message: `api key${process.env.API_KEY}` });
+app.get(`/temperature*`, (req, res) => {
+    axios({
+        method: "get",
+        url: `http://api.weatherapi.com/v1/forecast.json`,
+        params: {
+            key: process.env.API_KEY,
+            q: `${req.query.lat},${req.query.lon}`
+        }
+    })
+        .then((response) => {
+            console.log(response.data);
+            res.json(response.data);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
 });
 
 app.get("*", (req, res) => {

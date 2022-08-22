@@ -25,7 +25,7 @@ class clockStore {
             clockStyle: "minimal",
             clockColor: "nickel",
             subDial: {
-                topDial: { currentlyVisible: "monogram", timezone: "US/Hawaii", monogram: "react" },
+                topDial: { currentlyVisible: "temperature", timezone: "US/Hawaii", monogram: "react" },
                 leftDial: { currentlyVisible: "world-clock", timezone: "Europe/Paris", monogram: "" },
                 rightDial: { currentlyVisible: "world-clock", timezone: "Asia/Tokyo", monogram: "" },
                 bottomDial: { currentlyVisible: "sun-dial", timezone: "America/New_York", monogram: "" }
