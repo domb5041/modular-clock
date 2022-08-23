@@ -93,7 +93,6 @@ const Temperature: FC<{ clock: IClock }> = ({ clock }) => {
             method: "get",
             url: `/temperature?lat=${latLon[0]}&lon=${latLon[1]}`
         }).then((res) => {
-            console.log(res);
             setTemp(res.data.current.temp_c);
             const { day } = res.data.forecast.forecastday[0];
             setTempMinMax([Math.round(day.mintemp_c), Math.round(day.maxtemp_c)]);

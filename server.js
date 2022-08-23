@@ -19,7 +19,6 @@ app.get(`/temperature*`, (req, res) => {
         }
     })
         .then((response) => {
-            console.log(response.data);
             res.json(response.data);
         })
         .catch((err) => {

@@ -52,14 +52,6 @@ function App() {
     const isMobile = useMediaQuery({ query: theme.screen.mobile });
     const { clockStore } = useStores();
 
-    // useEffect(() => {
-    //     fetch("/api")
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             console.log(data);
-    //         });
-    // }, []);
-
     useEffect(() => {
         const interval = setInterval(clockStore.setTime, 1000);
         return () => {
