@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 
-app.get(`/temperature*`, (req, res) => {
+app.get(`/temperature*`, (req: { query: { lat: any; lon: any } }, res: { json: (arg0: any) => void }) => {
     axios({
         method: "get",
         url: `http://api.weatherapi.com/v1/forecast.json`,
@@ -18,15 +18,15 @@ app.get(`/temperature*`, (req, res) => {
             q: `${req.query.lat},${req.query.lon}`
         }
     })
-        .then((response) => {
+        .then((response: { data: any }) => {
             res.json(response.data);
         })
-        .catch((err) => {
+        .catch((err: any) => {
             console.error(err);
         });
 });
 
-app.get("*", (req, res) => {
+app.get("*", (req: any, res: { sendFile: (arg0: any) => void }) => {
     res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });
 
