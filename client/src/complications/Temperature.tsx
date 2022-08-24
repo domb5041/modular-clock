@@ -56,12 +56,17 @@ export const ticks = [
 ];
 
 const Temperature: FC<{ clock: IClock }> = ({ clock }) => {
-    const [temp, setTemp] = useState(0);
-    const [tempMinMax, setTempMinMax] = useState([0, 0]);
-    const [latLon, setLatLon] = useState([0, 0]);
-    const [location, setLocation] = useState("");
+    const [temp, setTemp] = useState(null);
+    const [tempMinMax, setTempMinMax] = useState(null);
+    const [latLon, setLatLon] = useState(null);
+    const [location, setLocation] = useState(null);
 
     const transformTempToDegrees = () => {
+        if (!tempMinMax || !latLon || !temp) {
+            return {
+                transform: "translateX(-50%) rotate(0deg)"
+            };
+        }
         const range = tempMinMax[1] - tempMinMax[0];
         const degrees = (temp - tempMinMax[0]) * (180 / range) - 90;
         return {
@@ -79,7 +84,7 @@ const Temperature: FC<{ clock: IClock }> = ({ clock }) => {
     }, []);
 
     useEffect(() => {
-        if (latLon !== [0, 0]) {
+        if (latLon) {
             getTemperature();
             const timeInterval = setInterval(getTemperature, 60000);
             return () => {
@@ -103,10 +108,10 @@ const Temperature: FC<{ clock: IClock }> = ({ clock }) => {
     return (
         <DialBackground color={clock.clockColor}>
             <Ticks clock={clock} tickData={ticks as ITickProps[]} />
-            <MinTemp color={clock.clockColor}>L:{tempMinMax[0]}</MinTemp>
-            <CurrentTemp color={clock.clockColor}>{temp}°C</CurrentTemp>
-            <MaxTemp color={clock.clockColor}>H:{tempMinMax[1]}</MaxTemp>
-            <City color={clock.clockColor}>{location}</City>
+            <MinTemp color={clock.clockColor}>L:{tempMinMax ? tempMinMax[0] : "--"}</MinTemp>
+            <CurrentTemp color={clock.clockColor}>{temp || "--"}°C</CurrentTemp>
+            <MaxTemp color={clock.clockColor}>H:{tempMinMax ? tempMinMax[1] : "--"}</MaxTemp>
+            <City color={clock.clockColor}>{location || "-----"}</City>
             <SubSecondHand style={transformTempToDegrees()} color={clock.clockColor} />
             <SubHandsCap />
         </DialBackground>
