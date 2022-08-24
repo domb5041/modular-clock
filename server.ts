@@ -1,15 +1,17 @@
-const express = require("express");
-const axios = require("axios");
-const path = require("path");
-require("dotenv").config();
+import axios from "axios";
+import dotenv from "dotenv";
+import express, { Express, Request, Response } from "express";
+import path from "path";
+
+dotenv.config();
 
 const PORT = process.env.PORT || 3001;
 
-const app = express();
+const app: Express = express();
 
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 
-app.get(`/temperature*`, (req: { query: { lat: any; lon: any } }, res: { json: (arg0: any) => void }) => {
+app.get(`/temperature*`, (req: Request, res: Response) => {
     axios({
         method: "get",
         url: `http://api.weatherapi.com/v1/forecast.json`,
@@ -26,7 +28,7 @@ app.get(`/temperature*`, (req: { query: { lat: any; lon: any } }, res: { json: (
         });
 });
 
-app.get("*", (req: any, res: { sendFile: (arg0: any) => void }) => {
+app.get("*", (req: Request, res: Response) => {
     res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });
 
