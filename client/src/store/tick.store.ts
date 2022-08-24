@@ -181,6 +181,24 @@ class tickStore {
             { deg: 345, type: minor }
         ];
     }
+
+    temperatureDialTickData = (clock: IClock, tempMin: number, tempMax: number) => {
+        const range = tempMax - tempMin;
+        const steps = 9;
+        const degIncrement = 220 / steps;
+        const ticks = [];
+        for (let i = 0; i <= steps; i++) {
+            const number = Math.round(tempMin + i * (range / steps));
+            const numberConditional = this.returnNumberType(clock, number.toString());
+            const minMax = i === 0 || i === steps;
+            ticks.push({
+                deg: i * degIncrement - 110,
+                type: clock.clockStyle === "minimal" && !minMax ? "sub" : "subShort",
+                number: minMax ? number : numberConditional
+            });
+        }
+        return ticks;
+    };
 }
 
 export default tickStore;
