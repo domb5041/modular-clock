@@ -11,17 +11,33 @@ export const City = styled.div`
     color: ${(props) => props.theme.colors[props.color].text};
     text-transform: uppercase;
     position: absolute;
-    bottom: 5.2rem;
-    width: 100%;
-    text-align: center;
+    top: 50%;
+    right: 0;
+    left: 0;
+    bottom: 0;
     font-size: 1.2rem;
-    letter-spacing: 0.2rem;
     text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
+`;
+
+const Letter = styled.div<{ rotation: number }>`
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: center top;
+    width: 2rem;
+    height: 100%;
+    transform: ${(props) => `translateX(-50%) rotate(${props.rotation}deg)`};
+    & .letter {
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        bottom: 0.4rem;
+    }
 `;
 
 const CurrentTemp = styled.div`
     position: absolute;
-    bottom: 2.4rem;
+    bottom: 4rem;
     left: 50%;
     transform: translateX(-50%);
     font-size: 1.8rem;
@@ -49,7 +65,6 @@ export const ticks = [
     { deg: 30, type: "sub" },
     { deg: 60, type: "sub" },
     { deg: 90, type: "sub" },
-    { deg: 180, type: "sub" },
     { deg: 270, type: "sub" },
     { deg: 300, type: "sub" },
     { deg: 330, type: "sub" }
@@ -105,13 +120,27 @@ const Temperature: FC<{ clock: IClock }> = ({ clock }) => {
         });
     };
 
+    const formatLocation = () => {
+        const letters = location ? location.split("") : ["-"];
+        const lettersCount = letters.length - 1;
+        const spacing = 11;
+        const offset = (lettersCount * spacing) / 2;
+
+        const formattedLetters = letters.map((letter: string, i: number) => (
+            <Letter key={i} rotation={i * -spacing + offset}>
+                <div className="letter">{letter}</div>
+            </Letter>
+        ));
+        return formattedLetters;
+    };
+
     return (
         <DialBackground color={clock.clockColor}>
             <Ticks clock={clock} tickData={ticks as ITickProps[]} />
             <MinTemp color={clock.clockColor}>L:{tempMinMax ? tempMinMax[0] : "--"}</MinTemp>
             <CurrentTemp color={clock.clockColor}>{temp || "--"}°C</CurrentTemp>
             <MaxTemp color={clock.clockColor}>H:{tempMinMax ? tempMinMax[1] : "--"}</MaxTemp>
-            <City color={clock.clockColor}>{location || "-----"}</City>
+            <City color={clock.clockColor}>{formatLocation()}</City>
             <SubSecondHand style={transformTempToDegrees()} color={clock.clockColor} />
             <SubHandsCap />
         </DialBackground>
