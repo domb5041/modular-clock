@@ -91,11 +91,7 @@ const Temperature: FC<{ clock: IClock }> = ({ clock }) => {
     const getTemperature = () => {
         axios({
             method: "get",
-            url: `http://api.weatherapi.com/v1/forecast.json`,
-            params: {
-                key: "d828e01ddaf34e14a8e151445221207",
-                q: `${latLon[0]},${latLon[1]}`
-            }
+            url: `/temperature?lat=${latLon[0]}&lon=${latLon[1]}`
         }).then((res) => {
             setTemp(res.data.current.temp_c);
             const { day } = res.data.forecast.forecastday[0];
