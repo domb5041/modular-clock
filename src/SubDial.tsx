@@ -61,6 +61,7 @@ export const DialBackground = styled.div`
     border: 0.2rem solid ${(props) => props.theme.colors[props.color].base};
     background-color: ${(props) => props.theme.colors[props.color].subDial};
     transition: background-color ${colorTransition}, border ${colorTransition};
+    overflow: hidden;
 `;
 
 interface IDialHighlightProps {
