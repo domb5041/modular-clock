@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
 import { observer } from "mobx-react";
-import axios from "axios";
 import Ticks, { ITickProps } from "../Ticks";
 import { SubSecondHand, SubHandsCap } from "../Hands.styled";
 import styled from "styled-components";
