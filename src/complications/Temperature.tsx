@@ -47,11 +47,10 @@ const CurrentTemp = styled.div`
 `;
 
 const Temperature: FC<{ clock: IClock }> = ({ clock }) => {
-    const { tickStore } = useStores();
+    const { tickStore, weatherStore } = useStores();
     const [temp, setTemp] = useState(0);
     const [tempMin, setTempMin] = useState(0);
     const [tempMax, setTempMax] = useState(10);
-    const [latLon, setLatLon] = useState(null);
     const [location, setLocation] = useState(null);
 
     const transformTempToDegrees = () => {
@@ -63,36 +62,14 @@ const Temperature: FC<{ clock: IClock }> = ({ clock }) => {
     };
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                setLatLon([position.coords.latitude, position.coords.longitude]);
-            },
-            (error) => console.log(error.message)
-        );
-    }, []);
-
-    useEffect(() => {
-        if (latLon) {
-            getTemperature();
-            const timeInterval = setInterval(getTemperature, 1000 * 60 * 5);
-            return () => {
-                clearInterval(timeInterval);
-            };
-        }
-    }, [latLon]);
-
-    const getTemperature = () => {
-        axios({
-            method: "get",
-            url: `/temperature?lat=${latLon[0]}&lon=${latLon[1]}`
-        }).then((res) => {
-            setTemp(res.data.current.temp_c);
-            const { day } = res.data.forecast.forecastday[0];
+        if (weatherStore.weather) {
+            setTemp(weatherStore.weather.current.temp_c);
+            const { day } = weatherStore.weather.forecast.forecastday[0];
             setTempMin(Math.round(day.mintemp_c));
             setTempMax(Math.round(day.maxtemp_c));
-            setLocation(res.data.location.name);
-        });
-    };
+            setLocation(weatherStore.weather.location.name);
+        }
+    }, [weatherStore.weather]);
 
     const formatLocation = () => {
         const letters = location ? location.split("") : "location".split("");

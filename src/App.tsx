@@ -13,6 +13,7 @@ import { useMediaQuery } from "react-responsive";
 import { useStores } from "./store";
 import { CSSTransition } from "react-transition-group";
 import { IClock } from "./sharedTypes";
+import axios from "axios";
 
 const Page = styled.div`
     position: fixed;
@@ -50,7 +51,32 @@ const ActiveClock = styled.div`
 
 function App() {
     const isMobile = useMediaQuery({ query: theme.screen.mobile });
-    const { clockStore } = useStores();
+    const { clockStore, weatherStore } = useStores();
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            weatherStore.setLocation(position.coords.latitude, position.coords.longitude);
+        },
+        (error) => console.log(error.message)
+    );
+
+    useEffect(() => {
+        const getWeather = () => {
+            axios({
+                method: "get",
+                url: `/forecast?lat=${weatherStore.latLon[0]}&lon=${weatherStore.latLon[1]}`
+            }).then((res) => {
+                weatherStore.setWeather(res.data);
+            });
+        };
+        if (weatherStore.latLon) {
+            getWeather();
+            const timeInterval = setInterval(getWeather, 1000 * 60 * 5);
+            return () => {
+                clearInterval(timeInterval);
+            };
+        }
+    }, [weatherStore]);
 
     useEffect(() => {
         const interval = setInterval(clockStore.setTime, 1000);

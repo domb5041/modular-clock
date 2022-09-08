@@ -8,7 +8,6 @@ import { transformHands } from "../utilityFunctions";
 import { IClock } from "../sharedTypes";
 import styled from "styled-components";
 import { transparentize } from "polished";
-import axios from "axios";
 
 const NightArea = styled.svg`
     display: block;
@@ -19,65 +18,41 @@ const NightArea = styled.svg`
 `;
 
 const SunDial: FC<{ clock: IClock }> = ({ clock }) => {
-    const { tickStore, clockStore } = useStores();
-    const [latLon, setLatLon] = useState(null);
+    const { tickStore, clockStore, weatherStore } = useStores();
     const [nightArea, setNightArea] = useState("");
 
-    const drawNightArea = (sunrise: string, sunset: string) => {
-        const centreX = 50;
-        const centreY = 50;
-        const radius = 50;
-        const startAngle = convertToDegrees(sunset);
-        const endAngle = convertToDegrees(sunrise) - startAngle;
-        const startAngleRad = startAngle * (Math.PI / 180);
-        const endAngleRad = endAngle * (Math.PI / 180);
-
-        const firstCircumferenceX = centreX + radius * Math.cos(startAngleRad);
-        const firstCircumferenceY = centreY + radius * Math.sin(startAngleRad);
-        const secondCircumferenceX = centreX + radius * Math.cos(startAngleRad + endAngleRad);
-        const secondCircumferenceY = centreY + radius * Math.sin(startAngleRad + endAngleRad);
-
-        let d = "";
-        // move to centre
-        d += "M" + centreX + "," + centreY + " ";
-        // line to first edge
-        d += "L" + firstCircumferenceX + "," + firstCircumferenceY + " ";
-        // arc
-        // Radius X, Radius Y, X Axis Rotation, Large Arc Flag, Sweep Flag, End X, End Y
-        d += "A" + radius + "," + radius + " 0 0,1 " + secondCircumferenceX + "," + secondCircumferenceY + " ";
-        // close path
-        d += "Z";
-        setNightArea(d);
-    };
-
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                setLatLon([position.coords.latitude, position.coords.longitude]);
-            },
-            (error) => console.log(error.message)
-        );
-    }, []);
+        const drawNightArea = (sunrise: string, sunset: string) => {
+            const centreX = 50;
+            const centreY = 50;
+            const radius = 50;
+            const startAngle = convertToDegrees(sunset);
+            const endAngle = convertToDegrees(sunrise) - startAngle;
+            const startAngleRad = startAngle * (Math.PI / 180);
+            const endAngleRad = endAngle * (Math.PI / 180);
 
-    useEffect(() => {
-        if (latLon) {
-            getSun();
-            const timeInterval = setInterval(getSun, 1000 * 60 * 5);
-            return () => {
-                clearInterval(timeInterval);
-            };
-        }
-    }, [latLon]);
+            const firstCircumferenceX = centreX + radius * Math.cos(startAngleRad);
+            const firstCircumferenceY = centreY + radius * Math.sin(startAngleRad);
+            const secondCircumferenceX = centreX + radius * Math.cos(startAngleRad + endAngleRad);
+            const secondCircumferenceY = centreY + radius * Math.sin(startAngleRad + endAngleRad);
 
-    const getSun = () => {
-        axios({
-            method: "get",
-            url: `/temperature?lat=${latLon[0]}&lon=${latLon[1]}`
-        }).then((res) => {
-            const { astro } = res.data.forecast.forecastday[0];
+            let d = "";
+            // move to centre
+            d += "M" + centreX + "," + centreY + " ";
+            // line to first edge
+            d += "L" + firstCircumferenceX + "," + firstCircumferenceY + " ";
+            // arc
+            // Radius X, Radius Y, X Axis Rotation, Large Arc Flag, Sweep Flag, End X, End Y
+            d += "A" + radius + "," + radius + " 0 0,1 " + secondCircumferenceX + "," + secondCircumferenceY + " ";
+            // close path
+            d += "Z";
+            setNightArea(d);
+        };
+        if (weatherStore.weather) {
+            const { astro } = weatherStore.weather.forecast.forecastday[0];
             drawNightArea(astro.sunrise, astro.sunset);
-        });
-    };
+        }
+    }, [weatherStore.weather]);
 
     const convertToDegrees = (string: string) => {
         const array = string.split(/:|\s/);
