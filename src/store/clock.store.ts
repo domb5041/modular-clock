@@ -3,12 +3,18 @@ import { timeToDegrees } from "../utilityFunctions";
 import { swatches } from "../theme";
 import { IClock } from "../sharedTypes";
 import { RootStore } from ".";
+import { makePersistable } from "mobx-persist-store";
 
 class clockStore {
     rootStore: RootStore;
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
         makeAutoObservable(this);
+        makePersistable(this, {
+            name: "clockStore",
+            properties: ["clocks", "activeClock"],
+            storage: window.localStorage
+        });
     }
 
     time = timeToDegrees();
