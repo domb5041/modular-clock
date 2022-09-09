@@ -6,6 +6,7 @@ html {
     background-color: black;
     color: white;
     font-size: 10px;
+    user-select: none;
     @media ${theme.screen.clockSize}{
         font-size: 2vw;
     }
