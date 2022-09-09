@@ -53,12 +53,14 @@ function App() {
     const isMobile = useMediaQuery({ query: theme.screen.mobile });
     const { clockStore, weatherStore } = useStores();
 
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            weatherStore.setLocation(position.coords.latitude, position.coords.longitude);
-        },
-        (error) => console.log(error.message)
-    );
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                weatherStore.setLocation(position.coords.latitude, position.coords.longitude);
+            },
+            (error) => console.log(error.message)
+        );
+    }, [weatherStore]);
 
     useEffect(() => {
         const getWeather = () => {
@@ -76,7 +78,7 @@ function App() {
                 clearInterval(timeInterval);
             };
         }
-    }, [weatherStore]);
+    }, [weatherStore.latLon, weatherStore]);
 
     useEffect(() => {
         const interval = setInterval(clockStore.setTime, 1000);
