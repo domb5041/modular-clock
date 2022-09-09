@@ -32,7 +32,7 @@ class clockStore {
             }
         },
         {
-            id: "clock-01",
+            id: "clock-1",
             clockStyle: "numbers",
             clockColor: "copper",
             subDial: {
@@ -43,7 +43,7 @@ class clockStore {
             }
         },
         {
-            id: "clock-02",
+            id: "clock-2",
             clockStyle: "minimal",
             clockColor: "forest",
             subDial: {
@@ -54,7 +54,7 @@ class clockStore {
             }
         },
         {
-            id: "clock-03",
+            id: "clock-3",
             clockStyle: "minimal",
             clockColor: "storm",
             subDial: {
@@ -94,6 +94,23 @@ class clockStore {
     get activeIndex() {
         return this.clocks.findIndex((clock) => clock.id === this.activeClock);
     }
+
+    addNewClock = () => {
+        const id = `clock-${this.clocks.length}`;
+        const payload = {
+            id: id,
+            clockStyle: "minimal",
+            clockColor: "nickel",
+            subDial: {
+                topDial: { currentlyVisible: "monogram", timezone: "US/Hawaii", monogram: "new clock" },
+                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris", monogram: "" },
+                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo", monogram: "" },
+                bottomDial: { currentlyVisible: "none", timezone: "America/New_York", monogram: "" }
+            }
+        };
+        this.clocks.push(payload);
+        this.setActiveClock(id);
+    };
 }
 
 export default clockStore;

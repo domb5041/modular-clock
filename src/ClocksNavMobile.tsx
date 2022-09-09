@@ -49,15 +49,18 @@ function ClocksNavMobile() {
             <label>
                 {clockStore.activeIndex + 1}/{clockStore.clocks.length}
             </label>
-            <button
-                disabled={clockStore.activeIndex >= clockStore.clocks.length - 1}
-                onClick={() => {
-                    const newId = clockStore.clocks[clockStore.activeIndex + 1].id;
-                    clockStore.setActiveClock(newId);
-                }}
-            >
-                ▶︎
-            </button>
+            {clockStore.activeIndex < clockStore.clocks.length - 1 ? (
+                <button
+                    onClick={() => {
+                        const newId = clockStore.clocks[clockStore.activeIndex + 1].id;
+                        clockStore.setActiveClock(newId);
+                    }}
+                >
+                    ▶︎
+                </button>
+            ) : (
+                <button onClick={clockStore.addNewClock}>+</button>
+            )}
         </Container>
     );
 }

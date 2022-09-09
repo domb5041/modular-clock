@@ -7,21 +7,26 @@ import { useStores } from "./store";
 
 const Clocks = styled.div`
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     border-right: 1px solid ${transparentize(0.8, "white")};
+    height: 100%;
+    overflow-y: auto;
 `;
 
 const SelectRing = styled.div<{ active: boolean }>`
     width: 150px;
     height: 150px;
-    border: 2px solid ${(props) => (props.active ? "white" : "transparent")};
-    padding: 10px;
+    border: 3px solid ${(props) => (props.active ? "white" : "transparent")};
+    padding: 5px;
     border-radius: 100%;
-    margin: 0 10px;
+    margin: 0 5px 4px 5px;
     transition: 0.2s;
     flex-shrink: 0;
+    cursor: pointer;
+    &:hover {
+        border-color: ${(props) => (props.active ? "white" : transparentize(0.7, "white"))};
+    }
 `;
 
 const ClockIcon = styled.div`
@@ -31,12 +36,8 @@ const ClockIcon = styled.div`
     box-sizing: border-box;
     background-color: ${(props) => props.theme.colors[props.color].subDial};
     border-radius: 100%;
-    cursor: pointer;
     transition: 0.2s;
     position: relative;
-    &:hover {
-        transform: scale(1.05);
-    }
 `;
 
 const MicroHourHand = styled(SubHourHand)`
@@ -94,6 +95,23 @@ const MicroTick = styled(Tick)`
     }
 `;
 
+const AddClock = styled.div`
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 100%;
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: ${transparentize(0.85, "white")};
+    & > svg {
+        fill: ${transparentize(0.4, "white")};
+        width: 50px;
+        height: 50px;
+    }
+`;
+
 function ClocksNav() {
     const { clockStore } = useStores();
     const tickData = [
@@ -142,6 +160,13 @@ function ClocksNav() {
                     </SelectRing>
                 );
             })}
+            <SelectRing active={false}>
+                <AddClock onClick={clockStore.addNewClock}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+                    </svg>
+                </AddClock>
+            </SelectRing>
         </Clocks>
     );
 }
