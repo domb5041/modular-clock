@@ -13,7 +13,8 @@ class clockStore {
         makePersistable(this, {
             name: "clockStore",
             properties: ["clocks", "activeClock"],
-            storage: window.localStorage
+            storage: window.localStorage,
+            debugMode: false
         });
     }
 
@@ -102,7 +103,7 @@ class clockStore {
     }
 
     addNewClock = () => {
-        const id = `clock-${this.clocks.length}`;
+        const id = `clock-${Math.random()}`;
         const payload = {
             id: id,
             clockStyle: "minimal",
@@ -116,6 +117,13 @@ class clockStore {
         };
         this.clocks.push(payload);
         this.setActiveClock(id);
+    };
+
+    deleteClock = () => {
+        const newClocks = this.clocks;
+        newClocks.splice(this.activeIndex, 1);
+        this.setActiveClock("clock-0");
+        this.clocks = newClocks;
     };
 }
 

@@ -24,6 +24,7 @@ const SelectRing = styled.div<{ active: boolean }>`
     transition: 0.2s;
     flex-shrink: 0;
     cursor: pointer;
+    position: relative;
     &:hover {
         border-color: ${(props) => (props.active ? "white" : transparentize(0.7, "white"))};
     }
@@ -112,6 +113,15 @@ const AddClock = styled.div`
     }
 `;
 
+const Delete = styled.button`
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+`;
+
 function ClocksNav() {
     const { clockStore } = useStores();
     const tickData = [
@@ -134,6 +144,19 @@ function ClocksNav() {
                 const { topDial, leftDial, rightDial, bottomDial } = c.subDial;
                 return (
                     <SelectRing active={c.id === clockStore.activeClock} key={i}>
+                        {i === clockStore.activeIndex && i !== 0 && (
+                            <Delete onClick={clockStore.deleteClock}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="22"
+                                    height="22"
+                                    viewBox="0 0 24 24"
+                                    fill="silver"
+                                >
+                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path>
+                                </svg>
+                            </Delete>
+                        )}
                         <ClockIcon key={c.id} onClick={() => clockStore.setActiveClock(c.id)} color={c.clockColor}>
                             {tickData.map((tick, i) => (
                                 <MicroTick tick={tick as ITickProps} key={i} color={c.clockColor}>
