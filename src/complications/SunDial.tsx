@@ -8,6 +8,7 @@ import { transformHands } from "../utilityFunctions";
 import { IClock } from "../sharedTypes";
 import styled from "styled-components";
 import { transparentize } from "polished";
+import { colorTransition } from "../theme";
 
 const NightArea = styled.svg`
     display: block;
@@ -23,6 +24,7 @@ const SunIcon = styled.svg`
     left: 50%;
     transform: translateX(-50%);
     fill: ${(props) => props.theme.colors[props.color].base};
+    transition: fill ${colorTransition};
     width: 2rem;
     height: 2rem;
 `;

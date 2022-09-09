@@ -6,9 +6,11 @@ import styled from "styled-components";
 import { DialBackground } from "../SubDial";
 import { IClock } from "../sharedTypes";
 import { useStores } from "../store";
+import { colorTransition } from "../theme";
 
 export const City = styled.div`
     color: ${(props) => props.theme.colors[props.color].base};
+    transition: color ${colorTransition};
     text-transform: uppercase;
     position: absolute;
     top: 50%;
