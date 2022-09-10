@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 import { IClock } from "../sharedTypes";
+import { colorTransition } from "../theme";
 
 const Text = styled.div`
     position: absolute;
@@ -9,13 +10,14 @@ const Text = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     text-transform: uppercase;
-    color: ${(props) => props.theme.colors[props.color].base};
+    color: ${(props) => props.theme.colors[props.color].text};
     letter-spacing: 0.4rem;
     width: 18rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     text-align: center;
+    transition: color ${colorTransition};
 `;
 
 interface IMonogramProps {

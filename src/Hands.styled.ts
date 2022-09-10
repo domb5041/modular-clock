@@ -1,10 +1,9 @@
 import styled from "styled-components";
-
-const colorTransition = "0.7s";
+import { colorTransition } from "./theme";
 
 export const Hand = styled.div<{ focusingOnSubDial?: boolean }>`
     position: absolute;
-    background-color: white;
+    background-color: ${(props) => props.theme.colors[props.color].hands};
     bottom: 50%;
     left: 50%;
     transform-origin: center bottom;
@@ -51,7 +50,7 @@ export const SubSecondHand = styled(Hand)`
 
 export const HandsCap = styled.div`
     position: absolute;
-    background-color: white;
+    background-color: ${(props) => props.theme.colors[props.color].hands};
     top: 50%;
     left: 50%;
     width: 2rem;
@@ -59,6 +58,7 @@ export const HandsCap = styled.div`
     transform: translate(-50%, -50%);
     border-radius: 100%;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.7);
+    transition: background-color ${colorTransition};
 `;
 
 export const SubHandsCap = styled(HandsCap)`

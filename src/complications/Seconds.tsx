@@ -14,7 +14,7 @@ const Seconds: FC<{ clock: IClock }> = ({ clock }) => {
         <DialBackground color={clock.clockColor}>
             <Ticks clock={clock} tickData={tickStore.secondsTickData(clock) as ITickProps[]} />
             <SubSecondHand style={transformHands(clockStore.time[2])} color={clock.clockColor} />
-            <SubHandsCap />
+            <SubHandsCap color={clock.clockColor} />
         </DialBackground>
     );
 };

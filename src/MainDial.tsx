@@ -86,8 +86,16 @@ const MainDial: FC<{ clock: IClock }> = ({ clock }) => {
                 <SubDial position="leftDial" clock={clock} />
                 <SubDial position="rightDial" clock={clock} />
                 <SubDial position="bottomDial" clock={clock} />
-                <HourHand focusingOnSubDial={focusingOnSubDial} style={transformHands(clockStore.time[0])} />
-                <MinuteHand focusingOnSubDial={focusingOnSubDial} style={transformHands(clockStore.time[1])} />
+                <HourHand
+                    focusingOnSubDial={focusingOnSubDial}
+                    color={clock.clockColor}
+                    style={transformHands(clockStore.time[0])}
+                />
+                <MinuteHand
+                    focusingOnSubDial={focusingOnSubDial}
+                    color={clock.clockColor}
+                    style={transformHands(clockStore.time[1])}
+                />
                 {noSubDialWithSeconds && (
                     <SecondHand
                         focusingOnSubDial={focusingOnSubDial}
@@ -95,7 +103,7 @@ const MainDial: FC<{ clock: IClock }> = ({ clock }) => {
                         color={clock.clockColor}
                     />
                 )}
-                <HandsCap />
+                <HandsCap color={clock.clockColor} />
             </div>
         </Container>
     );

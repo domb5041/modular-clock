@@ -44,6 +44,7 @@ export const Tick = styled.div<{ tick: ITickProps }>`
         transform: ${(props) => `translateX(-50%) rotate(${-props.tick.deg}deg)`};
         font-size: ${(props) => tickDimensions[props.tick.type].fontSize};
         text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
+        transition: color ${colorTransition};
     }
 `;
 

@@ -5,6 +5,7 @@ import { ITickProps, Tick } from "./Ticks";
 import { transparentize } from "polished";
 import { useStores } from "./store";
 import Symbol from "./Symbol";
+import { colorTransition } from "./theme";
 
 const Clocks = styled.div`
     display: flex;
@@ -18,7 +19,7 @@ const Clocks = styled.div`
 const SelectRing = styled.div<{ active: boolean }>`
     width: 150px;
     height: 150px;
-    border: 3px solid ${(props) => (props.active ? "white" : "transparent")};
+    border: 3px solid ${(props) => (props.active ? transparentize(0.3, "white") : "transparent")};
     padding: 5px;
     border-radius: 100%;
     margin: 0 5px 4px 5px;
@@ -41,7 +42,7 @@ const ClockIcon = styled.div`
     box-sizing: border-box;
     background-color: ${(props) => props.theme.colors[props.color].subDial};
     border-radius: 100%;
-    transition: 0.2s;
+    transition: ${colorTransition};
     position: relative;
 `;
 
@@ -49,12 +50,12 @@ const MicroHourHand = styled(SubHourHand)`
     transform: translateX(-50%) rotate(-50deg);
     height: 40px;
     width: 7px;
-    background-color: ${(props) => props.theme.colors[props.color].base};
+    background-color: ${(props) => props.theme.colors[props.color].hands};
 `;
 const MicroMinuteHand = styled(SubMinuteHand)`
     transform: translateX(-50%) rotate(50deg);
     height: 65px;
-    background-color: ${(props) => props.theme.colors[props.color].base};
+    background-color: ${(props) => props.theme.colors[props.color].hands};
 `;
 const MicroSecondHand = styled(SubSecondHand)`
     transform: translateX(-50%) rotate(180deg);
@@ -63,7 +64,7 @@ const MicroSecondHand = styled(SubSecondHand)`
     background-color: ${(props) => props.theme.colors[props.color].secondHand};
 `;
 const MicroHandsCap = styled(SubHandsCap)`
-    background-color: ${(props) => props.theme.colors[props.color].base};
+    background-color: ${(props) => props.theme.colors[props.color].hands};
 `;
 
 const MicroDial = styled.div`
@@ -72,6 +73,7 @@ const MicroDial = styled.div`
     position: absolute;
     border-radius: 100%;
     background-color: ${(props) => transparentize(0.5, props.theme.colors[props.color].base)};
+    transition: ${colorTransition};
     &.topDial {
         top: 35px;
         left: 50%;

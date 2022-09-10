@@ -75,9 +75,9 @@ const DialHighlight = styled(DialSlot)<IDialHighlightProps>`
     width: 19rem;
     height: 19rem;
     transition: opacity 0.2s;
-    opacity: ${(props) => (props.primaryMenu === props.position ? 1 : 0)};
+    opacity: ${(props) => (props.primaryMenu === props.position ? 0.7 : 0)};
     &:hover {
-        opacity: ${(props) => (props.primaryMenu === props.position ? 1 : 0.3)};
+        opacity: ${(props) => (props.primaryMenu === props.position ? 0.7 : 0.3)};
     }
     box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
     z-index: 1;

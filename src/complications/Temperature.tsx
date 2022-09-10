@@ -9,7 +9,7 @@ import { useStores } from "../store";
 import { colorTransition } from "../theme";
 
 export const City = styled.div`
-    color: ${(props) => props.theme.colors[props.color].base};
+    color: ${(props) => props.theme.colors[props.color].text};
     transition: color ${colorTransition};
     text-transform: uppercase;
     position: absolute;
@@ -45,6 +45,7 @@ const CurrentTemp = styled.div`
     font-size: 1.4rem;
     text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
     color: ${(props) => props.theme.colors[props.color].text};
+    transition: color ${colorTransition};
 `;
 
 const Temperature: FC<{ clock: IClock }> = ({ clock }) => {

@@ -88,8 +88,8 @@ const SunDial: FC<{ clock: IClock }> = ({ clock }) => {
             <Ticks clock={clock} tickData={tickStore.sunDialTickData(clock) as ITickProps[]} />
             <SunSymbol name="light_mode" color={theme.colors[clock.clockColor].base} size="2rem" />
             <MoonSymbol name="mode_night" color={theme.colors[clock.clockColor].base} size="2rem" />
-            <SubMinuteHand style={transformHands(clockStore.time[0] / 2, 180)} />
-            <SubHandsCap />
+            <SubMinuteHand color={clock.clockColor} style={transformHands(clockStore.time[0] / 2, 180)} />
+            <SubHandsCap color={clock.clockColor} />
         </DialBackground>
     );
 };

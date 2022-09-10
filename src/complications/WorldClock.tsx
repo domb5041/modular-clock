@@ -91,9 +91,9 @@ const WorldClock: FC<IWorldClockProps> = ({ position, clock }) => {
             <AmPm style={{ color: text }}>{getAmPm(timezone)}</AmPm>
             <City style={{ color: text }}>{timezones.find((o) => o.id === timezone).name}</City>
             <Ticks clock={clock} tickData={tickStore.worldClockTickData(clock) as ITickProps[]} />
-            <SubHourHand style={transformHands(time[0])} />
-            <SubMinuteHand style={transformHands(time[1])} />
-            <SubHandsCap />
+            <SubHourHand color={clock.clockColor} style={transformHands(time[0])} />
+            <SubMinuteHand color={clock.clockColor} style={transformHands(time[1])} />
+            <SubHandsCap color={clock.clockColor} />
         </DialBackground>
     );
 };
