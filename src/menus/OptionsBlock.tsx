@@ -2,14 +2,13 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
 import { IMenuOption } from "./Menu";
+import { transparentize } from "polished";
 
 const Container = styled.div<{ mobileVersion: boolean }>`
-    border-bottom: 1px solid grey;
     overflow: hidden;
-    height: 100px;
+    height: 50px;
     opacity: 1;
     padding: ${(props) => (props.mobileVersion ? "10px" : 0)};
-    box-sizing: border-box;
     &.block-enter {
         opacity: 0;
         height: 0;
@@ -17,13 +16,13 @@ const Container = styled.div<{ mobileVersion: boolean }>`
     }
     &.block-enter-active {
         opacity: 1;
-        height: 100px;
+        height: 50px;
         padding: ${(props) => (props.mobileVersion ? "10px" : 0)};
         transition: ${(props) => (props.mobileVersion ? "0.2s" : "0.7s cubic-bezier(0, 0, 0, 1.01)")};
     }
     &.block-exit {
         opacity: 1;
-        height: 100px;
+        height: 50px;
         padding: ${(props) => (props.mobileVersion ? "10px" : 0)};
     }
     &.block-exit-active {
@@ -35,18 +34,26 @@ const Container = styled.div<{ mobileVersion: boolean }>`
 `;
 
 const TextInput = styled.div`
+    font-size: 16px;
+    display: flex;
+    align-items: center;
     & label {
         text-transform: uppercase;
-        font-size: 13px;
         padding-right: 5px;
     }
     & select,
     & input {
+        text-transform: uppercase;
+        flex: 1;
+        font-size: 16px;
         background-color: transparent;
-        border: 1px solid white;
+        border: 1px solid ${transparentize(0.7, "white")};
         color: white;
         outline: none;
         border-radius: 4px;
+        box-sizing: border-box;
+        padding: 5px;
+        min-width: 0;
     }
 `;
 

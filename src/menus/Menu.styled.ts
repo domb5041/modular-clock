@@ -29,7 +29,9 @@ export const MenuItem = styled.div<{ secondaryMenu: boolean; disabled: boolean; 
         transition: 0.2s;
         padding: 0 4px;
         background-color: ${(props) => (props.active ? "white" : "transparent")};
+        font-weight: ${(props) => (props.active ? "bold" : "normal")};
         color: ${(props) => (props.disabled ? "silver" : props.active ? "black" : "white")};
+        text-decoration: ${(props) => (props.disabled ? "line-through" : "none")};
         border-radius: 4px;
         display: inline-block;
     }

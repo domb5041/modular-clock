@@ -19,11 +19,20 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+input, select {
+    font-family: 'Abel', sans-serif;
+}
+
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+&::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 `;

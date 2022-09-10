@@ -18,13 +18,14 @@ const Container = styled.div`
 
 const MenuItem = styled.div<{ active: boolean; disabled: boolean }>`
     margin: 0 5px;
-    padding: 10px;
+    padding: 7px 10px;
     font-size: 16px;
     text-transform: uppercase;
     background-color: ${(props) => (props.active ? transparentize(0.8, "white") : "transparent")};
     border-radius: 5px;
     pointer-events: ${(props) => (props.disabled ? "none" : "all")};
     color: ${(props) => (props.disabled ? "silver" : "white")};
+    text-decoration: ${(props) => (props.disabled ? "line-through" : "none")};
 `;
 
 export default observer(() => {

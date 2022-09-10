@@ -7,7 +7,7 @@ import { useStores } from "../store";
 
 const Container = styled.div`
     display: flex;
-    padding: 15px 10px 10px 10px;
+    padding: 15px 10px 5px 10px;
     overflow-x: auto;
     border-bottom: 1px solid ${transparentize(0.8, "white")};
 `;
@@ -18,9 +18,10 @@ const MenuItem = styled.div<{ active: boolean }>`
     cursor: pointer;
     color: ${(props) => (props.active ? "black" : "white")};
     background-color: ${(props) => (props.active ? "white" : "transparent")};
+    font-weight: ${(props) => (props.active ? "bold" : "normal")};
     flex-shrink: 0;
     border-radius: 4px;
-    padding: 5px 7px;
+    padding: 4px 7px;
     margin: 0 2px;
     &:first-of-type {
         margin-left: auto;

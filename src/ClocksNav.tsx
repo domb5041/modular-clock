@@ -22,6 +22,9 @@ const SelectRing = styled.div<{ active: boolean }>`
     padding: 5px;
     border-radius: 100%;
     margin: 0 5px 4px 5px;
+    &:first-of-type {
+        margin-top: 10px;
+    }
     transition: 0.2s;
     flex-shrink: 0;
     cursor: pointer;
@@ -98,8 +101,8 @@ const MicroTick = styled(Tick)`
 `;
 
 const AddClock = styled.div`
-    width: 100%;
-    height: 100%;
+    width: 150px;
+    height: 150px;
     position: relative;
     border-radius: 100%;
     font-size: 50px;
@@ -107,10 +110,12 @@ const AddClock = styled.div`
     align-items: center;
     justify-content: center;
     background-color: ${transparentize(0.85, "white")};
-    & > svg {
-        fill: ${transparentize(0.4, "white")};
-        width: 50px;
-        height: 50px;
+    cursor: pointer;
+    transition: 0.2s;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+    &:hover {
+        background-color: ${transparentize(0.8, "white")};
     }
 `;
 
@@ -127,6 +132,10 @@ const DeleteButton = styled.button`
     height: 30px;
     border: none;
     cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+        background-color: ${transparentize(0.75, "white")};
+    }
 `;
 
 function ClocksNav() {
@@ -182,11 +191,9 @@ function ClocksNav() {
                     </SelectRing>
                 );
             })}
-            <SelectRing active={false}>
-                <AddClock onClick={clockStore.addNewClock}>
-                    <Symbol name="add" size="50px" />
-                </AddClock>
-            </SelectRing>
+            <AddClock onClick={clockStore.addNewClock}>
+                <Symbol name="add" size="50px" />
+            </AddClock>
         </Clocks>
     );
 }
