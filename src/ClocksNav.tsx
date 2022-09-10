@@ -4,6 +4,7 @@ import { SubHourHand, SubMinuteHand, SubSecondHand, SubHandsCap } from "./Hands.
 import { ITickProps, Tick } from "./Ticks";
 import { transparentize } from "polished";
 import { useStores } from "./store";
+import Symbol from "./Symbol";
 
 const Clocks = styled.div`
     display: flex;
@@ -113,11 +114,17 @@ const AddClock = styled.div`
     }
 `;
 
-const Delete = styled.button`
+const DeleteButton = styled.button`
     position: absolute;
     top: -5px;
     right: -5px;
-    background-color: transparent;
+    background-color: ${transparentize(0.83, "white")};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
     border: none;
     cursor: pointer;
 `;
@@ -145,17 +152,9 @@ function ClocksNav() {
                 return (
                     <SelectRing active={c.id === clockStore.activeClock} key={i}>
                         {i === clockStore.activeIndex && i !== 0 && (
-                            <Delete onClick={clockStore.deleteClock}>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="22"
-                                    height="22"
-                                    viewBox="0 0 24 24"
-                                    fill="silver"
-                                >
-                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path>
-                                </svg>
-                            </Delete>
+                            <DeleteButton onClick={clockStore.deleteClock}>
+                                <Symbol name="close" />
+                            </DeleteButton>
                         )}
                         <ClockIcon key={c.id} onClick={() => clockStore.setActiveClock(c.id)} color={c.clockColor}>
                             {tickData.map((tick, i) => (
@@ -185,9 +184,7 @@ function ClocksNav() {
             })}
             <SelectRing active={false}>
                 <AddClock onClick={clockStore.addNewClock}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
-                    </svg>
+                    <Symbol name="add" size="50px" />
                 </AddClock>
             </SelectRing>
         </Clocks>
