@@ -20,7 +20,7 @@ export const theme = {
             hands: "#B9925A",
             text: "#FDD9A5"
         },
-        alpine: {
+        forest: {
             base: "#59834D",
             subDial: darken(0.27, "#59834D"),
             dialInner: transparentize(0.6, "#59834D"),
@@ -51,9 +51,9 @@ export const theme = {
             base: "#454545",
             subDial: "#151515",
             dialInner: "#151515",
-            secondHand: "#801A00",
+            secondHand: "#1B7D46",
             ticks: "#3B3B3B",
-            hands: "#515151",
+            hands: "#606060",
             text: "#878787"
         },
         ultraViolet: {
@@ -84,7 +84,7 @@ export const theme = {
 export const swatches = [
     { id: "nickel", name: "nickel" },
     { id: "copper", name: "copper" },
-    { id: "alpine", name: "alpine" },
+    { id: "forest", name: "alpine" },
     { id: "storm", name: "storm" },
     { id: "redLight", name: "red light" },
     { id: "stealth", name: "stealth" },
