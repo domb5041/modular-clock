@@ -60,8 +60,8 @@ function ClocksNavMobile() {
             <Button onClick={clockStore.addNewClock}>
                 <Symbol name="add" />
             </Button>
-            <Button disabled={clockStore.activeIndex < 1} onClick={clockStore.deleteClock}>
-                <Symbol name="close" size="22px" />
+            <Button onClick={clockStore.deleteClock} disabled={clockStore.clocks.length < 1}>
+                <Symbol name={clockStore.clocks.length < 1 ? "block" : "close"} size="22px" />
             </Button>
         </Container>
     );

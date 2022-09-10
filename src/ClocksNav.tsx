@@ -151,9 +151,9 @@ function ClocksNav() {
                 const { topDial, leftDial, rightDial, bottomDial } = c.subDial;
                 return (
                     <SelectRing active={c.id === clockStore.activeClock} key={i}>
-                        {i === clockStore.activeIndex && i !== 0 && (
-                            <DeleteButton onClick={clockStore.deleteClock}>
-                                <Symbol name="close" />
+                        {i === clockStore.activeIndex && (
+                            <DeleteButton onClick={clockStore.deleteClock} disabled={clockStore.clocks.length < 1}>
+                                <Symbol name={clockStore.clocks.length < 1 ? "block" : "close"} />
                             </DeleteButton>
                         )}
                         <ClockIcon key={c.id} onClick={() => clockStore.setActiveClock(c.id)} color={c.clockColor}>

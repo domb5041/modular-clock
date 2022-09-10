@@ -54,6 +54,7 @@ function App() {
     const { clockStore, weatherStore } = useStores();
 
     useEffect(() => {
+        clockStore.clearStored();
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 weatherStore.setLocation(position.coords.latitude, position.coords.longitude);

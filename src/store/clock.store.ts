@@ -3,7 +3,7 @@ import { timeToDegrees } from "../utilityFunctions";
 import { swatches } from "../theme";
 import { IClock } from "../sharedTypes";
 import { RootStore } from ".";
-import { makePersistable } from "mobx-persist-store";
+import { clearPersistedStore, makePersistable } from "mobx-persist-store";
 
 class clockStore {
     rootStore: RootStore;
@@ -16,6 +16,10 @@ class clockStore {
             storage: window.localStorage,
             debugMode: false
         });
+    }
+
+    async clearStored() {
+        await clearPersistedStore(this);
     }
 
     time = timeToDegrees();
@@ -120,10 +124,9 @@ class clockStore {
     };
 
     deleteClock = () => {
-        const newClocks = this.clocks;
-        newClocks.splice(this.activeIndex, 1);
-        this.setActiveClock("clock-0");
-        this.clocks = newClocks;
+        const index = this.activeIndex;
+        this.setActiveClock(index === 0 ? this.clocks[1].id : this.clocks[index - 1].id);
+        this.clocks.splice(index, 1);
     };
 }
 
