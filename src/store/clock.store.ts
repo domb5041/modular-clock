@@ -1,9 +1,10 @@
 import { makeAutoObservable } from "mobx";
-import { timeToDegrees } from "../utilityFunctions";
+import { randomNumber, timeToDegrees } from "../utilityFunctions";
 import { swatches } from "../theme";
 import { IClock } from "../sharedTypes";
 import { RootStore } from ".";
 import { clearPersistedStore, makePersistable } from "mobx-persist-store";
+import { timezones } from "../complications/WorldClock";
 
 class clockStore {
     rootStore: RootStore;
@@ -63,17 +64,6 @@ class clockStore {
                 rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo", monogram: "" },
                 bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York", monogram: "" }
             }
-        },
-        {
-            id: "clock-3",
-            clockStyle: "minimal",
-            clockColor: "storm",
-            subDial: {
-                topDial: { currentlyVisible: "sun-dial", timezone: "US/Hawaii", monogram: "react" },
-                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris", monogram: "" },
-                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo", monogram: "" },
-                bottomDial: { currentlyVisible: "seconds", timezone: "America/New_York", monogram: "" }
-            }
         }
     ];
 
@@ -107,20 +97,25 @@ class clockStore {
     }
 
     addNewClock = () => {
-        const id = `clock-${Math.random()}`;
+        const randomId = `clock-${randomNumber()}`;
+        const randomStyle = randomNumber(0, 1) === 0 ? "minimal" : "numbers";
+        const randomColor = swatches[randomNumber(0, swatches.length - 1)].id;
+        const dialOptions = this.rootStore.menuStore.subDialMenu("bottomDial");
+        const randomBottomDial = dialOptions[randomNumber(1, dialOptions.length - 1)].id;
+        const randomTimezone = () => timezones[randomNumber(0, timezones.length - 1)].id;
         const payload = {
-            id: id,
-            clockStyle: "minimal",
-            clockColor: "nickel",
+            id: randomId,
+            clockStyle: randomStyle,
+            clockColor: randomColor,
             subDial: {
-                topDial: { currentlyVisible: "monogram", timezone: "US/Hawaii", monogram: "new clock" },
-                leftDial: { currentlyVisible: "none", timezone: "Europe/Paris", monogram: "" },
-                rightDial: { currentlyVisible: "none", timezone: "Asia/Tokyo", monogram: "" },
-                bottomDial: { currentlyVisible: "none", timezone: "America/New_York", monogram: "" }
+                topDial: { currentlyVisible: "monogram", timezone: randomTimezone(), monogram: "new clock" },
+                leftDial: { currentlyVisible: "none", timezone: randomTimezone(), monogram: "" },
+                rightDial: { currentlyVisible: "none", timezone: randomTimezone(), monogram: "" },
+                bottomDial: { currentlyVisible: randomBottomDial, timezone: randomTimezone(), monogram: "" }
             }
         };
         this.clocks.push(payload);
-        this.setActiveClock(id);
+        this.setActiveClock(randomId);
     };
 
     deleteClock = () => {

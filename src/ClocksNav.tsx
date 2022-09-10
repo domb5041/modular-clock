@@ -152,8 +152,8 @@ function ClocksNav() {
                 return (
                     <SelectRing active={c.id === clockStore.activeClock} key={i}>
                         {i === clockStore.activeIndex && (
-                            <DeleteButton onClick={clockStore.deleteClock} disabled={clockStore.clocks.length < 1}>
-                                <Symbol name={clockStore.clocks.length < 1 ? "block" : "close"} />
+                            <DeleteButton onClick={clockStore.deleteClock} disabled={clockStore.clocks.length <= 1}>
+                                <Symbol name={clockStore.clocks.length <= 1 ? "block" : "close"} />
                             </DeleteButton>
                         )}
                         <ClockIcon key={c.id} onClick={() => clockStore.setActiveClock(c.id)} color={c.clockColor}>

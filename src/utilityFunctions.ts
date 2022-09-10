@@ -18,3 +18,5 @@ export const timeToDegrees = (timezone?: string) => {
 export const transformHands = (handDegrees: number, modifier = 0) => ({
     transform: `translateX(-50%) rotate(${handDegrees + modifier}deg)`
 });
+
+export const randomNumber = (min = 0, max = 9999999999) => Math.round(Math.random() * (max - min) + min);

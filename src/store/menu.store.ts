@@ -22,6 +22,20 @@ class menuStore {
         const { subDial } = clockStore.clocks[clockStore.activeIndex];
         return [
             {
+                id: "monogram",
+                name: "monogram",
+                disabled: pos !== "topDial",
+                options: [
+                    {
+                        id: "monogram-text",
+                        type: "text",
+                        value: subDial.topDial.monogram,
+                        label: "text",
+                        onChange: (text: string) => clockStore.setSubDial("topDial", "monogram", text)
+                    }
+                ]
+            },
+            {
                 id: "world-clock",
                 name: "world clock",
                 options: [
@@ -38,20 +52,6 @@ class menuStore {
             { id: "temperature", name: "temperature" },
             { id: "sun-dial", name: "sunrise sunset" },
             { id: "seconds", name: "seconds" },
-            {
-                id: "monogram",
-                name: "monogram",
-                disabled: pos !== "topDial",
-                options: [
-                    {
-                        id: "monogram-text",
-                        type: "text",
-                        value: subDial.topDial.monogram,
-                        label: "text",
-                        onChange: (text: string) => clockStore.setSubDial("topDial", "monogram", text)
-                    }
-                ]
-            },
             { id: "none", name: "off" }
         ] as const;
     }
