@@ -21,7 +21,6 @@ const MenuItem = styled.div<{ active: boolean; disabled: boolean }>`
     padding: 10px;
     font-size: 16px;
     text-transform: uppercase;
-    font-weight: bold;
     background-color: ${(props) => (props.active ? transparentize(0.8, "white") : "transparent")};
     border-radius: 5px;
     pointer-events: ${(props) => (props.disabled ? "none" : "all")};

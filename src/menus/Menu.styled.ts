@@ -22,7 +22,6 @@ export const MenuItem = styled.div<{ secondaryMenu: boolean; disabled: boolean; 
     justify-content: ${(props) => (props.secondaryMenu ? "flex-start" : "flex-end")};
     align-items: center;
     text-transform: uppercase;
-    font-weight: bold;
     font-size: 18px;
     cursor: pointer;
     pointer-events: ${(props) => (props.disabled ? "none" : "all")};

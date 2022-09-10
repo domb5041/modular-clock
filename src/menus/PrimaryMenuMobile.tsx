@@ -14,7 +14,6 @@ const Container = styled.div`
 
 const MenuItem = styled.div<{ active: boolean }>`
     text-transform: uppercase;
-    font-weight: bold;
     font-size: 18px;
     cursor: pointer;
     color: ${(props) => (props.active ? "black" : "white")};
