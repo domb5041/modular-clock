@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
 import { IMenuOption } from "./Menu";
 import { transparentize } from "polished";
+import Symbol from "../Symbol";
 
 const Container = styled.div<{ mobileVersion: boolean }>`
     overflow: hidden;
@@ -37,6 +38,7 @@ const TextInput = styled.div`
     font-size: 16px;
     display: flex;
     align-items: center;
+    position: relative;
     & label {
         text-transform: uppercase;
         padding-right: 5px;
@@ -47,6 +49,7 @@ const TextInput = styled.div`
         flex: 1;
         font-size: 16px;
         background-color: transparent;
+        -webkit-appearance: none;
         border: 1px solid ${transparentize(0.7, "white")};
         color: white;
         outline: none;
@@ -55,6 +58,14 @@ const TextInput = styled.div`
         padding: 5px;
         min-width: 0;
     }
+`;
+
+const DropArrow = styled(Symbol)`
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
 `;
 
 interface IOptionsBlockProps {
@@ -87,6 +98,7 @@ const OptionsBlock: FC<IOptionsBlockProps> = ({ options, active, mobileVersion }
                                             </option>
                                         ))}
                                     </select>
+                                    <DropArrow name="expand_more" />
                                 </TextInput>
                             )}
                             {option.type === "text" && (

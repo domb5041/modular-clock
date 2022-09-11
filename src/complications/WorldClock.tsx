@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FC } from "react";
 import { SubHourHand, SubMinuteHand, SubHandsCap } from "../Hands.styled";
-import { theme } from "../theme";
+import { colorTransition, theme } from "../theme";
 import { transformHands, timeToDegrees } from "../utilityFunctions";
 import { observer } from "mobx-react";
 import { useStores } from "../store";
@@ -20,6 +20,7 @@ const City = styled.div`
     font-size: 1.2rem;
     letter-spacing: 2px;
     text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
+    transition: color ${colorTransition};
 `;
 
 const AmPm = styled.div`
@@ -31,6 +32,7 @@ const AmPm = styled.div`
     font-size: 1.2rem;
     letter-spacing: 0.2rem;
     text-shadow: 0 0 0.5rem rgba(0, 0, 0.7);
+    transition: color ${colorTransition};
 `;
 
 export const timezones = [
