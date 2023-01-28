@@ -23,7 +23,7 @@ const Page = styled.div`
     bottom: 0;
     display: flex;
     overflow: hidden;
-    @media ${(props) => props.theme.screen.mobile} {
+    @media ${props => props.theme.screen.mobile} {
         flex-direction: column;
     }
 `;
@@ -34,7 +34,7 @@ const ActiveClock = styled.div`
     align-items: center;
     flex: 1;
     overflow: hidden;
-    @media ${(props) => props.theme.screen.mobile} {
+    @media ${props => props.theme.screen.mobile} {
         overflow: visible;
     }
     & > #clock-slot {
@@ -42,7 +42,7 @@ const ActiveClock = styled.div`
         width: 500px;
         height: 500px;
         flex-shrink: 0;
-        @media ${(props) => props.theme.screen.clockSize} {
+        @media ${props => props.theme.screen.clockSize} {
             width: 100vw;
             height: 100vw;
         }
@@ -56,10 +56,10 @@ function App() {
     useEffect(() => {
         // clockStore.clearStored();
         navigator.geolocation.getCurrentPosition(
-            (position) => {
+            position => {
                 weatherStore.setLocation(position.coords.latitude, position.coords.longitude);
             },
-            (error) => console.log(error.message)
+            error => console.log(error.message)
         );
     }, [weatherStore]);
 
@@ -67,8 +67,8 @@ function App() {
         const getWeather = () => {
             axios({
                 method: "get",
-                url: `/forecast?lat=${weatherStore.latLon[0]}&lon=${weatherStore.latLon[1]}`
-            }).then((res) => {
+                url: `/api/forecast?lat=${weatherStore.latLon[0]}&lon=${weatherStore.latLon[1]}`,
+            }).then(res => {
                 weatherStore.setWeather(res.data);
             });
         };
@@ -93,13 +93,13 @@ function App() {
             {isMobile ? <ClocksNavMobile /> : <ClocksNav />}
             <ActiveClock>
                 {!isMobile && <PrimaryMenu />}
-                <div id="clock-slot">
+                <div id='clock-slot'>
                     {clockStore.clocks.map((clock, i) => (
                         <CSSTransition
                             in={i === clockStore.activeIndex}
                             unmountOnExit
                             timeout={700}
-                            classNames="dial"
+                            classNames='dial'
                             key={i}
                         >
                             <MainDial clock={clock as IClock} />
